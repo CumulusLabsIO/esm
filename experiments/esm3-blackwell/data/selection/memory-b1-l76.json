@@ -1,0 +1,153 @@
+{
+  "status": "completed",
+  "gpu": "NVIDIA B200",
+  "compute_capability": [
+    10,
+    0
+  ],
+  "cuda": "13.2",
+  "cudnn": 92600,
+  "packages": {
+    "torch": "2.15.0+cu132",
+    "esm": "3.4.3",
+    "torchao": "0.18.0",
+    "flash-attn-4": "4.0.0b39",
+    "nvidia-cutlass-dsl": "4.8.1",
+    "triton": "3.9.0",
+    "nvidia-cudnn-cu13": "9.26.0.51"
+  },
+  "model_revision": "47f0545b2b6daf26a93439a3cd610f4f7f3d5478",
+  "esm_source": {
+    "path": "/home/ubuntu/esmopt/repo/esm/models/esm3.py",
+    "sha256": "913e6fad41315e24b5575982c3c54d1ebed8dc6fe10fb8442bc0a6ac3c5ab5ab"
+  },
+  "shape": [
+    1,
+    78
+  ],
+  "batch": 1,
+  "residue_length": 76,
+  "fixture": "ubiquitin",
+  "input_bytes": 624,
+  "protocol": "Four changing preencoded equal-shape inputs; pinned H2D copy included; all output heads+embeddings; individual synchronization; tokenization/staging/capture/output-D2H excluded",
+  "warmup": 5,
+  "repeats": 5,
+  "float32_output_bytes": {
+    "sequence": 19968,
+    "structure": 1277952,
+    "secondary_structure": 3432,
+    "sasa": 5928,
+    "function": 648960,
+    "embeddings": 479232,
+    "residue_annotations": 461136
+  },
+  "output_shapes": {
+    "sequence": [
+      1,
+      78,
+      64
+    ],
+    "structure": [
+      1,
+      78,
+      4096
+    ],
+    "secondary_structure": [
+      1,
+      78,
+      11
+    ],
+    "sasa": [
+      1,
+      78,
+      19
+    ],
+    "function": [
+      1,
+      78,
+      8,
+      260
+    ],
+    "embeddings": [
+      1,
+      78,
+      1536
+    ],
+    "residue_annotations": [
+      1,
+      78,
+      1478
+    ]
+  },
+  "cases": {
+    "sequence_only": {
+      "baseline_before": [
+        56651264,
+        56651264,
+        56651264,
+        56651264,
+        56651264
+      ],
+      "candidate": [
+        56651264,
+        56651264,
+        56651264,
+        56651264,
+        56651264
+      ],
+      "baseline_after": [
+        56651264,
+        56651264,
+        56651264,
+        56651264,
+        56651264
+      ]
+    },
+    "embeddings_only": {
+      "baseline_before": [
+        56651264,
+        56651264,
+        56651264,
+        56651264,
+        56651264
+      ],
+      "candidate": [
+        56651264,
+        56651264,
+        56651264,
+        56651264,
+        56651264
+      ],
+      "baseline_after": [
+        56651264,
+        56651264,
+        56651264,
+        56651264,
+        56651264
+      ]
+    },
+    "all_outputs": {
+      "baseline_before": [
+        56651264,
+        56651264,
+        56651264,
+        56651264,
+        56651264
+      ],
+      "candidate": [
+        56651264,
+        56651264,
+        56651264,
+        56651264,
+        56651264
+      ],
+      "baseline_after": [
+        56651264,
+        56651264,
+        56651264,
+        56651264,
+        56651264
+      ]
+    }
+  }
+}

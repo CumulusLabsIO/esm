@@ -1,0 +1,40 @@
+{
+  "mode": "capture-probe",
+  "gpu": "NVIDIA B200",
+  "compute_capability": [
+    10,
+    0
+  ],
+  "torch": "2.15.0+cu132",
+  "cuda_runtime": "13.2",
+  "esm": "3.4.3",
+  "source_path": "/home/ubuntu/esm3-graph/venv/lib/python3.12/site-packages/esm/models/esm3.py",
+  "source_sha256": "63d92035cc418320c33c2c687ffe099ac25115a5ffbbf88f46661c5c5df16b7a",
+  "model_revision": "47f0545b2b6daf26a93439a3cd610f4f7f3d5478",
+  "input_shape": [
+    1,
+    78
+  ],
+  "input_bytes": 624,
+  "input_count": 4,
+  "output_heads": [
+    "sequence",
+    "structure",
+    "secondary_structure",
+    "sasa",
+    "function",
+    "residue_annotations",
+    "embeddings"
+  ],
+  "warmup": 20,
+  "repeats": 100,
+  "scope": [
+    "Public logits API with all six output heads and embeddings requested.",
+    "Inputs are preencoded, equally shaped masks of the 76-residue ubiquitin fixture.",
+    "Copy paths include input transfer, replay and completion synchronization.",
+    "Host tensors are pinned and filled before timing. Tokenization, host staging, graph capture and output D2H are excluded.",
+    "Every measured request is synchronized individually. These are latency measurements."
+  ],
+  "capture_succeeded": false,
+  "capture_error": "Cannot copy between CPU and CUDA tensors during CUDA graph capture unless the CPU tensor is pinned. Please use tensor.pin_memory() or allocate the tensor with pin_memory=True."
+}

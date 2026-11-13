@@ -1,0 +1,28 @@
+✨ Pixi task (lint-all in dev): pre-commit run --all-files --show-diff-on-failure
+[INFO] Initializing environment for https://github.com/pre-commit/pre-commit-hooks.
+[WARNING] repo `https://github.com/pre-commit/pre-commit-hooks` uses deprecated stage names (commit, push) which will be removed in a future version.  Hint: often `pre-commit autoupdate --repo https://github.com/pre-commit/pre-commit-hooks` will fix this.  if it does not -- consider reporting an issue to that repo.
+[INFO] Initializing environment for https://github.com/seddonym/import-linter.
+[INFO] Initializing environment for https://github.com/astral-sh/ruff-pre-commit.
+[INFO] Initializing environment for https://github.com/gitleaks/gitleaks.
+[INFO] Installing environment for https://github.com/pre-commit/pre-commit-hooks.
+[INFO] Once installed this environment will be reused.
+[INFO] This may take a few minutes...
+[INFO] Installing environment for https://github.com/seddonym/import-linter.
+[INFO] Once installed this environment will be reused.
+[INFO] This may take a few minutes...
+[INFO] Installing environment for https://github.com/astral-sh/ruff-pre-commit.
+[INFO] Once installed this environment will be reused.
+[INFO] This may take a few minutes...
+[INFO] Installing environment for https://github.com/gitleaks/gitleaks.
+[INFO] Once installed this environment will be reused.
+[INFO] This may take a few minutes...
+Trim Trailing Whitespace.................................................Passed
+Fix End of Files.........................................................Passed
+Check Yaml...............................................................Passed
+Check for added large files..............................................Passed
+Check for merge conflicts................................................Passed
+import-linter............................................................Passed
+ruff check...............................................................Passed
+ruff format..............................................................Passed
+ty.......................................................................Passed
+Detect hardcoded secrets.................................................Passed

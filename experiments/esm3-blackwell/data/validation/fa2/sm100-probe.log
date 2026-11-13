@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "torch": "2.11.0+cu130",
+  "cuda_runtime": "13.0",
+  "flash_attn": "2.8.3.post2",
+  "extension": "/home/ubuntu/esm-ci/blackwell-venv/lib/python3.12/site-packages/flash_attn_2_cuda.cpython-312-x86_64-linux-gnu.so",
+  "gpu": "NVIDIA B200",
+  "compute_capability": [
+    10,
+    0
+  ],
+  "shape": [
+    2,
+    64,
+    4,
+    64
+  ],
+  "dtype": "torch.bfloat16",
+  "forward_vs_sdpa_max_abs": 0.001953125,
+  "backward": "finite q/k/v gradients",
+  "elapsed_seconds": 1.7319016456604004
+}

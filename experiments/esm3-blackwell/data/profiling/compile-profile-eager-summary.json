@@ -1,0 +1,50 @@
+{
+  "replays": 3,
+  "total_kernel_ms_per_replay": 5.983601,
+  "kernels_per_replay": 2385.0,
+  "groups": {
+    "normalization": {
+      "ns": 2534909,
+      "kernels": 600,
+      "share": 0.1412142398309424,
+      "per_replay_ms": 0.8449696666666666,
+      "kernels_per_replay": 200.0
+    },
+    "elementwise_and_other": {
+      "ns": 5002748,
+      "kernels": 2415,
+      "share": 0.2786921565570075,
+      "per_replay_ms": 1.6675826666666667,
+      "kernels_per_replay": 805.0
+    },
+    "casts": {
+      "ns": 3133662,
+      "kernels": 2181,
+      "share": 0.17456946076451288,
+      "per_replay_ms": 1.044554,
+      "kernels_per_replay": 727.0
+    },
+    "copy_concat": {
+      "ns": 2807070,
+      "kernels": 1176,
+      "share": 0.15637573427773677,
+      "per_replay_ms": 0.93569,
+      "kernels_per_replay": 392.0
+    },
+    "matmul": {
+      "ns": 3793502,
+      "kernels": 639,
+      "share": 0.21132770495002368,
+      "per_replay_ms": 1.2645006666666667,
+      "kernels_per_replay": 213.0
+    },
+    "attention": {
+      "ns": 678912,
+      "kernels": 144,
+      "share": 0.03782070361977679,
+      "per_replay_ms": 0.226304,
+      "kernels_per_replay": 48.0
+    }
+  },
+  "classification": "Kernel-name heuristic; summed traced durations, not uninstrumented wall latency"
+}

@@ -1,0 +1,1526 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="9" skipped="0" tests="49" time="27.847" timestamp="2026-11-13T09:56:14.031721+00:00"><testcase classname="tests.models.esm3_cuda_graph_test" name="test_logits_cuda_graph_replays_changed_inputs[False-dtype0]" time="0.944" /><testcase classname="tests.models.esm3_cuda_graph_test" name="test_logits_cuda_graph_replays_changed_inputs[False-dtype1]" time="0.047" /><testcase classname="tests.models.esm3_cuda_graph_test" name="test_logits_cuda_graph_replays_changed_inputs[True-dtype0]" time="0.048" /><testcase classname="tests.models.esm3_cuda_graph_test" name="test_logits_cuda_graph_replays_changed_inputs[True-dtype1]" time="0.046" /><testcase classname="tests.models.esmc_test" name="test_rotary_is_differentiable_on_cuda" time="0.980" /><testcase classname="tests.models.esmc_test" name="test_varlen_triton_rotary_gradients_match_per_sequence_torch[esmc]" time="0.307" /><testcase classname="tests.models.esmc_test" name="test_varlen_triton_rotary_gradients_match_per_sequence_torch[legacy]" time="0.005" /><testcase classname="tests.models.esmc_test" name="test_gradients_reach_every_parameter_on_cuda[sdpa]" time="0.276" /><testcase classname="tests.models.esmc_test" name="test_gradients_reach_every_parameter_on_cuda[flash_attention_2]" time="0.094"><failure message="torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device&#10;Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.&#10;CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.&#10;For debugging consider passing CUDA_LAUNCH_BLOCKING=1&#10;Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.">tiny_esmc_config = EsmcConfig(vocab_size=64, hidden_size=32, num_attention_heads=4, num_hidden_layers=2, intermediate_size=256, pad_token..., problem_type=None, output_hidden_states=False, output_attentions=False, return_dict=True, attn_implementation='sdpa')
+esmc_tokenizer = EsmcTokenizer(name_or_path='', vocab_size=33, model_max_length=1000000000000000019884624838656, padding_side='right', ...ial=True),
+	32: AddedToken("&lt;mask&gt;", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+})
+attn_implementation = 'flash_attention_2'
+
+    @pytest.mark.gpu
+    @pytest.mark.parametrize("attn_implementation", ["sdpa", "flash_attention_2"])
+    def test_gradients_reach_every_parameter_on_cuda(
+        tiny_esmc_config, esmc_tokenizer, attn_implementation
+    ):
+        """CPU-only grad coverage cannot see the CUDA RoPE branch, so repeat it here."""
+        if attn_implementation == "flash_attention_2" and not FLASH_ATTN_INSTALLED:
+            pytest.skip("flash-attn is not installed")  # ty:ignore[too-many-positional-arguments]
+    
+        torch.manual_seed(0)
+        with torch.device("cuda"):
+            model = EsmcForMaskedLM(
+                replace(tiny_esmc_config, attn_implementation=attn_implementation)
+            ).train()
+        if attn_implementation == "flash_attention_2":
+            # The fused attention kernel rejects fp32.
+            model = model.to(torch.bfloat16)
+        batch = {k: v.cuda() for k, v in _tokens(esmc_tokenizer, TINY_SEQUENCES).items()}
+    
+&gt;       model(**batch).logits.square().mean().backward()
+        ^^^^^^^^^^^^^^
+
+tests/models/esmc_test.py:469: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmc/model.py:597: in forward
+    encoder_outputs = self.esmc(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmc/model.py:489: in forward
+    last_hidden_state, prenorm, collected, attentions = self.transformer(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmc/layers.py:711: in forward
+    x, attn_weights = block(x, sequence_id, output_attentions=output_attentions)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmc/layers.py:603: in forward
+    attn_out, attn_weights = self.attn(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmc/layers.py:523: in forward
+    context = flash_attn_varlen_qkvpacked_func(
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:1267: in flash_attn_varlen_qkvpacked_func
+    return FlashAttnVarlenQKVPackedFunc.apply(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/autograd/function.py:596: in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:553: in forward
+    out_padded, softmax_lse, S_dmask, rng_state = _wrapped_flash_attn_varlen_forward(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_ops.py:1269: in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/autograd.py:112: in autograd_impl
+    result = forward_no_grad(*args, Metadata(keyset, keyword_only_args))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/autograd.py:41: in forward_no_grad
+    result = op.redispatch(keyset &amp; _C._after_autograd_keyset, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_ops.py:872: in redispatch
+    return self._handle.redispatch_boxed(keyset, *args, **kwargs)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/custom_ops.py:347: in backend_impl
+    result = self._backend_fns[device_type](*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_compile.py:54: in inner
+    return disable_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_dynamo/eval_frame.py:1263: in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/custom_ops.py:382: in wrapped_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+q = tensor([[[ 0.2871, -0.8438,  0.3633,  0.2314,  0.6680,  0.9688,  0.0854,
+          -0.9258],
+         [-0.7188,  1.046...188,  1.7344,  0.7422,  0.1191, -0.2598, -1.7500, -0.7305,
+           0.1719]]], device='cuda:0', dtype=torch.bfloat16)
+k = tensor([[[ 3.4375e-01,  1.6992e-01, -6.3281e-01,  1.0391e+00, -6.7188e-01,
+           1.7891e+00,  2.3926e-01, -2.5977...984e+00,  2.7930e-01,
+           7.7344e-01,  5.1953e-01, -4.3945e-01]]], device='cuda:0',
+       dtype=torch.bfloat16)
+v = tensor([[[-0.0371, -0.0013,  0.0659, -0.0562, -0.4062,  0.0510, -0.0040,
+           0.1465],
+         [ 0.2070,  0.038...260, -0.0146,  0.2109, -0.0688,  0.0422,  0.1367, -0.0835,
+           0.1035]]], device='cuda:0', dtype=torch.bfloat16)
+cu_seqlens_q = tensor([ 0, 14, 19], device='cuda:0', dtype=torch.int32)
+cu_seqlens_k = tensor([ 0, 14, 19], device='cuda:0', dtype=torch.int32)
+max_seqlen_q = 14, max_seqlen_k = 14, dropout_p = 0.0
+softmax_scale = 0.3535533905932738, causal = False, window_size_left = -1
+window_size_right = -1, softcap = 0.0, alibi_slopes = None
+return_softmax = False, block_table = None, leftpad_k = None, seqused_k = None
+zero_tensors = False
+
+    @_torch_custom_op_wrapper("flash_attn::_flash_attn_varlen_forward", mutates_args=(), device_types="cuda")
+    def _flash_attn_varlen_forward(
+        q: torch.Tensor,
+        k: torch.Tensor,
+        v: torch.Tensor,
+        cu_seqlens_q: torch.Tensor,
+        cu_seqlens_k: torch.Tensor,
+        max_seqlen_q: int,
+        max_seqlen_k: int,
+        dropout_p: float,
+        softmax_scale: float,
+        causal: bool,
+        window_size_left: int = -1,
+        window_size_right: int = -1,
+        softcap: float = 0.0,
+        alibi_slopes: Optional[torch.Tensor] = None,
+        return_softmax: bool = False,
+        block_table: Optional[torch.Tensor] = None,
+        leftpad_k: Optional[torch.Tensor] = None,
+        seqused_k: Optional[torch.Tensor] = None,
+        zero_tensors: bool = False,
+    ) -&gt; Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+        q, k, v = [maybe_contiguous(x) for x in (q, k, v)]
+&gt;       out, softmax_lse, S_dmask, rng_state = flash_attn_gpu.varlen_fwd(
+            q,
+            k,
+            v,
+            None,
+            cu_seqlens_q,
+            cu_seqlens_k,
+            seqused_k,
+            leftpad_k,
+            block_table,
+            alibi_slopes,
+            max_seqlen_q,
+            max_seqlen_k,
+            dropout_p,
+            softmax_scale,
+            zero_tensors,
+            causal,
+            window_size_left,
+            window_size_right,
+            softcap,
+            return_softmax,
+            None,
+        )
+E       torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device
+E       Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+E       CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+E       For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+E       Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:170: AcceleratorError</failure></testcase><testcase classname="tests.models.esmc_test" name="test_multi_chain_under_flash_attention_2_raises" time="0.003" /><testcase classname="tests.models.esmc_test" name="test_gpu_dtypes[short-dtype0]" time="0.005" /><testcase classname="tests.models.esmc_test" name="test_gpu_dtypes[short-dtype1]" time="0.206"><failure message="torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device&#10;Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.&#10;CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.&#10;For debugging consider passing CUDA_LAUNCH_BLOCKING=1&#10;Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.">tiny_esmc_config = EsmcConfig(vocab_size=64, hidden_size=32, num_attention_heads=4, num_hidden_layers=2, intermediate_size=256, pad_token..., problem_type=None, output_hidden_states=False, output_attentions=False, return_dict=True, attn_implementation='sdpa')
+esmc_tokenizer = EsmcTokenizer(name_or_path='', vocab_size=33, model_max_length=1000000000000000019884624838656, padding_side='right', ...ial=True),
+	32: AddedToken("&lt;mask&gt;", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+})
+dtype = torch.float16, name = 'short'
+
+    @pytest.mark.gpu
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float16, torch.bfloat16])
+    @pytest.mark.parametrize("name", LENGTH_NAMES)
+    def test_gpu_dtypes(tiny_esmc_config, esmc_tokenizer, dtype, name):
+        torch.manual_seed(0)
+        model = EsmcModel(tiny_esmc_config).eval().to("cuda", dtype)
+        # Batched against a short sequence so every length also carries padding.
+        enc = {
+            k: v.cuda()
+            for k, v in _tokens(esmc_tokenizer, [SEQUENCES[name], SHORT_SEQUENCE]).items()
+        }
+        with torch.no_grad():
+&gt;           out = model(**enc).last_hidden_state
+                  ^^^^^^^^^^^^
+
+tests/models/esmc_test.py:1317: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmc/model.py:489: in forward
+    last_hidden_state, prenorm, collected, attentions = self.transformer(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmc/layers.py:711: in forward
+    x, attn_weights = block(x, sequence_id, output_attentions=output_attentions)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmc/layers.py:603: in forward
+    attn_out, attn_weights = self.attn(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmc/layers.py:469: in forward
+    context = esmc_scaled_dot_product_attention(
+esm/models/esmc/layers.py:378: in esmc_scaled_dot_product_attention
+    context = flash_attn_func(q4, k4, v4, dropout_p=0.0, softmax_scale=d_head**-0.5)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:1201: in flash_attn_func
+    return FlashAttnFunc.apply(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/autograd/function.py:596: in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:839: in forward
+    out_padded, softmax_lse, S_dmask, rng_state = _wrapped_flash_attn_forward(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_ops.py:1269: in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/autograd.py:112: in autograd_impl
+    result = forward_no_grad(*args, Metadata(keyset, keyword_only_args))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/autograd.py:41: in forward_no_grad
+    result = op.redispatch(keyset &amp; _C._after_autograd_keyset, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_ops.py:872: in redispatch
+    return self._handle.redispatch_boxed(keyset, *args, **kwargs)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/custom_ops.py:347: in backend_impl
+    result = self._backend_fns[device_type](*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_compile.py:54: in inner
+    return disable_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_dynamo/eval_frame.py:1263: in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/custom_ops.py:382: in wrapped_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+q = tensor([[[[-5.4883e-01, -7.7832e-01, -3.8184e-01,  2.0332e+00, -5.5786e-02,
+            1.1846e+00, -1.3565e-02,  1.79...16e+00, -1.0181e-01,
+            3.0591e-01, -1.3301e+00, -1.3398e+00]]]], device='cuda:0',
+       dtype=torch.float16)
+k = tensor([[[[ 2.0449e+00, -3.7891e-01,  7.9199e-01,  3.8940e-01, -1.3301e+00,
+            1.8982e-01,  4.0112e-01, -9.12...58e+00, -1.0410e+00,
+           -2.3750e+00, -8.3789e-01,  1.2646e+00]]]], device='cuda:0',
+       dtype=torch.float16)
+v = tensor([[[[-7.1655e-02, -5.1910e-02,  2.8763e-02,  3.2074e-02, -5.1117e-02,
+            9.6741e-02,  1.2866e-01, -1.71...97e-02, -1.7273e-01,
+            4.6936e-02,  1.7310e-01,  2.8369e-01]]]], device='cuda:0',
+       dtype=torch.float16)
+dropout_p = 0.0, softmax_scale = 0.3535533905932738, causal = False
+window_size_left = -1, window_size_right = -1, softcap = 0.0
+alibi_slopes = None, return_softmax = False
+
+    @_torch_custom_op_wrapper("flash_attn::_flash_attn_forward", mutates_args=(), device_types="cuda")
+    def _flash_attn_forward(
+        q: torch.Tensor,
+        k: torch.Tensor,
+        v: torch.Tensor,
+        dropout_p: float,
+        softmax_scale: float,
+        causal: bool,
+        window_size_left: int,
+        window_size_right: int,
+        softcap: float,
+        alibi_slopes: Optional[torch.Tensor],
+        return_softmax: bool
+    ) -&gt; Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+        q, k, v = [maybe_contiguous(x) for x in (q, k, v)]
+&gt;       out, softmax_lse, S_dmask, rng_state = flash_attn_gpu.fwd(
+            q,
+            k,
+            v,
+            None,
+            alibi_slopes,
+            dropout_p,
+            softmax_scale,
+            causal,
+            window_size_left,
+            window_size_right,
+            softcap,
+            return_softmax,
+            None,
+        )
+E       torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device
+E       Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+E       CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+E       For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+E       Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:96: AcceleratorError</failure></testcase><testcase classname="tests.models.esmc_test" name="test_gpu_dtypes[short-dtype2]" time="0.066"><failure message="torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device&#10;Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.&#10;CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.&#10;For debugging consider passing CUDA_LAUNCH_BLOCKING=1&#10;Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.">tiny_esmc_config = EsmcConfig(vocab_size=64, hidden_size=32, num_attention_heads=4, num_hidden_layers=2, intermediate_size=256, pad_token..., problem_type=None, output_hidden_states=False, output_attentions=False, return_dict=True, attn_implementation='sdpa')
+esmc_tokenizer = EsmcTokenizer(name_or_path='', vocab_size=33, model_max_length=1000000000000000019884624838656, padding_side='right', ...ial=True),
+	32: AddedToken("&lt;mask&gt;", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+})
+dtype = torch.bfloat16, name = 'short'
+
+    @pytest.mark.gpu
+    @pytest.mark.parametrize("dtype", [torch.float32, torch.float16, torch.bfloat16])
+    @pytest.mark.parametrize("name", LENGTH_NAMES)
+    def test_gpu_dtypes(tiny_esmc_config, esmc_tokenizer, dtype, name):
+        torch.manual_seed(0)
+        model = EsmcModel(tiny_esmc_config).eval().to("cuda", dtype)
+        # Batched against a short sequence so every length also carries padding.
+        enc = {
+            k: v.cuda()
+            for k, v in _tokens(esmc_tokenizer, [SEQUENCES[name], SHORT_SEQUENCE]).items()
+        }
+        with torch.no_grad():
+&gt;           out = model(**enc).last_hidden_state
+                  ^^^^^^^^^^^^
+
+tests/models/esmc_test.py:1317: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmc/model.py:489: in forward
+    last_hidden_state, prenorm, collected, attentions = self.transformer(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmc/layers.py:711: in forward
+    x, attn_weights = block(x, sequence_id, output_attentions=output_attentions)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmc/layers.py:603: in forward
+    attn_out, attn_weights = self.attn(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmc/layers.py:469: in forward
+    context = esmc_scaled_dot_product_attention(
+esm/models/esmc/layers.py:378: in esmc_scaled_dot_product_attention
+    context = flash_attn_func(q4, k4, v4, dropout_p=0.0, softmax_scale=d_head**-0.5)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:1201: in flash_attn_func
+    return FlashAttnFunc.apply(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/autograd/function.py:596: in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:839: in forward
+    out_padded, softmax_lse, S_dmask, rng_state = _wrapped_flash_attn_forward(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_ops.py:1269: in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/autograd.py:112: in autograd_impl
+    result = forward_no_grad(*args, Metadata(keyset, keyword_only_args))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/autograd.py:41: in forward_no_grad
+    result = op.redispatch(keyset &amp; _C._after_autograd_keyset, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_ops.py:872: in redispatch
+    return self._handle.redispatch_boxed(keyset, *args, **kwargs)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/custom_ops.py:347: in backend_impl
+    result = self._backend_fns[device_type](*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_compile.py:54: in inner
+    return disable_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_dynamo/eval_frame.py:1263: in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/custom_ops.py:382: in wrapped_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+q = tensor([[[[-0.5469, -0.7773, -0.3809,  2.0469, -0.0571,  1.1797, -0.0138,
+            1.7891],
+          [ 1.2734,  2....0, -0.2949,  0.6836,  1.8594, -0.0986,  0.3027, -1.3281,
+           -1.3359]]]], device='cuda:0', dtype=torch.bfloat16)
+k = tensor([[[[ 2.0469e+00, -3.8281e-01,  7.8516e-01,  3.9258e-01, -1.3281e+00,
+            1.8457e-01,  3.9844e-01, -9.14...1e+00, -1.0391e+00,
+           -2.3750e+00, -8.3594e-01,  1.2656e+00]]]], device='cuda:0',
+       dtype=torch.bfloat16)
+v = tensor([[[[-0.0718, -0.0518,  0.0289,  0.0322, -0.0513,  0.0967,  0.1279,
+           -0.1709],
+          [-0.1035,  0....6,  0.0215, -0.1260,  0.0125, -0.1719,  0.0464,  0.1738,
+            0.2832]]]], device='cuda:0', dtype=torch.bfloat16)
+dropout_p = 0.0, softmax_scale = 0.3535533905932738, causal = False
+window_size_left = -1, window_size_right = -1, softcap = 0.0
+alibi_slopes = None, return_softmax = False
+
+    @_torch_custom_op_wrapper("flash_attn::_flash_attn_forward", mutates_args=(), device_types="cuda")
+    def _flash_attn_forward(
+        q: torch.Tensor,
+        k: torch.Tensor,
+        v: torch.Tensor,
+        dropout_p: float,
+        softmax_scale: float,
+        causal: bool,
+        window_size_left: int,
+        window_size_right: int,
+        softcap: float,
+        alibi_slopes: Optional[torch.Tensor],
+        return_softmax: bool
+    ) -&gt; Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+        q, k, v = [maybe_contiguous(x) for x in (q, k, v)]
+&gt;       out, softmax_lse, S_dmask, rng_state = flash_attn_gpu.fwd(
+            q,
+            k,
+            v,
+            None,
+            alibi_slopes,
+            dropout_p,
+            softmax_scale,
+            causal,
+            window_size_left,
+            window_size_right,
+            softcap,
+            return_softmax,
+            None,
+        )
+E       torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device
+E       Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+E       CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+E       For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+E       Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:96: AcceleratorError</failure></testcase><testcase classname="tests.models.esmc_test" name="test_gpu_dtypes[medium-dtype0]" time="0.005" /><testcase classname="tests.models.esmc_test" name="test_gpu_dtypes[medium-dtype1]" time="1.830" /><testcase classname="tests.models.esmc_test" name="test_gpu_dtypes[medium-dtype2]" time="1.792" /><testcase classname="tests.models.esmc_test" name="test_gpu_dtypes[long-dtype0]" time="0.007" /><testcase classname="tests.models.esmc_test" name="test_gpu_dtypes[long-dtype1]" time="1.174" /><testcase classname="tests.models.esmc_test" name="test_gpu_dtypes[long-dtype2]" time="1.159" /><testcase classname="tests.models.esmc_test" name="test_flash_build_moved_to_cpu_matches_a_cpu_build" time="0.007" /><testcase classname="tests.models.esmfold2_atom_adaln_cache_test" name="test_block_forward_is_bitwise_with_and_without_the_cache" time="0.005"><failure message="torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device&#10;Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.&#10;CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.&#10;For debugging consider passing CUDA_LAUNCH_BLOCKING=1&#10;Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.">@pytest.mark.gpu
+    def test_block_forward_is_bitwise_with_and_without_the_cache() -&gt; None:
+        """The whole point: the cache must not move a single bit of the block."""
+        import torch.nn.functional as F
+    
+        from esm.models.esmfold2.layers import SWAAtomTransformer
+    
+        # Production atom shape: head_dim must be &gt;= the 32-wide 3D RoPE
+        # (3 axes x 2 spatial pairs + 10 uid pairs). d_atom=128 / 4 heads gives 32.
+        d_atom, n_heads = 128, 4
+        torch.manual_seed(0)
+        tf = SWAAtomTransformer(d_atom=d_atom, n_blocks=1, n_heads=n_heads).cuda().eval()
+        blk = tf.blocks[0]
+        with torch.no_grad():
+            blk.adaln_modulation[1].weight.normal_(0.0, 0.05)  # ty:ignore[not-subscriptable, unresolved-attribute]
+    
+        torch.manual_seed(1)
+        b, a = 1, 32
+        x = torch.randn(b, a, d_atom, device="cuda")
+        c_l = torch.randn(b, a, d_atom, device="cuda")
+        mask = torch.ones(b, a, dtype=torch.bool, device="cuda")
+        cos, sin = tf._build_3d_rope(
+            torch.randn(b, a, 3, device="cuda"),
+            torch.zeros(b, a, dtype=torch.long, device="cuda"),
+        )
+        seqlens = mask.sum(dim=-1, dtype=torch.int32)
+        params = (
+            cos,
+            sin,
+            torch.nonzero(mask.flatten(), as_tuple=False).flatten(),
+            F.pad(torch.cumsum(seqlens, dim=0, dtype=torch.int32), (1, 0)),
+            int(seqlens.max().item()),
+        )
+    
+        with torch.inference_mode():
+&gt;           ref = blk(x, c_l, params)
+                  ^^^^^^^^^^^^^^^^^^^
+
+tests/models/esmfold2_atom_adaln_cache_test.py:137: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:768: in forward
+    attn_out = self.attn(attn_input, attention_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:637: in forward
+    out_unpad = flash_attn_varlen_func(
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:1448: in flash_attn_varlen_func
+    return FlashAttnVarlenFunc.apply(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/autograd/function.py:596: in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:930: in forward
+    out_padded, softmax_lse, S_dmask, rng_state = _wrapped_flash_attn_varlen_forward(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_ops.py:1269: in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/custom_ops.py:347: in backend_impl
+    result = self._backend_fns[device_type](*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_compile.py:54: in inner
+    return disable_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_dynamo/eval_frame.py:1263: in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/custom_ops.py:382: in wrapped_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+q = tensor([[[ 5.7422e-01, -4.9805e-01, -5.2734e-01,  ...,  1.3203e+00,
+          -4.2188e-01,  2.9492e-01],
+         [ 1....3203e+00, -7.7344e-01,  ...,  1.2344e+00,
+           4.7656e-01, -8.9355e-02]]], device='cuda:0', dtype=torch.bfloat16)
+k = tensor([[[-6.7383e-02, -8.0078e-01, -2.0156e+00,  ..., -1.0703e+00,
+           1.5039e-01, -1.0156e+00],
+         [ 8....2969e+00,  1.5781e+00,  ..., -1.0078e+00,
+           2.7148e-01, -3.5547e-01]]], device='cuda:0', dtype=torch.bfloat16)
+v = tensor([[[ 1.1016e+00,  7.4609e-01, -2.2827e-02,  ..., -4.4727e-01,
+           5.6641e-01, -9.9219e-01],
+         [-4....0938e+00,  3.8330e-02,  ..., -8.2031e-02,
+          -3.7109e-01, -9.0234e-01]]], device='cuda:0', dtype=torch.bfloat16)
+cu_seqlens_q = tensor([ 0, 32], device='cuda:0', dtype=torch.int32)
+cu_seqlens_k = tensor([ 0, 32], device='cuda:0', dtype=torch.int32)
+max_seqlen_q = 32, max_seqlen_k = 32, dropout_p = 0.0
+softmax_scale = 0.1767766952966369, causal = False, window_size_left = 64
+window_size_right = 64, softcap = 0.0, alibi_slopes = None
+return_softmax = False, block_table = None, leftpad_k = None, seqused_k = None
+zero_tensors = False
+
+    @_torch_custom_op_wrapper("flash_attn::_flash_attn_varlen_forward", mutates_args=(), device_types="cuda")
+    def _flash_attn_varlen_forward(
+        q: torch.Tensor,
+        k: torch.Tensor,
+        v: torch.Tensor,
+        cu_seqlens_q: torch.Tensor,
+        cu_seqlens_k: torch.Tensor,
+        max_seqlen_q: int,
+        max_seqlen_k: int,
+        dropout_p: float,
+        softmax_scale: float,
+        causal: bool,
+        window_size_left: int = -1,
+        window_size_right: int = -1,
+        softcap: float = 0.0,
+        alibi_slopes: Optional[torch.Tensor] = None,
+        return_softmax: bool = False,
+        block_table: Optional[torch.Tensor] = None,
+        leftpad_k: Optional[torch.Tensor] = None,
+        seqused_k: Optional[torch.Tensor] = None,
+        zero_tensors: bool = False,
+    ) -&gt; Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+        q, k, v = [maybe_contiguous(x) for x in (q, k, v)]
+&gt;       out, softmax_lse, S_dmask, rng_state = flash_attn_gpu.varlen_fwd(
+            q,
+            k,
+            v,
+            None,
+            cu_seqlens_q,
+            cu_seqlens_k,
+            seqused_k,
+            leftpad_k,
+            block_table,
+            alibi_slopes,
+            max_seqlen_q,
+            max_seqlen_k,
+            dropout_p,
+            softmax_scale,
+            zero_tensors,
+            causal,
+            window_size_left,
+            window_size_right,
+            softcap,
+            return_softmax,
+            None,
+        )
+E       torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device
+E       Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+E       CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+E       For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+E       Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:170: AcceleratorError</failure></testcase><testcase classname="tests.models.esmfold2_atom_adaln_cache_test" name="test_expanded_conditioning_is_reused" time="0.013"><failure message="torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device&#10;Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.&#10;CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.&#10;For debugging consider passing CUDA_LAUNCH_BLOCKING=1&#10;Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.">@pytest.mark.gpu
+    def test_expanded_conditioning_is_reused() -&gt; None:
+        """The producer must hand back one object per fold, not one per step.
+    
+        repeat_interleave allocates. If this regresses, the adaLN slot above misses
+        on every diffusion step and the lever silently stops paying.
+        """
+        from esm.models.esmfold2.layers import EsmFold2AtomEncoder
+    
+        torch.manual_seed(0)
+        enc = EsmFold2AtomEncoder(d_atom=128, d_token=256, n_blocks=1, n_heads=4)
+        enc = enc.cuda().eval()
+        b, n = 1, 24
+        kw = dict(
+            ref_pos=torch.randn(b, n, 3, device="cuda"),
+            atom_attention_mask=torch.ones(b, n, dtype=torch.bool, device="cuda"),
+            ref_space_uid=torch.zeros(b, n, dtype=torch.long, device="cuda"),
+            ref_charge=torch.zeros(b, n, device="cuda"),
+            ref_element=torch.zeros(b, n, 128, device="cuda"),
+            ref_atom_name_chars=torch.zeros(b, n, 4, 64, device="cuda"),
+            atom_to_token=torch.arange(n, device="cuda").unsqueeze(0) // 4,
+        )
+        cache: dict = {}
+        with torch.inference_mode():
+&gt;           enc(**kw, inference_cache=cache)
+
+tests/models/esmfold2_atom_adaln_cache_test.py:172: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:989: in forward
+    result = self.atom_transformer(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:835: in forward
+    q_l = block(q_l, c_l, attention_params, inference_cache=inference_cache)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:768: in forward
+    attn_out = self.attn(attn_input, attention_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:637: in forward
+    out_unpad = flash_attn_varlen_func(
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:1448: in flash_attn_varlen_func
+    return FlashAttnVarlenFunc.apply(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/autograd/function.py:596: in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:930: in forward
+    out_padded, softmax_lse, S_dmask, rng_state = _wrapped_flash_attn_varlen_forward(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_ops.py:1269: in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/custom_ops.py:347: in backend_impl
+    result = self._backend_fns[device_type](*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_compile.py:54: in inner
+    return disable_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_dynamo/eval_frame.py:1263: in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/custom_ops.py:382: in wrapped_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+q = tensor([[[ 0.1914, -0.1357, -0.2012,  ...,  0.7930, -1.8516, -0.1533],
+         [ 0.3105, -1.2500, -0.5039,  ..., -0.3...
+         [ 1.0391, -1.2656, -1.0312,  ...,  0.1436,  1.3594,  0.5273]]],
+       device='cuda:0', dtype=torch.bfloat16)
+k = tensor([[[-6.0156e-01, -9.0234e-01, -2.5977e-01,  ..., -2.4023e-01,
+          -1.4219e+00,  8.5449e-02],
+         [ 1....8203e-01, -3.6523e-01,  ...,  2.7031e+00,
+          -6.8848e-02, -7.8516e-01]]], device='cuda:0', dtype=torch.bfloat16)
+v = tensor([[[ 7.4707e-02, -6.0156e-01, -1.1035e-01,  ..., -4.5117e-01,
+           7.6562e-01, -6.5234e-01],
+         [-6....3906e-01,  1.1562e+00,  ..., -4.2236e-02,
+          -9.1406e-01, -2.4414e-03]]], device='cuda:0', dtype=torch.bfloat16)
+cu_seqlens_q = tensor([ 0, 24], device='cuda:0', dtype=torch.int32)
+cu_seqlens_k = tensor([ 0, 24], device='cuda:0', dtype=torch.int32)
+max_seqlen_q = 24, max_seqlen_k = 24, dropout_p = 0.0
+softmax_scale = 0.1767766952966369, causal = False, window_size_left = 64
+window_size_right = 64, softcap = 0.0, alibi_slopes = None
+return_softmax = False, block_table = None, leftpad_k = None, seqused_k = None
+zero_tensors = False
+
+    @_torch_custom_op_wrapper("flash_attn::_flash_attn_varlen_forward", mutates_args=(), device_types="cuda")
+    def _flash_attn_varlen_forward(
+        q: torch.Tensor,
+        k: torch.Tensor,
+        v: torch.Tensor,
+        cu_seqlens_q: torch.Tensor,
+        cu_seqlens_k: torch.Tensor,
+        max_seqlen_q: int,
+        max_seqlen_k: int,
+        dropout_p: float,
+        softmax_scale: float,
+        causal: bool,
+        window_size_left: int = -1,
+        window_size_right: int = -1,
+        softcap: float = 0.0,
+        alibi_slopes: Optional[torch.Tensor] = None,
+        return_softmax: bool = False,
+        block_table: Optional[torch.Tensor] = None,
+        leftpad_k: Optional[torch.Tensor] = None,
+        seqused_k: Optional[torch.Tensor] = None,
+        zero_tensors: bool = False,
+    ) -&gt; Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+        q, k, v = [maybe_contiguous(x) for x in (q, k, v)]
+&gt;       out, softmax_lse, S_dmask, rng_state = flash_attn_gpu.varlen_fwd(
+            q,
+            k,
+            v,
+            None,
+            cu_seqlens_q,
+            cu_seqlens_k,
+            seqused_k,
+            leftpad_k,
+            block_table,
+            alibi_slopes,
+            max_seqlen_q,
+            max_seqlen_k,
+            dropout_p,
+            softmax_scale,
+            zero_tensors,
+            causal,
+            window_size_left,
+            window_size_right,
+            softcap,
+            return_softmax,
+            None,
+        )
+E       torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device
+E       Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+E       CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+E       For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+E       Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:170: AcceleratorError</failure></testcase><testcase classname="tests.models.esmfold2_builds_test" name="test_cpu_and_gpu_agree" time="4.150" /><testcase classname="tests.models.esmfold2_builds_test" name="test_use_amp_is_on_for_cuda_inputs" time="0.402" /><testcase classname="tests.models.esmfold2_builds_test" name="test_every_gpu_build_reaches_the_cpu_reference[None-False-None]" time="0.092" /><testcase classname="tests.models.esmfold2_builds_test" name="test_every_gpu_build_reaches_the_cpu_reference[None-False-64]" time="0.100" /><testcase classname="tests.models.esmfold2_builds_test" name="test_every_gpu_build_reaches_the_cpu_reference[None-True-None]" time="0.062"><failure message="torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device&#10;Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.&#10;CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.&#10;For debugging consider passing CUDA_LAUNCH_BLOCKING=1&#10;Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.">kernel_esmfold2_config = &lt;esm.models.esmfold2.config.EsmFold2Config object at 0x78a574be6ba0&gt;
+cpu_fp32_result = {'distogram_logits': tensor([[[[ 0.1748,  0.9162,  0.9535,  ...,  1.6751,  0.3249, -2.0971],
+          [-0.5107,  1.42....5000, 0.5000, 0.5000, 0.5000, 0.5000,
+         0.5000, 0.5000, 0.5000, 0.5000, 0.5000, 0.5000, 0.5000, 0.5000]]), ...}
+backend = None, flash = True, chunk_size = None
+
+    @pytest.mark.gpu
+    @pytest.mark.parametrize("backend,flash,chunk_size", GPU_BUILDS)
+    def test_every_gpu_build_reaches_the_cpu_reference(
+        kernel_esmfold2_config, cpu_fp32_result, backend, flash, chunk_size
+    ):
+        """E2: the build matrix, each case held against the CPU / fp32 result.
+    
+        Dispatch first, comparison second. A backend that silently fell back, a
+        chunk size that never reached a leaf, or a flash flag that never routed a
+        call would all produce a passing comparison otherwise - the reference path
+        is correct, so falling back to it is invisible in the numbers.
+        """
+        skip_if_backend_missing(backend)
+        skip_if_flash_missing(flash)
+        try:
+            model = build_model(kernel_esmfold2_config, device="cuda")
+            model.set_kernel_backend(backend)
+            model.set_chunk_size(chunk_size)
+        # Only a genuinely absent package is a reason to skip. A bare ``except``
+        # here would turn a real regression - a shape assertion inside a kernel, a
+        # renamed attribute - into a green skip across the whole matrix.
+        except ImportError as exc:
+            pytest.skip(f"build {backend}/{flash}/{chunk_size} unavailable: {exc}")  # ty:ignore[too-many-positional-arguments]
+    
+        assert_backend_dispatched(model, backend)
+        assert_chunking_dispatched(model, chunk_size)
+    
+        with counted_flash_attention() as flash_calls:
+&gt;           result = run_forward(model, ESMFOLD2_SEQUENCES[MATRIX_LENGTH], flash=flash)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/models/esmfold2_builds_test.py:655: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/models/esmfold2_builds_test.py:183: in run_forward
+    return model(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/utils/_contextlib.py:124: in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/model.py:974: in forward
+    x_inputs = self.inputs_embedder(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:2127: in forward
+    a, _q, _c, _attn_params, _intermediates = self.atom_attention_encoder(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:989: in forward
+    result = self.atom_transformer(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:835: in forward
+    q_l = block(q_l, c_l, attention_params, inference_cache=inference_cache)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:768: in forward
+    attn_out = self.attn(attn_input, attention_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:637: in forward
+    out_unpad = flash_attn_varlen_func(
+tests/models/esmfold2_builds_test.py:116: in counted
+    return original(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:1448: in flash_attn_varlen_func
+    return FlashAttnVarlenFunc.apply(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/autograd/function.py:596: in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:930: in forward
+    out_padded, softmax_lse, S_dmask, rng_state = _wrapped_flash_attn_varlen_forward(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_ops.py:1269: in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/custom_ops.py:347: in backend_impl
+    result = self._backend_fns[device_type](*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_compile.py:54: in inner
+    return disable_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_dynamo/eval_frame.py:1263: in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/custom_ops.py:382: in wrapped_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+q = tensor([[[-1.8984, -0.8477,  1.1094,  ...,  0.7617,  0.1426,  1.8438],
+         [-0.2236,  0.3594,  0.3340,  ..., -1.0...
+         [ 0.6328, -0.2930, -1.7422,  ...,  0.9648,  0.8750,  0.2129]]],
+       device='cuda:0', dtype=torch.bfloat16)
+k = tensor([[[-1.8984,  0.6953,  0.2773,  ..., -1.0625, -0.2207, -0.1187],
+         [-0.3242,  0.8750, -0.0028,  ...,  0.9...
+         [-0.8438,  0.8438, -0.1270,  ..., -0.6250,  0.8672,  2.1875]]],
+       device='cuda:0', dtype=torch.bfloat16)
+v = tensor([[[ 0.3340,  0.2793, -0.2432,  ..., -0.3887, -0.5938,  0.6094],
+         [-0.3770, -0.9102, -0.6680,  ..., -0.5...
+         [ 0.2871, -0.5195, -0.9336,  ..., -0.3672, -0.2969, -0.1118]]],
+       device='cuda:0', dtype=torch.bfloat16)
+cu_seqlens_q = tensor([   0, 1534], device='cuda:0', dtype=torch.int32)
+cu_seqlens_k = tensor([   0, 1534], device='cuda:0', dtype=torch.int32)
+max_seqlen_q = 1534, max_seqlen_k = 1534, dropout_p = 0.0
+softmax_scale = 0.1767766952966369, causal = False, window_size_left = 64
+window_size_right = 64, softcap = 0.0, alibi_slopes = None
+return_softmax = False, block_table = None, leftpad_k = None, seqused_k = None
+zero_tensors = False
+
+    @_torch_custom_op_wrapper("flash_attn::_flash_attn_varlen_forward", mutates_args=(), device_types="cuda")
+    def _flash_attn_varlen_forward(
+        q: torch.Tensor,
+        k: torch.Tensor,
+        v: torch.Tensor,
+        cu_seqlens_q: torch.Tensor,
+        cu_seqlens_k: torch.Tensor,
+        max_seqlen_q: int,
+        max_seqlen_k: int,
+        dropout_p: float,
+        softmax_scale: float,
+        causal: bool,
+        window_size_left: int = -1,
+        window_size_right: int = -1,
+        softcap: float = 0.0,
+        alibi_slopes: Optional[torch.Tensor] = None,
+        return_softmax: bool = False,
+        block_table: Optional[torch.Tensor] = None,
+        leftpad_k: Optional[torch.Tensor] = None,
+        seqused_k: Optional[torch.Tensor] = None,
+        zero_tensors: bool = False,
+    ) -&gt; Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+        q, k, v = [maybe_contiguous(x) for x in (q, k, v)]
+&gt;       out, softmax_lse, S_dmask, rng_state = flash_attn_gpu.varlen_fwd(
+            q,
+            k,
+            v,
+            None,
+            cu_seqlens_q,
+            cu_seqlens_k,
+            seqused_k,
+            leftpad_k,
+            block_table,
+            alibi_slopes,
+            max_seqlen_q,
+            max_seqlen_k,
+            dropout_p,
+            softmax_scale,
+            zero_tensors,
+            causal,
+            window_size_left,
+            window_size_right,
+            softcap,
+            return_softmax,
+            None,
+        )
+E       torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device
+E       Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+E       CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+E       For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+E       Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:170: AcceleratorError</failure></testcase><testcase classname="tests.models.esmfold2_builds_test" name="test_every_gpu_build_reaches_the_cpu_reference[fused-False-None]" time="3.435" /><testcase classname="tests.models.esmfold2_builds_test" name="test_every_gpu_build_reaches_the_cpu_reference[fused-True-64]" time="0.067"><failure message="torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device&#10;Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.&#10;CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.&#10;For debugging consider passing CUDA_LAUNCH_BLOCKING=1&#10;Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.">kernel_esmfold2_config = &lt;esm.models.esmfold2.config.EsmFold2Config object at 0x78a574be6ba0&gt;
+cpu_fp32_result = {'distogram_logits': tensor([[[[ 0.1748,  0.9162,  0.9535,  ...,  1.6751,  0.3249, -2.0971],
+          [-0.5107,  1.42....5000, 0.5000, 0.5000, 0.5000, 0.5000,
+         0.5000, 0.5000, 0.5000, 0.5000, 0.5000, 0.5000, 0.5000, 0.5000]]), ...}
+backend = 'fused', flash = True, chunk_size = 64
+
+    @pytest.mark.gpu
+    @pytest.mark.parametrize("backend,flash,chunk_size", GPU_BUILDS)
+    def test_every_gpu_build_reaches_the_cpu_reference(
+        kernel_esmfold2_config, cpu_fp32_result, backend, flash, chunk_size
+    ):
+        """E2: the build matrix, each case held against the CPU / fp32 result.
+    
+        Dispatch first, comparison second. A backend that silently fell back, a
+        chunk size that never reached a leaf, or a flash flag that never routed a
+        call would all produce a passing comparison otherwise - the reference path
+        is correct, so falling back to it is invisible in the numbers.
+        """
+        skip_if_backend_missing(backend)
+        skip_if_flash_missing(flash)
+        try:
+            model = build_model(kernel_esmfold2_config, device="cuda")
+            model.set_kernel_backend(backend)
+            model.set_chunk_size(chunk_size)
+        # Only a genuinely absent package is a reason to skip. A bare ``except``
+        # here would turn a real regression - a shape assertion inside a kernel, a
+        # renamed attribute - into a green skip across the whole matrix.
+        except ImportError as exc:
+            pytest.skip(f"build {backend}/{flash}/{chunk_size} unavailable: {exc}")  # ty:ignore[too-many-positional-arguments]
+    
+        assert_backend_dispatched(model, backend)
+        assert_chunking_dispatched(model, chunk_size)
+    
+        with counted_flash_attention() as flash_calls:
+&gt;           result = run_forward(model, ESMFOLD2_SEQUENCES[MATRIX_LENGTH], flash=flash)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/models/esmfold2_builds_test.py:655: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/models/esmfold2_builds_test.py:183: in run_forward
+    return model(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/utils/_contextlib.py:124: in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/model.py:974: in forward
+    x_inputs = self.inputs_embedder(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:2127: in forward
+    a, _q, _c, _attn_params, _intermediates = self.atom_attention_encoder(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:989: in forward
+    result = self.atom_transformer(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:835: in forward
+    q_l = block(q_l, c_l, attention_params, inference_cache=inference_cache)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:768: in forward
+    attn_out = self.attn(attn_input, attention_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:637: in forward
+    out_unpad = flash_attn_varlen_func(
+tests/models/esmfold2_builds_test.py:116: in counted
+    return original(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:1448: in flash_attn_varlen_func
+    return FlashAttnVarlenFunc.apply(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/autograd/function.py:596: in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:930: in forward
+    out_padded, softmax_lse, S_dmask, rng_state = _wrapped_flash_attn_varlen_forward(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_ops.py:1269: in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/custom_ops.py:347: in backend_impl
+    result = self._backend_fns[device_type](*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_compile.py:54: in inner
+    return disable_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_dynamo/eval_frame.py:1263: in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/custom_ops.py:382: in wrapped_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+q = tensor([[[-1.8984, -0.8477,  1.1094,  ...,  0.7617,  0.1426,  1.8438],
+         [-0.2236,  0.3594,  0.3340,  ..., -1.0...
+         [ 0.6328, -0.2930, -1.7422,  ...,  0.9648,  0.8750,  0.2129]]],
+       device='cuda:0', dtype=torch.bfloat16)
+k = tensor([[[-1.8984,  0.6953,  0.2773,  ..., -1.0625, -0.2207, -0.1187],
+         [-0.3242,  0.8750, -0.0028,  ...,  0.9...
+         [-0.8438,  0.8438, -0.1270,  ..., -0.6250,  0.8672,  2.1875]]],
+       device='cuda:0', dtype=torch.bfloat16)
+v = tensor([[[ 0.3340,  0.2793, -0.2432,  ..., -0.3887, -0.5938,  0.6094],
+         [-0.3770, -0.9102, -0.6680,  ..., -0.5...
+         [ 0.2871, -0.5195, -0.9336,  ..., -0.3672, -0.2969, -0.1118]]],
+       device='cuda:0', dtype=torch.bfloat16)
+cu_seqlens_q = tensor([   0, 1534], device='cuda:0', dtype=torch.int32)
+cu_seqlens_k = tensor([   0, 1534], device='cuda:0', dtype=torch.int32)
+max_seqlen_q = 1534, max_seqlen_k = 1534, dropout_p = 0.0
+softmax_scale = 0.1767766952966369, causal = False, window_size_left = 64
+window_size_right = 64, softcap = 0.0, alibi_slopes = None
+return_softmax = False, block_table = None, leftpad_k = None, seqused_k = None
+zero_tensors = False
+
+    @_torch_custom_op_wrapper("flash_attn::_flash_attn_varlen_forward", mutates_args=(), device_types="cuda")
+    def _flash_attn_varlen_forward(
+        q: torch.Tensor,
+        k: torch.Tensor,
+        v: torch.Tensor,
+        cu_seqlens_q: torch.Tensor,
+        cu_seqlens_k: torch.Tensor,
+        max_seqlen_q: int,
+        max_seqlen_k: int,
+        dropout_p: float,
+        softmax_scale: float,
+        causal: bool,
+        window_size_left: int = -1,
+        window_size_right: int = -1,
+        softcap: float = 0.0,
+        alibi_slopes: Optional[torch.Tensor] = None,
+        return_softmax: bool = False,
+        block_table: Optional[torch.Tensor] = None,
+        leftpad_k: Optional[torch.Tensor] = None,
+        seqused_k: Optional[torch.Tensor] = None,
+        zero_tensors: bool = False,
+    ) -&gt; Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+        q, k, v = [maybe_contiguous(x) for x in (q, k, v)]
+&gt;       out, softmax_lse, S_dmask, rng_state = flash_attn_gpu.varlen_fwd(
+            q,
+            k,
+            v,
+            None,
+            cu_seqlens_q,
+            cu_seqlens_k,
+            seqused_k,
+            leftpad_k,
+            block_table,
+            alibi_slopes,
+            max_seqlen_q,
+            max_seqlen_k,
+            dropout_p,
+            softmax_scale,
+            zero_tensors,
+            causal,
+            window_size_left,
+            window_size_right,
+            softcap,
+            return_softmax,
+            None,
+        )
+E       torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device
+E       Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+E       CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+E       For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+E       Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:170: AcceleratorError</failure></testcase><testcase classname="tests.models.esmfold2_fp8_test" name="test_esmfold2_fp8_backbone_is_fully_fp8" time="0.449"><failure message="torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device&#10;Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.&#10;CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.&#10;For debugging consider passing CUDA_LAUNCH_BLOCKING=1&#10;Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.">tiny_esmfold2 = EsmFold2Model(
+  (inputs_embedder): InputsEmbedder(
+    (atom_attention_encoder): EsmFold2AtomEncoder(
+      (atom_lin...
+      )
+      (norm): LayerNorm((32,), eps=1e-05, elementwise_affine=True)
+    )
+    (_sae_models): ModuleDict()
+  )
+)
+tiny_esmc = EsmcModel(
+  (embed): Embedding(64, 32)
+  (transformer): EsmcTransformerStack(
+    (blocks): ModuleList(
+      (0-1): ...   )
+      )
+    )
+    (norm): LayerNorm((32,), eps=1e-05, elementwise_affine=True)
+  )
+  (_sae_models): ModuleDict()
+)
+
+    @pytest.mark.gpu
+    def test_esmfold2_fp8_backbone_is_fully_fp8(tiny_esmfold2, tiny_esmc):
+        """Every ESMC projection must be fp8. The old path converted only
+        ``out_proj`` and left the LayerNorm-fused QKV and MLP weights in bf16."""
+        if torch.cuda.get_device_capability() &lt; (8, 9):
+            pytest.skip("fp8 needs compute capability &gt;= 8.9")  # ty:ignore[too-many-positional-arguments]
+        tiny_esmfold2.esmc = tiny_esmc
+        model = tiny_esmfold2.cuda()
+        model.set_esmc_precision("fp8")
+    
+        for block in model.esmc.transformer.blocks:
+            assert isinstance(block.attn.layernorm_qkv, Fp8LayerNormLinear)
+            assert isinstance(block.attn.out_proj, Fp8Linear)
+            assert isinstance(block.ffn, Fp8LayerNormMLP)
+        assert not [
+            name
+            for name, p in model.esmc.named_parameters()
+            if p.dim() == 2 and name != "embed.weight"
+        ], "a 2D weight was left in bf16"
+    
+        ids = torch.randint(4, 24, (2, 37), device="cuda")
+        with torch.no_grad(), torch.autocast("cuda", dtype=torch.bfloat16):
+&gt;           out = model.esmc(input_ids=ids).last_hidden_state
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/models/esmfold2_fp8_test.py:78: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmc/model.py:489: in forward
+    last_hidden_state, prenorm, collected, attentions = self.transformer(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmc/layers.py:711: in forward
+    x, attn_weights = block(x, sequence_id, output_attentions=output_attentions)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmc/layers.py:603: in forward
+    attn_out, attn_weights = self.attn(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmc/layers.py:469: in forward
+    context = esmc_scaled_dot_product_attention(
+esm/models/esmc/layers.py:378: in esmc_scaled_dot_product_attention
+    context = flash_attn_func(q4, k4, v4, dropout_p=0.0, softmax_scale=d_head**-0.5)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:1201: in flash_attn_func
+    return FlashAttnFunc.apply(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/autograd/function.py:596: in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:839: in forward
+    out_padded, softmax_lse, S_dmask, rng_state = _wrapped_flash_attn_forward(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_ops.py:1269: in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/autograd.py:112: in autograd_impl
+    result = forward_no_grad(*args, Metadata(keyset, keyword_only_args))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/autograd.py:41: in forward_no_grad
+    result = op.redispatch(keyset &amp; _C._after_autograd_keyset, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_ops.py:872: in redispatch
+    return self._handle.redispatch_boxed(keyset, *args, **kwargs)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/custom_ops.py:347: in backend_impl
+    result = self._backend_fns[device_type](*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_compile.py:54: in inner
+    return disable_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_dynamo/eval_frame.py:1263: in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/custom_ops.py:382: in wrapped_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+q = tensor([[[[-1.0312e+00,  1.3855e-02,  6.8750e-01,  ...,  9.6484e-01,
+            1.4297e+00,  4.8828e-03],
+          [...03e-01,  2.5938e+00,  ...,  2.3535e-01,
+           -4.5508e-01,  6.6016e-01]]]], device='cuda:0', dtype=torch.bfloat16)
+k = tensor([[[[-1.0312, -0.9414, -0.2207,  ..., -0.6055, -0.6484, -0.7422],
+          [-0.1367, -1.5625, -1.4922,  ...,  0...         [-0.9141,  0.8906, -0.2793,  ...,  0.0513, -0.9609,  0.2285]]]],
+       device='cuda:0', dtype=torch.bfloat16)
+v = tensor([[[[ 0.0864, -0.0027,  0.0036,  ...,  0.1357, -0.1611, -0.1147],
+          [-0.0150, -0.0393,  0.1011,  ...,  0...         [-0.1270, -0.0796, -0.2139,  ...,  0.1611, -0.0752, -0.0106]]]],
+       device='cuda:0', dtype=torch.bfloat16)
+dropout_p = 0.0, softmax_scale = 0.3535533905932738, causal = False
+window_size_left = -1, window_size_right = -1, softcap = 0.0
+alibi_slopes = None, return_softmax = False
+
+    @_torch_custom_op_wrapper("flash_attn::_flash_attn_forward", mutates_args=(), device_types="cuda")
+    def _flash_attn_forward(
+        q: torch.Tensor,
+        k: torch.Tensor,
+        v: torch.Tensor,
+        dropout_p: float,
+        softmax_scale: float,
+        causal: bool,
+        window_size_left: int,
+        window_size_right: int,
+        softcap: float,
+        alibi_slopes: Optional[torch.Tensor],
+        return_softmax: bool
+    ) -&gt; Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+        q, k, v = [maybe_contiguous(x) for x in (q, k, v)]
+&gt;       out, softmax_lse, S_dmask, rng_state = flash_attn_gpu.fwd(
+            q,
+            k,
+            v,
+            None,
+            alibi_slopes,
+            dropout_p,
+            softmax_scale,
+            causal,
+            window_size_left,
+            window_size_right,
+            softcap,
+            return_softmax,
+            None,
+        )
+E       torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device
+E       Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+E       CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+E       For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+E       Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:96: AcceleratorError</failure></testcase><testcase classname="tests.models.esmfold2_fp8_test" name="test_triton_quantization_matches_the_torch_reference[plain]" time="0.147" /><testcase classname="tests.models.esmfold2_fp8_test" name="test_triton_quantization_matches_the_torch_reference[swiglu]" time="0.184" /><testcase classname="tests.models.esmfold2_fp8_test" name="test_triton_quantization_matches_the_torch_reference[norm]" time="0.191" /><testcase classname="tests.models.esmfold2_fused_transition_test" name="test_forward_only_transition_is_bitwise[shape0]" time="1.106" /><testcase classname="tests.models.esmfold2_fused_transition_test" name="test_forward_only_transition_is_bitwise[shape1]" time="1.056" /><testcase classname="tests.models.esmfold2_fused_transition_test" name="test_forward_only_transition_is_bitwise[shape2]" time="0.008" /><testcase classname="tests.models.esmfold2_fused_transition_test" name="test_frozen_weights_with_input_grad_keeps_the_buffer" time="0.226" /><testcase classname="tests.models.esmfold2_fused_transition_test" name="test_no_grad_with_input_grad_still_skips_the_buffer" time="0.006" /><testcase classname="tests.models.esmfold2_fused_transition_test" name="test_chunked_forward_is_bitwise_too" time="0.009" /><testcase classname="tests.models.esmfold2_msa_trimul_test" name="test_fused_msa_updates_fire_and_track_the_eager_path" time="1.193" /><testcase classname="tests.models.esmfold2_msa_trimul_test" name="test_fused_msa_updates_ignore_chunk_size" time="0.011" /><testcase classname="tests.models.esmfold2_msa_trimul_test" name="test_fp32_pair_is_cast_rather_than_refused" time="0.382" /><testcase classname="tests.models.esmfold2_msa_trimul_test" name="test_trunk_gate_is_unchanged_by_the_delegation" time="0.007" /><testcase classname="tests.models.esmfold2_msa_trimul_test" name="test_fast_does_not_touch_gradients" time="0.027" /><testcase classname="tests.models.esmfold2_msa_trimul_test" name="test_fast_arms_itself_under_inference_mode" time="0.009" /><testcase classname="tests.models.esmfold2_msa_trimul_test" name="test_fused_backend_leaves_the_msa_encoder_bit_exact" time="0.010" /><testcase classname="tests.models.esmfold2_msa_trimul_test" name="test_fast_keeps_the_trunk_identical_to_fused" time="0.010" /><testcase classname="tests.models.esmfold2_pair_bias_cache_test" name="test_fused_path_cache_is_bitwise" time="0.444" /><testcase classname="tests.models.esmfold2_test" name="test_kernel_backends_agree" time="0.038"><failure message="torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device&#10;Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.&#10;CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.&#10;For debugging consider passing CUDA_LAUNCH_BLOCKING=1&#10;Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.">kernel_esmfold2_config = &lt;esm.models.esmfold2.config.EsmFold2Config object at 0x78a574be6ba0&gt;
+
+    @pytest.mark.gpu
+    def test_kernel_backends_agree(kernel_esmfold2_config):
+        """Whatever accelerators a user has installed, the answer must match.
+    
+        Compared on the final coordinates and pLDDT rather than intermediate
+        residuals: the fused paths differ by ~O(10) fp32 / ~O(100) bf16 on the raw
+        residual stream and only converge after the final LayerNorm.
+    
+        ``None`` is not a case: it sets the same backend on both sides, so it
+        compared two runs of one configuration and measured CUDA's own
+        nondeterminism rather than any kernel.
+        """
+        from esm.models.esmfold2.layers import TRITON_KERNELS_AVAILABLE
+    
+        if not TRITON_KERNELS_AVAILABLE:
+            pytest.skip("triton kernels unavailable")  # ty:ignore[too-many-positional-arguments]
+    
+        torch.manual_seed(0)
+        model = EsmFold2Model(kernel_esmfold2_config).eval().cuda()
+        model.set_chunk_size(None)
+    
+        features, lm_hidden_states = esmfold2_inputs(model)
+        features = {k: v.cuda() for k, v in features.items()}
+        lm_hidden_states = lm_hidden_states.cuda()
+    
+        def run():
+            # The sampler draws fresh noise per call; reseed for a fair comparison.
+            torch.manual_seed(0)
+            with torch.no_grad():
+                return model(
+                    **features,
+                    lm_hidden_states=lm_hidden_states,
+                    num_loops=1,
+                    num_diffusion_samples=1,
+                    num_sampling_steps=2,
+                )
+    
+        model.set_kernel_backend(None)
+&gt;       reference = run()
+                    ^^^^^
+
+tests/models/esmfold2_test.py:1227: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/models/esmfold2_test.py:1218: in run
+    return model(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/utils/_contextlib.py:124: in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/model.py:974: in forward
+    x_inputs = self.inputs_embedder(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:2127: in forward
+    a, _q, _c, _attn_params, _intermediates = self.atom_attention_encoder(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:989: in forward
+    result = self.atom_transformer(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:835: in forward
+    q_l = block(q_l, c_l, attention_params, inference_cache=inference_cache)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:768: in forward
+    attn_out = self.attn(attn_input, attention_params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1779: in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/nn/modules/module.py:1790: in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+esm/models/esmfold2/layers.py:637: in forward
+    out_unpad = flash_attn_varlen_func(
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:1448: in flash_attn_varlen_func
+    return FlashAttnVarlenFunc.apply(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/autograd/function.py:596: in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:930: in forward
+    out_padded, softmax_lse, S_dmask, rng_state = _wrapped_flash_attn_varlen_forward(
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_ops.py:1269: in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/custom_ops.py:347: in backend_impl
+    result = self._backend_fns[device_type](*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_compile.py:54: in inner
+    return disable_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_dynamo/eval_frame.py:1263: in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+.pixi/envs/dev/lib/python3.12/site-packages/torch/_library/custom_ops.py:382: in wrapped_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+q = tensor([[[-1.8906e+00, -8.4766e-01,  1.1016e+00,  ...,  7.5781e-01,
+           1.4355e-01,  1.8516e+00],
+         [-2....9688e-01, -1.0234e+00,  ...,  2.7148e-01,
+           8.7500e-01,  2.3730e-01]]], device='cuda:0', dtype=torch.bfloat16)
+k = tensor([[[-1.9062,  0.6953,  0.2852,  ..., -1.0625, -0.2256, -0.1196],
+         [-0.3281,  0.8711, -0.0045,  ...,  0.9...
+         [ 0.0332,  0.9102, -0.5547,  ..., -1.2734,  0.2793,  1.6641]]],
+       device='cuda:0', dtype=torch.bfloat16)
+v = tensor([[[ 0.3340,  0.2773, -0.2412,  ..., -0.3906, -0.5938,  0.6094],
+         [-0.3750, -0.9102, -0.6719,  ..., -0.5...
+         [ 0.1040, -0.6133, -0.3652,  ..., -0.3750, -0.8633,  0.5234]]],
+       device='cuda:0', dtype=torch.bfloat16)
+cu_seqlens_q = tensor([ 0, 94], device='cuda:0', dtype=torch.int32)
+cu_seqlens_k = tensor([ 0, 94], device='cuda:0', dtype=torch.int32)
+max_seqlen_q = 94, max_seqlen_k = 94, dropout_p = 0.0
+softmax_scale = 0.1767766952966369, causal = False, window_size_left = 64
+window_size_right = 64, softcap = 0.0, alibi_slopes = None
+return_softmax = False, block_table = None, leftpad_k = None, seqused_k = None
+zero_tensors = False
+
+    @_torch_custom_op_wrapper("flash_attn::_flash_attn_varlen_forward", mutates_args=(), device_types="cuda")
+    def _flash_attn_varlen_forward(
+        q: torch.Tensor,
+        k: torch.Tensor,
+        v: torch.Tensor,
+        cu_seqlens_q: torch.Tensor,
+        cu_seqlens_k: torch.Tensor,
+        max_seqlen_q: int,
+        max_seqlen_k: int,
+        dropout_p: float,
+        softmax_scale: float,
+        causal: bool,
+        window_size_left: int = -1,
+        window_size_right: int = -1,
+        softcap: float = 0.0,
+        alibi_slopes: Optional[torch.Tensor] = None,
+        return_softmax: bool = False,
+        block_table: Optional[torch.Tensor] = None,
+        leftpad_k: Optional[torch.Tensor] = None,
+        seqused_k: Optional[torch.Tensor] = None,
+        zero_tensors: bool = False,
+    ) -&gt; Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+        q, k, v = [maybe_contiguous(x) for x in (q, k, v)]
+&gt;       out, softmax_lse, S_dmask, rng_state = flash_attn_gpu.varlen_fwd(
+            q,
+            k,
+            v,
+            None,
+            cu_seqlens_q,
+            cu_seqlens_k,
+            seqused_k,
+            leftpad_k,
+            block_table,
+            alibi_slopes,
+            max_seqlen_q,
+            max_seqlen_k,
+            dropout_p,
+            softmax_scale,
+            zero_tensors,
+            causal,
+            window_size_left,
+            window_size_right,
+            softcap,
+            return_softmax,
+            None,
+        )
+E       torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device
+E       Search for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+E       CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+E       For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+E       Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+.pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:170: AcceleratorError</failure></testcase></testsuite></testsuites>

@@ -1,0 +1,30 @@
+{
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "executable": "/home/ubuntu/esm-ci/perf-venv/bin/python",
+  "torch": "2.15.0+cu132",
+  "cuda_runtime": "13.2",
+  "cudnn": 92600,
+  "gpu": "NVIDIA B200",
+  "capability": [
+    10,
+    0
+  ],
+  "visible_devices": "0",
+  "omp_num_threads": "4",
+  "esm3_source": "/home/ubuntu/esm-ci/repo/esm/models/esm3.py",
+  "esm3_source_sha256": "913e6fad41315e24b5575982c3c54d1ebed8dc6fe10fb8442bc0a6ac3c5ab5ab",
+  "bf16_matmul": "passed",
+  "packages": {
+    "numpy": "2.5.4",
+    "transformers": "5.22.2",
+    "tokenizers": "0.23.3",
+    "triton": "3.9.0",
+    "ty": null,
+    "DockQ": null,
+    "rdkit": "2026.9.2",
+    "pytest": "9.2.0",
+    "pytest-xdist": "3.8.0",
+    "flash-attn": null
+  },
+  "nvidia_smi": "0, NVIDIA B200, 595.112.07, 183359 MiB\n1, NVIDIA B200, 595.112.07, 183359 MiB\n2, NVIDIA B200, 595.112.07, 183359 MiB\n3, NVIDIA B200, 595.112.07, 183359 MiB\n4, NVIDIA B200, 595.112.07, 183359 MiB\n5, NVIDIA B200, 595.112.07, 183359 MiB\n6, NVIDIA B200, 595.112.07, 183359 MiB\n7, NVIDIA B200, 595.112.07, 183359 MiB"
+}

@@ -1,0 +1,885 @@
+{
+  "profiles": [
+    {
+      "range": "BASELINE_GRAPH_REPLAYS_5",
+      "replays": 5,
+      "kernel_count": 11930,
+      "kernels_per_replay": 2386.0,
+      "kernel_duration_ms_per_replay": 5.7983132,
+      "graph_node_records": 11930,
+      "kernels": [
+        {
+          "name": "cudnn_generated_fort_native_sdpa_sm80_flash_fprop_wmma_f16_knob_1_128x64x64_4x1x1_cga1x1x1_kernel0_0",
+          "count": 240,
+          "sum_ns": 1025279
+        },
+        {
+          "name": "cutlass3x_sm100_simt_sgemm_f32_f32_f32_f32_f32_32x32x16_1x1x1_3_nnn_align1_bias_f32_relu",
+          "count": 5,
+          "sum_ns": 19968
+        },
+        {
+          "name": "cutlass3x_sm100_simt_sgemm_f32_f32_f32_f32_f32_32x32x16_1x1x1_3_tnn_align1_bias_f32_relu",
+          "count": 10,
+          "sum_ns": 72544
+        },
+        {
+          "name": "nvjet_sm100_tst_128x40_64x10_2x2_h_bz_TNT",
+          "count": 240,
+          "sum_ns": 1699776
+        },
+        {
+          "name": "nvjet_sm100_tst_16x64_64x16_4x1_v_bz_bias_TNN",
+          "count": 5,
+          "sum_ns": 10496
+        },
+        {
+          "name": "nvjet_sm100_tst_24x64_64x16_4x1_v_bz_TNN",
+          "count": 240,
+          "sum_ns": 1148256
+        },
+        {
+          "name": "nvjet_sm100_tst_24x64_64x16_4x1_v_bz_bias_TNN",
+          "count": 30,
+          "sum_ns": 135168
+        },
+        {
+          "name": "nvjet_sm100_tst_64x16_64x16_2x1_2cta_v_bz_TNT",
+          "count": 245,
+          "sum_ns": 1698142
+        },
+        {
+          "name": "nvjet_sm100_tst_64x16_64x16_2x1_2cta_v_bz_bias_TNT",
+          "count": 5,
+          "sum_ns": 11040
+        },
+        {
+          "name": "nvjet_sm100_tst_64x24_64x16_1x4_h_bz_bias_TNT",
+          "count": 5,
+          "sum_ns": 23392
+        },
+        {
+          "name": "nvjet_sm100_tst_64x40_64x16_1x2_h_bz_TNT",
+          "count": 240,
+          "sum_ns": 1229021
+        },
+        {
+          "name": "nvjet_sm100_tst_64x48_64x16_2x2_2cta_h_bz_TNT",
+          "count": 5,
+          "sum_ns": 25952
+        },
+        {
+          "name": "nvjet_sm100_tst_64x48_64x16_2x2_2cta_h_bz_bias_TNT",
+          "count": 5,
+          "sum_ns": 26912
+        },
+        {
+          "name": "nvjet_sm100_tst_8x64_64x16_4x2_h_bz_bias_TNN",
+          "count": 5,
+          "sum_ns": 17664
+        },
+        {
+          "name": "void <unnamed>::elementwise_kernel_with_index<int, at::native::arange_cuda_out(const c10::Scalar &, const c10::Scalar &, const c10::Scalar &, at::Tensor &)::[lambda() (instance 1)]::operator ()() const::[lambda() (instance 4)]::operator ()() const::[lambda(long) (instance 1)]>(T1, T2, function_traits<T2>::result_type *)",
+          "count": 5,
+          "sum_ns": 2656
+        },
+        {
+          "name": "void <unnamed>::elementwise_kernel_with_index<int, at::native::linspace_cuda_out(const c10::Scalar &, const c10::Scalar &, long, at::Tensor &)::[lambda() (instance 2)]::operator ()() const::[lambda() (instance 2)]::operator ()() const::[lambda(long) (instance 1)]>(T1, T2, function_traits<T2>::result_type *)",
+          "count": 10,
+          "sum_ns": 5664
+        },
+        {
+          "name": "void <unnamed>::softmax_warp_forward<float, float, float, (int)7, (bool)0, (bool)0, (int)32>(T2 *, const T1 *, int, int, int, const bool *, int, bool)",
+          "count": 5,
+          "sum_ns": 22560
+        },
+        {
+          "name": "void at::native::<unnamed>::CatArrayBatchedCopy<at::native::<unnamed>::OpaqueType<(unsigned int)2>, unsigned int, (int)4, (int)64, (int)64>(T1 *, at::native::<unnamed>::CatArrInputTensorMetadata<T1, T2, T4, T5>, at::native::<unnamed>::TensorSizeStride<T2, (unsigned int)4>, int, T2)",
+          "count": 480,
+          "sum_ns": 1177852
+        },
+        {
+          "name": "void at::native::<unnamed>::CatArrayBatchedCopy<at::native::<unnamed>::OpaqueType<(unsigned int)4>, unsigned int, (int)3, (int)64, (int)64>(T1 *, at::native::<unnamed>::CatArrInputTensorMetadata<T1, T2, T4, T5>, at::native::<unnamed>::TensorSizeStride<T2, (unsigned int)4>, int, T2)",
+          "count": 10,
+          "sum_ns": 17440
+        },
+        {
+          "name": "void at::native::<unnamed>::CatArrayBatchedCopy_alignedK_contig<at::native::<unnamed>::OpaqueType<(unsigned int)4>, unsigned int, (int)3, (int)128, (int)1, (int)16>(T1 *, at::native::<unnamed>::CatArrInputTensorMetadata<T1, T2, T4, T5>, at::native::<unnamed>::TensorSizeStride<T2, (unsigned int)4>, int, T2)",
+          "count": 5,
+          "sum_ns": 7392
+        },
+        {
+          "name": "void at::native::<unnamed>::CatArrayBatchedCopy_alignedK_contig<at::native::<unnamed>::OpaqueType<(unsigned int)4>, unsigned int, (int)4, (int)128, (int)1, (int)16>(T1 *, at::native::<unnamed>::CatArrInputTensorMetadata<T1, T2, T4, T5>, at::native::<unnamed>::TensorSizeStride<T2, (unsigned int)4>, int, T2)",
+          "count": 5,
+          "sum_ns": 8032
+        },
+        {
+          "name": "void at::native::<unnamed>::CatArrayBatchedCopy_vectorized<at::native::<unnamed>::OpaqueType<(unsigned int)2>, unsigned int, (int)3, (int)128, (int)1, (int)16, (int)8>(char *, at::native::<unnamed>::CatArrInputTensorMetadata<T1, T2, T4, T5>, at::native::<unnamed>::TensorSizeStride<T2, (unsigned int)4>, int, T2)",
+          "count": 5,
+          "sum_ns": 7488
+        },
+        {
+          "name": "void at::native::<unnamed>::CatArrayBatchedCopy_vectorized<at::native::<unnamed>::OpaqueType<(unsigned int)2>, unsigned int, (int)4, (int)128, (int)1, (int)16, (int)8>(char *, at::native::<unnamed>::CatArrInputTensorMetadata<T1, T2, T4, T5>, at::native::<unnamed>::TensorSizeStride<T2, (unsigned int)4>, int, T2)",
+          "count": 480,
+          "sum_ns": 711998
+        },
+        {
+          "name": "void at::native::<unnamed>::EmbeddingBag_updateOutputKernel_sum_mean<c10::BFloat16, long>(const T2 *, const T2 *, const T1 *, T1 *, T2 *, long, long, long, long, long, int, T2 *, const T1 *, long, T2, long)",
+          "count": 5,
+          "sum_ns": 25152
+        },
+        {
+          "name": "void at::native::<unnamed>::vectorized_layer_norm_kernel<float, float, (bool)0>(int, T2, const T1 *, const T1 *, const T1 *, T2 *, T2 *, T1 *)",
+          "count": 1000,
+          "sum_ns": 4157880
+        },
+        {
+          "name": "void at::native::_scatter_gather_elementwise_kernel<(int)128, (int)8, void at::native::_cuda_scatter_gather_internal_kernel<(bool)0, at::native::OpaqueType<(int)2>, long>::operator ()<at::native::TensorAssign>(at::TensorIterator &, long, long, long, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 40,
+          "sum_ns": 131328
+        },
+        {
+          "name": "void at::native::cross_kernel<float, OffsetCalculator<(int)3, unsigned int, (bool)0>, int>(int, T1 *, const T1 *, const T1 *, T2, T3, T3, T3)",
+          "count": 10,
+          "sum_ns": 10208
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<at::native::<unnamed>::masked_fill_kernel(at::TensorIterator &, const c10::Scalar &)::[lambda() (instance 1)]::operator ()() const::[lambda() (instance 7)]::operator ()() const::[lambda(float, bool) (instance 1)]>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 20,
+          "sum_ns": 37504
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<at::native::<unnamed>::where_kernel_impl(at::TensorIterator &)::[lambda() (instance 1)]::operator ()() const::[lambda() (instance 3)]::operator ()() const::[lambda(bool, unsigned int, unsigned int) (instance 1)]>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 10,
+          "sum_ns": 16384
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::DivFunctor<float>>>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 25,
+          "sum_ns": 34976
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float>>>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 15,
+          "sum_ns": 35936
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<at::native::CUDAFunctor_add<float>>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 35,
+          "sum_ns": 131615
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<at::native::FillFunctor<float>>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 5,
+          "sum_ns": 4640
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 3)]::operator ()() const::[lambda() (instance 7)]::operator ()() const::[lambda(float) (instance 1)]>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 5,
+          "sum_ns": 6304
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<void at::native::converting_copy_kernel_cuda<c10::BFloat16, float>(at::TensorIteratorBase &)::[lambda(c10::BFloat16) (instance 1)]>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 490,
+          "sum_ns": 944955
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float>>>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 5,
+          "sum_ns": 38240
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::<unnamed>::silu_kernel(at::TensorIteratorBase &)::[lambda() (instance 1)]::operator ()() const::[lambda() (instance 6)]::operator ()() const::[lambda(c10::BFloat16) (instance 1)]>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 240,
+          "sum_ns": 773440
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor<float>>>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 1200,
+          "sum_ns": 3495799
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<long, long, bool, at::native::<unnamed>::CompareEqFunctor<long>>>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 10,
+          "sum_ns": 32736
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::CUDAFunctor_add<c10::BFloat16>>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 5,
+          "sum_ns": 14656
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 3)]::operator ()() const::[lambda() (instance 12)]::operator ()() const::[lambda(c10::BFloat16) (instance 1)]>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 960,
+          "sum_ns": 2402432
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::neg_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 2)]::operator ()() const::[lambda() (instance 9)]::operator ()() const::[lambda(c10::BFloat16) (instance 1)]>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 480,
+          "sum_ns": 990844
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<void at::native::converting_copy_kernel_cuda<float, c10::BFloat16>(at::TensorIteratorBase &)::[lambda(float) (instance 1)]>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 15,
+          "sum_ns": 40960
+        },
+        {
+          "name": "void at::native::reduce_kernel<(int)512, (int)1, at::native::ReduceOp<bool, at::native::func_wrapper_t<bool, at::native::and_kernel_cuda(at::TensorIterator &)::[lambda() (instance 1)]::operator ()() const::[lambda() (instance 12)]::operator ()() const::[lambda(bool, bool) (instance 1)]>, unsigned int, bool, (int)4, (int)4>>(T3)",
+          "count": 10,
+          "sum_ns": 15872
+        },
+        {
+          "name": "void at::native::reduce_kernel<(int)512, (int)1, at::native::ReduceOp<bool, at::native::func_wrapper_t<bool, at::native::or_kernel_cuda(at::TensorIterator &)::[lambda() (instance 1)]::operator ()() const::[lambda() (instance 12)]::operator ()() const::[lambda(bool, bool) (instance 1)]>, unsigned int, bool, (int)4, (int)4>>(T3)",
+          "count": 5,
+          "sum_ns": 11104
+        },
+        {
+          "name": "void at::native::reduce_kernel<(int)512, (int)1, at::native::ReduceOp<float, at::native::NormTwoOps<float, float, float, (bool)1>, unsigned int, float, (int)4, (int)4>>(T3)",
+          "count": 5,
+          "sum_ns": 110656
+        },
+        {
+          "name": "void at::native::reduce_kernel<(int)512, (int)1, at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator ()(at::TensorIterator &)::[lambda(float, float) (instance 1)]>, unsigned int, float, (int)4, (int)4>>(T3)",
+          "count": 35,
+          "sum_ns": 73856
+        },
+        {
+          "name": "void at::native::reduce_kernel<(int)512, (int)1, at::native::ReduceOp<long, at::native::func_wrapper_t<long, at::native::sum_functor<long, long, long>::operator ()(at::TensorIterator &)::[lambda(long, long) (instance 1)]>, unsigned int, long, (int)4, (int)4>>(T3)",
+          "count": 5,
+          "sum_ns": 9632
+        },
+        {
+          "name": "void at::native::unrolled_elementwise_kernel<at::native::CUDAFunctorOnSelf_add<float>, std::array<char *, (unsigned long)2>, (int)4, TrivialOffsetCalculator<(int)1, unsigned int>, TrivialOffsetCalculator<(int)1, unsigned int>, at::native::memory::LoadWithCast<(int)1>, at::native::memory::StoreWithCast<(int)1>>(int, T1, T2, T4, T5, T6, T7)",
+          "count": 5,
+          "sum_ns": 4672
+        },
+        {
+          "name": "void at::native::unrolled_elementwise_kernel<at::native::CUDAFunctor_add<float>, std::array<char *, (unsigned long)3>, (int)4, TrivialOffsetCalculator<(int)2, unsigned int>, TrivialOffsetCalculator<(int)1, unsigned int>, at::native::memory::LoadWithoutCast, at::native::memory::StoreWithoutCast>(int, T1, T2, T4, T5, T6, T7)",
+          "count": 10,
+          "sum_ns": 6656
+        },
+        {
+          "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 3)]::operator ()() const::[lambda() (instance 7)]::operator ()() const::[lambda(float) (instance 1)], std::array<char *, (unsigned long)2>, (int)4, TrivialOffsetCalculator<(int)1, unsigned int>, TrivialOffsetCalculator<(int)1, unsigned int>, at::native::memory::LoadWithCast<(int)1>, at::native::memory::StoreWithCast<(int)1>>(int, T1, T2, T4, T5, T6, T7)",
+          "count": 10,
+          "sum_ns": 21888
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)2, at::native::<unnamed>::masked_fill_kernel(at::TensorIterator &, const c10::Scalar &)::[lambda() (instance 1)]::operator ()() const::[lambda() (instance 4)]::operator ()() const::[lambda(long, bool) (instance 1)], std::array<char *, (unsigned long)3>, (bool)0>(int, T2, T3)",
+          "count": 25,
+          "sum_ns": 21888
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)2, at::native::FillFunctor<long>, std::array<char *, (unsigned long)1>, (bool)0>(int, T2, T3)",
+          "count": 35,
+          "sum_ns": 21408
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)2, void at::native::converting_copy_kernel_cuda<bool, long>(at::TensorIteratorBase &)::[lambda(bool) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 5,
+          "sum_ns": 4192
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::<unnamed>::masked_fill_kernel(at::TensorIterator &, const c10::Scalar &)::[lambda() (instance 1)]::operator ()() const::[lambda() (instance 7)]::operator ()() const::[lambda(float, bool) (instance 1)], std::array<char *, (unsigned long)3>, (bool)0>(int, T2, T3)",
+          "count": 5,
+          "sum_ns": 11456
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::<unnamed>::softplus_kernel(at::TensorIteratorBase &, const c10::Scalar &, const c10::Scalar &)::[lambda() (instance 1)]::operator ()() const::[lambda() (instance 2)]::operator ()() const::[lambda(float) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 10,
+          "sum_ns": 14432
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::AbsFunctor<float>, std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 5,
+          "sum_ns": 5408
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float>>, std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 15,
+          "sum_ns": 18752
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float>>, std::array<char *, (unsigned long)3>, (bool)0>(int, T2, T3)",
+          "count": 10,
+          "sum_ns": 11104
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::CUDAFunctorOnSelf_add<float>, std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 20,
+          "sum_ns": 20928
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::CUDAFunctor_add<float>, std::array<char *, (unsigned long)3>, (bool)0>(int, T2, T3)",
+          "count": 15,
+          "sum_ns": 23968
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::FillFunctor<float>, std::array<char *, (unsigned long)1>, (bool)0>(int, T2, T3)",
+          "count": 10,
+          "sum_ns": 7264
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::exp_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 2)]::operator ()() const::[lambda() (instance 2)]::operator ()() const::[lambda(float) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 10,
+          "sum_ns": 11232
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::neg_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 2)]::operator ()() const::[lambda() (instance 7)]::operator ()() const::[lambda(float) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 10,
+          "sum_ns": 8544
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::sqrt_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 2)]::operator ()() const::[lambda() (instance 2)]::operator ()() const::[lambda(float) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 20,
+          "sum_ns": 25472
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, void at::native::<unnamed>::pow_tensor_scalar_kernel_impl<float, float>(at::TensorIteratorBase &, T2)::[lambda(float) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 30,
+          "sum_ns": 30016
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, void at::native::converting_copy_kernel_cuda<c10::BFloat16, float>(at::TensorIteratorBase &)::[lambda(c10::BFloat16) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 2080,
+          "sum_ns": 2588439
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, at::native::AUnaryFunctor<float, float, bool, at::native::<unnamed>::CompareEqFunctor<float>>, std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 5,
+          "sum_ns": 5216
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, at::native::AUnaryFunctor<long, long, bool, at::native::<unnamed>::CompareEqFunctor<long>>, std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 25,
+          "sum_ns": 25696
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, at::native::BUnaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor<float>>, std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 490,
+          "sum_ns": 614976
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, at::native::BinaryFunctor<bool, bool, bool, at::native::BitwiseAndFunctor<bool>>, std::array<char *, (unsigned long)3>, (bool)0>(int, T2, T3)",
+          "count": 5,
+          "sum_ns": 5824
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, at::native::BinaryFunctor<bool, bool, bool, at::native::binary_internal::MulFunctor<bool>>, std::array<char *, (unsigned long)3>, (bool)0>(int, T2, T3)",
+          "count": 5,
+          "sum_ns": 5952
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, at::native::BinaryFunctor<float, float, bool, at::native::<unnamed>::CompareEqFunctor<float>>, std::array<char *, (unsigned long)3>, (bool)0>(int, T2, T3)",
+          "count": 5,
+          "sum_ns": 6464
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, at::native::CUDAFunctor_add<c10::BFloat16>, std::array<char *, (unsigned long)3>, (bool)0>(int, T2, T3)",
+          "count": 995,
+          "sum_ns": 1172896
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, at::native::GeluCUDAKernelImpl(at::TensorIteratorBase &, at::native::GeluType)::[lambda() (instance 2)]::operator ()() const::[lambda() (instance 4)]::operator ()() const::[lambda(c10::BFloat16) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 30,
+          "sum_ns": 44416
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, at::native::bitwise_not_kernel_cuda(at::TensorIteratorBase &)::[lambda(bool) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 20,
+          "sum_ns": 19104
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, void at::native::compare_scalar_kernel<float>(at::TensorIteratorBase &, at::native::<unnamed>::OpType, T1)::[lambda(float) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 5,
+          "sum_ns": 6176
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, void at::native::converting_copy_kernel_cuda<float, c10::BFloat16>(at::TensorIteratorBase &)::[lambda(float) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 1045,
+          "sum_ns": 1278750
+        },
+        {
+          "name": "void at::native::vectorized_gather_kernel<(int)16, long>(char *, char *, T2 *, int, long, long, long, long, bool)",
+          "count": 20,
+          "sum_ns": 34688
+        },
+        {
+          "name": "void cublasLt::splitKreduce_kernel<(int)32, (int)16, int, __nv_bfloat16, __nv_bfloat16, float, __nv_bfloat16, (bool)0, __nv_bfloat16, __nv_bfloat16, __nv_bfloat16, (bool)1, (bool)1, (bool)0, (bool)0>(cublasLt::cublasSplitKParams<T6>, const T4 *, const T10 *, T9 *, T5 *, const T6 *, const T6 *, const T11 *, const T4 *, T11 *, void *, long, T6 *, int *, T6 *, T6 *, const T6 *, const T6 *, const T6 *, const T6 *, const T6 *)",
+          "count": 5,
+          "sum_ns": 12064
+        },
+        {
+          "name": "void cutlass::Kernel2<cutlass_75_tensorop_bf16_s1688gemm_bf16_64x128_nn_align1>(T1::Params)",
+          "count": 5,
+          "sum_ns": 31584
+        },
+        {
+          "name": "void cutlass::Kernel2<cutlass_75_wmma_tensorop_bf16_s161616gemm_bf16_32x32_32x1_tn_align1>(T1::Params)",
+          "count": 10,
+          "sum_ns": 88960
+        },
+        {
+          "name": "void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_32x32_128x2_tn_align2>(T1::Params)",
+          "count": 5,
+          "sum_ns": 72128
+        },
+        {
+          "name": "void magma_sgemmEx_kernel<float, __nv_bfloat16, __nv_bfloat16, (bool)1, (bool)0, (int)6, (int)4, (int)6, (int)3, (int)4>(int, int, int, BatchedTensor, int, BatchedTensor, int, BatchedTensor, int, BatchedTensor, int, int, int, const T1 *, const T1 *, T1, T1, int, cublasLtEpilogue_t, int, const void *, long)",
+          "count": 5,
+          "sum_ns": 57152
+        }
+      ]
+    },
+    {
+      "range": "STRICT_SWIGLU_GRAPH_REPLAYS_5",
+      "replays": 5,
+      "kernel_count": 11690,
+      "kernels_per_replay": 2338.0,
+      "kernel_duration_ms_per_replay": 5.5906832,
+      "graph_node_records": 11690,
+      "kernels": [
+        {
+          "name": "cudnn_generated_fort_native_sdpa_sm80_flash_fprop_wmma_f16_knob_1_128x64x64_4x1x1_cga1x1x1_kernel0_0",
+          "count": 240,
+          "sum_ns": 1026270
+        },
+        {
+          "name": "cutlass3x_sm100_simt_sgemm_f32_f32_f32_f32_f32_32x32x16_1x1x1_3_nnn_align1_bias_f32_relu",
+          "count": 5,
+          "sum_ns": 20096
+        },
+        {
+          "name": "cutlass3x_sm100_simt_sgemm_f32_f32_f32_f32_f32_32x32x16_1x1x1_3_tnn_align1_bias_f32_relu",
+          "count": 10,
+          "sum_ns": 73536
+        },
+        {
+          "name": "nvjet_sm100_tst_128x40_64x10_2x2_h_bz_TNT",
+          "count": 240,
+          "sum_ns": 1703065
+        },
+        {
+          "name": "nvjet_sm100_tst_16x64_64x16_4x1_v_bz_bias_TNN",
+          "count": 5,
+          "sum_ns": 11008
+        },
+        {
+          "name": "nvjet_sm100_tst_24x64_64x16_4x1_v_bz_TNN",
+          "count": 240,
+          "sum_ns": 1154334
+        },
+        {
+          "name": "nvjet_sm100_tst_24x64_64x16_4x1_v_bz_bias_TNN",
+          "count": 30,
+          "sum_ns": 139264
+        },
+        {
+          "name": "nvjet_sm100_tst_64x16_64x16_2x1_2cta_v_bz_TNT",
+          "count": 245,
+          "sum_ns": 1727644
+        },
+        {
+          "name": "nvjet_sm100_tst_64x16_64x16_2x1_2cta_v_bz_bias_TNT",
+          "count": 5,
+          "sum_ns": 11072
+        },
+        {
+          "name": "nvjet_sm100_tst_64x24_64x16_1x4_h_bz_bias_TNT",
+          "count": 5,
+          "sum_ns": 23520
+        },
+        {
+          "name": "nvjet_sm100_tst_64x40_64x16_1x2_h_bz_TNT",
+          "count": 240,
+          "sum_ns": 1233279
+        },
+        {
+          "name": "nvjet_sm100_tst_64x48_64x16_2x2_2cta_h_bz_TNT",
+          "count": 5,
+          "sum_ns": 27200
+        },
+        {
+          "name": "nvjet_sm100_tst_64x48_64x16_2x2_2cta_h_bz_bias_TNT",
+          "count": 5,
+          "sum_ns": 26048
+        },
+        {
+          "name": "nvjet_sm100_tst_8x64_64x16_4x2_h_bz_bias_TNN",
+          "count": 5,
+          "sum_ns": 17792
+        },
+        {
+          "name": "triton_poi_fused_mul_silu_split_0",
+          "count": 240,
+          "sum_ns": 342111
+        },
+        {
+          "name": "void <unnamed>::elementwise_kernel_with_index<int, at::native::arange_cuda_out(const c10::Scalar &, const c10::Scalar &, const c10::Scalar &, at::Tensor &)::[lambda() (instance 1)]::operator ()() const::[lambda() (instance 4)]::operator ()() const::[lambda(long) (instance 1)]>(T1, T2, function_traits<T2>::result_type *)",
+          "count": 5,
+          "sum_ns": 3040
+        },
+        {
+          "name": "void <unnamed>::elementwise_kernel_with_index<int, at::native::linspace_cuda_out(const c10::Scalar &, const c10::Scalar &, long, at::Tensor &)::[lambda() (instance 2)]::operator ()() const::[lambda() (instance 2)]::operator ()() const::[lambda(long) (instance 1)]>(T1, T2, function_traits<T2>::result_type *)",
+          "count": 10,
+          "sum_ns": 6784
+        },
+        {
+          "name": "void <unnamed>::softmax_warp_forward<float, float, float, (int)7, (bool)0, (bool)0, (int)32>(T2 *, const T1 *, int, int, int, const bool *, int, bool)",
+          "count": 5,
+          "sum_ns": 22560
+        },
+        {
+          "name": "void at::native::<unnamed>::CatArrayBatchedCopy<at::native::<unnamed>::OpaqueType<(unsigned int)2>, unsigned int, (int)4, (int)64, (int)64>(T1 *, at::native::<unnamed>::CatArrInputTensorMetadata<T1, T2, T4, T5>, at::native::<unnamed>::TensorSizeStride<T2, (unsigned int)4>, int, T2)",
+          "count": 480,
+          "sum_ns": 1175071
+        },
+        {
+          "name": "void at::native::<unnamed>::CatArrayBatchedCopy<at::native::<unnamed>::OpaqueType<(unsigned int)4>, unsigned int, (int)3, (int)64, (int)64>(T1 *, at::native::<unnamed>::CatArrInputTensorMetadata<T1, T2, T4, T5>, at::native::<unnamed>::TensorSizeStride<T2, (unsigned int)4>, int, T2)",
+          "count": 10,
+          "sum_ns": 15711
+        },
+        {
+          "name": "void at::native::<unnamed>::CatArrayBatchedCopy_alignedK_contig<at::native::<unnamed>::OpaqueType<(unsigned int)4>, unsigned int, (int)3, (int)128, (int)1, (int)16>(T1 *, at::native::<unnamed>::CatArrInputTensorMetadata<T1, T2, T4, T5>, at::native::<unnamed>::TensorSizeStride<T2, (unsigned int)4>, int, T2)",
+          "count": 5,
+          "sum_ns": 6080
+        },
+        {
+          "name": "void at::native::<unnamed>::CatArrayBatchedCopy_alignedK_contig<at::native::<unnamed>::OpaqueType<(unsigned int)4>, unsigned int, (int)4, (int)128, (int)1, (int)16>(T1 *, at::native::<unnamed>::CatArrInputTensorMetadata<T1, T2, T4, T5>, at::native::<unnamed>::TensorSizeStride<T2, (unsigned int)4>, int, T2)",
+          "count": 5,
+          "sum_ns": 7680
+        },
+        {
+          "name": "void at::native::<unnamed>::CatArrayBatchedCopy_vectorized<at::native::<unnamed>::OpaqueType<(unsigned int)2>, unsigned int, (int)3, (int)128, (int)1, (int)16, (int)8>(char *, at::native::<unnamed>::CatArrInputTensorMetadata<T1, T2, T4, T5>, at::native::<unnamed>::TensorSizeStride<T2, (unsigned int)4>, int, T2)",
+          "count": 5,
+          "sum_ns": 7488
+        },
+        {
+          "name": "void at::native::<unnamed>::CatArrayBatchedCopy_vectorized<at::native::<unnamed>::OpaqueType<(unsigned int)2>, unsigned int, (int)4, (int)128, (int)1, (int)16, (int)8>(char *, at::native::<unnamed>::CatArrInputTensorMetadata<T1, T2, T4, T5>, at::native::<unnamed>::TensorSizeStride<T2, (unsigned int)4>, int, T2)",
+          "count": 480,
+          "sum_ns": 700543
+        },
+        {
+          "name": "void at::native::<unnamed>::EmbeddingBag_updateOutputKernel_sum_mean<c10::BFloat16, long>(const T2 *, const T2 *, const T1 *, T1 *, T2 *, long, long, long, long, long, int, T2 *, const T1 *, long, T2, long)",
+          "count": 5,
+          "sum_ns": 25152
+        },
+        {
+          "name": "void at::native::<unnamed>::vectorized_layer_norm_kernel<float, float, (bool)0>(int, T2, const T1 *, const T1 *, const T1 *, T2 *, T2 *, T1 *)",
+          "count": 1000,
+          "sum_ns": 4201529
+        },
+        {
+          "name": "void at::native::_scatter_gather_elementwise_kernel<(int)128, (int)8, void at::native::_cuda_scatter_gather_internal_kernel<(bool)0, at::native::OpaqueType<(int)2>, long>::operator ()<at::native::TensorAssign>(at::TensorIterator &, long, long, long, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 40,
+          "sum_ns": 132896
+        },
+        {
+          "name": "void at::native::cross_kernel<float, OffsetCalculator<(int)3, unsigned int, (bool)0>, int>(int, T1 *, const T1 *, const T1 *, T2, T3, T3, T3)",
+          "count": 10,
+          "sum_ns": 12160
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<at::native::<unnamed>::masked_fill_kernel(at::TensorIterator &, const c10::Scalar &)::[lambda() (instance 1)]::operator ()() const::[lambda() (instance 7)]::operator ()() const::[lambda(float, bool) (instance 1)]>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 20,
+          "sum_ns": 36864
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<at::native::<unnamed>::where_kernel_impl(at::TensorIterator &)::[lambda() (instance 1)]::operator ()() const::[lambda() (instance 3)]::operator ()() const::[lambda(bool, unsigned int, unsigned int) (instance 1)]>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 10,
+          "sum_ns": 18368
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::DivFunctor<float>>>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 25,
+          "sum_ns": 34847
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float>>>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 15,
+          "sum_ns": 33088
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<at::native::CUDAFunctor_add<float>>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 35,
+          "sum_ns": 134240
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<at::native::FillFunctor<float>>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 5,
+          "sum_ns": 5696
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 3)]::operator ()() const::[lambda() (instance 7)]::operator ()() const::[lambda(float) (instance 1)]>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 5,
+          "sum_ns": 6048
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)2, void at::native::gpu_kernel_impl_nocast<void at::native::converting_copy_kernel_cuda<c10::BFloat16, float>(at::TensorIteratorBase &)::[lambda(c10::BFloat16) (instance 1)]>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 490,
+          "sum_ns": 944602
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float>>>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 5,
+          "sum_ns": 39200
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor<float>>>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 960,
+          "sum_ns": 2793758
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<long, long, bool, at::native::<unnamed>::CompareEqFunctor<long>>>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 10,
+          "sum_ns": 30688
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::CUDAFunctor_add<c10::BFloat16>>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 5,
+          "sum_ns": 14976
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 3)]::operator ()() const::[lambda() (instance 12)]::operator ()() const::[lambda(c10::BFloat16) (instance 1)]>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 960,
+          "sum_ns": 2399352
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::neg_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 2)]::operator ()() const::[lambda() (instance 9)]::operator ()() const::[lambda(c10::BFloat16) (instance 1)]>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 480,
+          "sum_ns": 990044
+        },
+        {
+          "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<void at::native::converting_copy_kernel_cuda<float, c10::BFloat16>(at::TensorIteratorBase &)::[lambda(float) (instance 1)]>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+          "count": 15,
+          "sum_ns": 40512
+        },
+        {
+          "name": "void at::native::reduce_kernel<(int)512, (int)1, at::native::ReduceOp<bool, at::native::func_wrapper_t<bool, at::native::and_kernel_cuda(at::TensorIterator &)::[lambda() (instance 1)]::operator ()() const::[lambda() (instance 12)]::operator ()() const::[lambda(bool, bool) (instance 1)]>, unsigned int, bool, (int)4, (int)4>>(T3)",
+          "count": 10,
+          "sum_ns": 17440
+        },
+        {
+          "name": "void at::native::reduce_kernel<(int)512, (int)1, at::native::ReduceOp<bool, at::native::func_wrapper_t<bool, at::native::or_kernel_cuda(at::TensorIterator &)::[lambda() (instance 1)]::operator ()() const::[lambda() (instance 12)]::operator ()() const::[lambda(bool, bool) (instance 1)]>, unsigned int, bool, (int)4, (int)4>>(T3)",
+          "count": 5,
+          "sum_ns": 12128
+        },
+        {
+          "name": "void at::native::reduce_kernel<(int)512, (int)1, at::native::ReduceOp<float, at::native::NormTwoOps<float, float, float, (bool)1>, unsigned int, float, (int)4, (int)4>>(T3)",
+          "count": 5,
+          "sum_ns": 110656
+        },
+        {
+          "name": "void at::native::reduce_kernel<(int)512, (int)1, at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator ()(at::TensorIterator &)::[lambda(float, float) (instance 1)]>, unsigned int, float, (int)4, (int)4>>(T3)",
+          "count": 35,
+          "sum_ns": 67456
+        },
+        {
+          "name": "void at::native::reduce_kernel<(int)512, (int)1, at::native::ReduceOp<long, at::native::func_wrapper_t<long, at::native::sum_functor<long, long, long>::operator ()(at::TensorIterator &)::[lambda(long, long) (instance 1)]>, unsigned int, long, (int)4, (int)4>>(T3)",
+          "count": 5,
+          "sum_ns": 9632
+        },
+        {
+          "name": "void at::native::unrolled_elementwise_kernel<at::native::CUDAFunctorOnSelf_add<float>, std::array<char *, (unsigned long)2>, (int)4, TrivialOffsetCalculator<(int)1, unsigned int>, TrivialOffsetCalculator<(int)1, unsigned int>, at::native::memory::LoadWithCast<(int)1>, at::native::memory::StoreWithCast<(int)1>>(int, T1, T2, T4, T5, T6, T7)",
+          "count": 5,
+          "sum_ns": 6240
+        },
+        {
+          "name": "void at::native::unrolled_elementwise_kernel<at::native::CUDAFunctor_add<float>, std::array<char *, (unsigned long)3>, (int)4, TrivialOffsetCalculator<(int)2, unsigned int>, TrivialOffsetCalculator<(int)1, unsigned int>, at::native::memory::LoadWithoutCast, at::native::memory::StoreWithoutCast>(int, T1, T2, T4, T5, T6, T7)",
+          "count": 10,
+          "sum_ns": 9055
+        },
+        {
+          "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 3)]::operator ()() const::[lambda() (instance 7)]::operator ()() const::[lambda(float) (instance 1)], std::array<char *, (unsigned long)2>, (int)4, TrivialOffsetCalculator<(int)1, unsigned int>, TrivialOffsetCalculator<(int)1, unsigned int>, at::native::memory::LoadWithCast<(int)1>, at::native::memory::StoreWithCast<(int)1>>(int, T1, T2, T4, T5, T6, T7)",
+          "count": 10,
+          "sum_ns": 23072
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)2, at::native::<unnamed>::masked_fill_kernel(at::TensorIterator &, const c10::Scalar &)::[lambda() (instance 1)]::operator ()() const::[lambda() (instance 4)]::operator ()() const::[lambda(long, bool) (instance 1)], std::array<char *, (unsigned long)3>, (bool)0>(int, T2, T3)",
+          "count": 25,
+          "sum_ns": 29824
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)2, at::native::FillFunctor<long>, std::array<char *, (unsigned long)1>, (bool)0>(int, T2, T3)",
+          "count": 35,
+          "sum_ns": 24064
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)2, void at::native::converting_copy_kernel_cuda<bool, long>(at::TensorIteratorBase &)::[lambda(bool) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 5,
+          "sum_ns": 5216
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::<unnamed>::masked_fill_kernel(at::TensorIterator &, const c10::Scalar &)::[lambda() (instance 1)]::operator ()() const::[lambda() (instance 7)]::operator ()() const::[lambda(float, bool) (instance 1)], std::array<char *, (unsigned long)3>, (bool)0>(int, T2, T3)",
+          "count": 5,
+          "sum_ns": 13120
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::<unnamed>::softplus_kernel(at::TensorIteratorBase &, const c10::Scalar &, const c10::Scalar &)::[lambda() (instance 1)]::operator ()() const::[lambda() (instance 2)]::operator ()() const::[lambda(float) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 10,
+          "sum_ns": 13824
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::AbsFunctor<float>, std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 5,
+          "sum_ns": 6432
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float>>, std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 15,
+          "sum_ns": 19616
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float>>, std::array<char *, (unsigned long)3>, (bool)0>(int, T2, T3)",
+          "count": 10,
+          "sum_ns": 10848
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::CUDAFunctorOnSelf_add<float>, std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 20,
+          "sum_ns": 19968
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::CUDAFunctor_add<float>, std::array<char *, (unsigned long)3>, (bool)0>(int, T2, T3)",
+          "count": 15,
+          "sum_ns": 21888
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::FillFunctor<float>, std::array<char *, (unsigned long)1>, (bool)0>(int, T2, T3)",
+          "count": 10,
+          "sum_ns": 8128
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::exp_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 2)]::operator ()() const::[lambda() (instance 2)]::operator ()() const::[lambda(float) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 10,
+          "sum_ns": 11552
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::neg_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 2)]::operator ()() const::[lambda() (instance 7)]::operator ()() const::[lambda(float) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 10,
+          "sum_ns": 9152
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, at::native::sqrt_kernel_cuda(at::TensorIteratorBase &)::[lambda() (instance 2)]::operator ()() const::[lambda() (instance 2)]::operator ()() const::[lambda(float) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 20,
+          "sum_ns": 21728
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, void at::native::<unnamed>::pow_tensor_scalar_kernel_impl<float, float>(at::TensorIteratorBase &, T2)::[lambda(float) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 30,
+          "sum_ns": 28096
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)4, void at::native::converting_copy_kernel_cuda<c10::BFloat16, float>(at::TensorIteratorBase &)::[lambda(c10::BFloat16) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 2080,
+          "sum_ns": 2587195
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, at::native::AUnaryFunctor<float, float, bool, at::native::<unnamed>::CompareEqFunctor<float>>, std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 5,
+          "sum_ns": 7424
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, at::native::AUnaryFunctor<long, long, bool, at::native::<unnamed>::CompareEqFunctor<long>>, std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 25,
+          "sum_ns": 26752
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, at::native::BUnaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor<float>>, std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 490,
+          "sum_ns": 616128
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, at::native::BinaryFunctor<bool, bool, bool, at::native::BitwiseAndFunctor<bool>>, std::array<char *, (unsigned long)3>, (bool)0>(int, T2, T3)",
+          "count": 5,
+          "sum_ns": 7808
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, at::native::BinaryFunctor<bool, bool, bool, at::native::binary_internal::MulFunctor<bool>>, std::array<char *, (unsigned long)3>, (bool)0>(int, T2, T3)",
+          "count": 5,
+          "sum_ns": 7712
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, at::native::BinaryFunctor<float, float, bool, at::native::<unnamed>::CompareEqFunctor<float>>, std::array<char *, (unsigned long)3>, (bool)0>(int, T2, T3)",
+          "count": 5,
+          "sum_ns": 5600
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, at::native::CUDAFunctor_add<c10::BFloat16>, std::array<char *, (unsigned long)3>, (bool)0>(int, T2, T3)",
+          "count": 995,
+          "sum_ns": 1174016
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, at::native::GeluCUDAKernelImpl(at::TensorIteratorBase &, at::native::GeluType)::[lambda() (instance 2)]::operator ()() const::[lambda() (instance 4)]::operator ()() const::[lambda(c10::BFloat16) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 30,
+          "sum_ns": 44320
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, at::native::bitwise_not_kernel_cuda(at::TensorIteratorBase &)::[lambda(bool) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 20,
+          "sum_ns": 23072
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, void at::native::compare_scalar_kernel<float>(at::TensorIteratorBase &, at::native::<unnamed>::OpType, T1)::[lambda(float) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 5,
+          "sum_ns": 6176
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<(int)8, void at::native::converting_copy_kernel_cuda<float, c10::BFloat16>(at::TensorIteratorBase &)::[lambda(float) (instance 1)], std::array<char *, (unsigned long)2>, (bool)0>(int, T2, T3)",
+          "count": 1045,
+          "sum_ns": 1275966
+        },
+        {
+          "name": "void at::native::vectorized_gather_kernel<(int)16, long>(char *, char *, T2 *, int, long, long, long, long, bool)",
+          "count": 20,
+          "sum_ns": 32768
+        },
+        {
+          "name": "void cublasLt::splitKreduce_kernel<(int)32, (int)16, int, __nv_bfloat16, __nv_bfloat16, float, __nv_bfloat16, (bool)0, __nv_bfloat16, __nv_bfloat16, __nv_bfloat16, (bool)1, (bool)1, (bool)0, (bool)0>(cublasLt::cublasSplitKParams<T6>, const T4 *, const T10 *, T9 *, T5 *, const T6 *, const T6 *, const T11 *, const T4 *, T11 *, void *, long, T6 *, int *, T6 *, T6 *, const T6 *, const T6 *, const T6 *, const T6 *, const T6 *)",
+          "count": 5,
+          "sum_ns": 13056
+        },
+        {
+          "name": "void cutlass::Kernel2<cutlass_75_tensorop_bf16_s1688gemm_bf16_64x128_nn_align1>(T1::Params)",
+          "count": 5,
+          "sum_ns": 31424
+        },
+        {
+          "name": "void cutlass::Kernel2<cutlass_75_wmma_tensorop_bf16_s161616gemm_bf16_32x32_32x1_tn_align1>(T1::Params)",
+          "count": 10,
+          "sum_ns": 87968
+        },
+        {
+          "name": "void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_32x32_128x2_tn_align2>(T1::Params)",
+          "count": 5,
+          "sum_ns": 72384
+        },
+        {
+          "name": "void magma_sgemmEx_kernel<float, __nv_bfloat16, __nv_bfloat16, (bool)1, (bool)0, (int)6, (int)4, (int)6, (int)3, (int)4>(int, int, int, BatchedTensor, int, BatchedTensor, int, BatchedTensor, int, BatchedTensor, int, int, int, const T1 *, const T1 *, T1, T1, int, cublasLtEpilogue_t, int, const void *, long)",
+          "count": 5,
+          "sum_ns": 59296
+        }
+      ]
+    }
+  ],
+  "kernel_count_changes": [
+    {
+      "name": "triton_poi_fused_mul_silu_split_0",
+      "baseline_count": 0,
+      "candidate_count": 240,
+      "delta": 240
+    },
+    {
+      "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::<unnamed>::silu_kernel(at::TensorIteratorBase &)::[lambda() (instance 1)]::operator ()() const::[lambda() (instance 6)]::operator ()() const::[lambda(c10::BFloat16) (instance 1)]>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+      "baseline_count": 240,
+      "candidate_count": 0,
+      "delta": -240
+    },
+    {
+      "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor<float>>>(at::TensorIteratorBase &, const T1 &)::[lambda(int) (instance 1)]>(int, T3)",
+      "baseline_count": 1200,
+      "candidate_count": 960,
+      "delta": -240
+    }
+  ],
+  "note": "Nsight Systems2026.1.1 CUDA graph node capture; each NVTX range synchronized after five fresh-input replays; timings are profiler-instrumented kernel sums, not benchmark latencies."
+}

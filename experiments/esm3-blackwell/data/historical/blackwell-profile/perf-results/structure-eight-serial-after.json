@@ -1,0 +1,69 @@
+{
+  "esm": "3.4.3",
+  "torch": "2.15.0+cu132",
+  "cuda_runtime": "13.2",
+  "gpu": "NVIDIA B200",
+  "model_revision": "47f0545b2b6daf26a93439a3cd610f4f7f3d5478",
+  "workload": "structure",
+  "residues": 76,
+  "backend": "default",
+  "execution": "eager",
+  "schedule": "serial",
+  "batch": 8,
+  "warmup": 3,
+  "repeats": 10,
+  "profile_capture": false,
+  "wall_ms": {
+    "median": 2437.091538499999,
+    "p90": 2440.349900000001,
+    "min": 2434.3938649999473,
+    "max": 2445.6264250000004,
+    "samples": [
+      2440.349900000001,
+      2439.321777000032,
+      2437.408362000042,
+      2435.559276000049,
+      2445.6264250000004,
+      2436.774714999956,
+      2436.279189000061,
+      2436.4418920000617,
+      2434.3938649999473,
+      2437.849693999965
+    ]
+  },
+  "cuda_stream_ms": {
+    "median": 2437.079345703125,
+    "p90": 2440.338134765625,
+    "min": 2434.383544921875,
+    "max": 2445.614501953125,
+    "samples": [
+      2440.338134765625,
+      2439.30615234375,
+      2437.397705078125,
+      2435.548583984375,
+      2445.614501953125,
+      2436.760986328125,
+      2436.268310546875,
+      2436.431396484375,
+      2434.383544921875,
+      2437.83984375
+    ]
+  },
+  "requests_per_second": 3.2826013605233335,
+  "peak_allocated_gib": 5.080109119415283,
+  "peak_reserved_gib": 5.24609375,
+  "output_shape": [
+    8,
+    76,
+    3,
+    3
+  ],
+  "output_finite": true,
+  "comparison": {
+    "reference": "/home/ubuntu/esm3-cluster/perf-results/structure-eight-serial-before.json",
+    "exact": true,
+    "max_absolute_error": 0.0,
+    "mean_absolute_error": 0.0,
+    "interpretation": "Coordinates are stochastic; batching or backend changes can alter the draw."
+  }
+}

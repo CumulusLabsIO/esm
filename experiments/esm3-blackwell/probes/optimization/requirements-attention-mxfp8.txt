@@ -1,0 +1,7 @@
+# Exact optional package versions resolved on the B200 experiment host.
+# The base PyTorch environment is torch==2.15.0+cu132; do not replace it.
+flash-attn-4[cu13]==4.0.0b39
+torchao==0.18.0
+nvidia-cutlass-dsl[cu13]==4.8.1
+quack-kernels==0.6.5
+# Full transitive versions are retained in the experiment's pip freeze.

@@ -1,0 +1,48 @@
+{
+  "instance": "redacted-resource",
+  "region": "eu-west-3",
+  "gpus": 8,
+  "gpu": "NVIDIA B200",
+  "esm": "3.4.3",
+  "torch": "2.15.0+cu132",
+  "cuda_runtime": "13.2",
+  "cuda_toolkit_wheel_dependency": "13.2.2",
+  "driver": "595.112.07",
+  "nccl": "2.30.7",
+  "model_revision": "47f0545b2b6daf26a93439a3cd610f4f7f3d5478",
+  "inference": {
+    "passed": true,
+    "ranks": 8,
+    "peak_allocated_gib": 5.063069820404053
+  },
+  "training": {
+    "passed": true,
+    "ranks": 8,
+    "steps": 3,
+    "global_batch_size": 8,
+    "trainable_parameters": 1378105920,
+    "total_parameters": 1401735748,
+    "inactive_output_heads": [
+      "structure_head",
+      "ss8_head",
+      "sasa_head",
+      "function_head",
+      "residue_head"
+    ],
+    "global_mean_loss": [
+      0.02736555226147175,
+      0.022470152005553246,
+      0.015547005459666252
+    ],
+    "replicas_identical": true,
+    "peak_allocated_gib": 28.92669916152954,
+    "peak_reserved_gib": 30.486328125
+  },
+  "direct_forward_recheck": {
+    "without_autocast": "expected_failure",
+    "with_autocast": "pass",
+    "esm_source_patches": 0,
+    "pytorch_source_patches": 0,
+    "upstream_fix": "https://github.com/Biohub/esm/pull/417"
+  }
+}

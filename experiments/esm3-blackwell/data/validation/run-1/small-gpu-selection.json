@@ -1,0 +1,116 @@
+{
+  "scope": "GPU-marked tests without published-model fixture dependencies; full-weight GPU tests are excluded, not passed.",
+  "selected": [
+    "tests/models/esm3_cuda_graph_test.py::test_logits_cuda_graph_replays_changed_inputs[False-dtype0]",
+    "tests/models/esm3_cuda_graph_test.py::test_logits_cuda_graph_replays_changed_inputs[False-dtype1]",
+    "tests/models/esm3_cuda_graph_test.py::test_logits_cuda_graph_replays_changed_inputs[True-dtype0]",
+    "tests/models/esm3_cuda_graph_test.py::test_logits_cuda_graph_replays_changed_inputs[True-dtype1]",
+    "tests/models/esmc_test.py::test_rotary_is_differentiable_on_cuda",
+    "tests/models/esmc_test.py::test_varlen_triton_rotary_gradients_match_per_sequence_torch[esmc]",
+    "tests/models/esmc_test.py::test_varlen_triton_rotary_gradients_match_per_sequence_torch[legacy]",
+    "tests/models/esmc_test.py::test_gradients_reach_every_parameter_on_cuda[sdpa]",
+    "tests/models/esmc_test.py::test_gradients_reach_every_parameter_on_cuda[flash_attention_2]",
+    "tests/models/esmc_test.py::test_multi_chain_under_flash_attention_2_raises",
+    "tests/models/esmc_test.py::test_gpu_dtypes[short-dtype0]",
+    "tests/models/esmc_test.py::test_gpu_dtypes[short-dtype1]",
+    "tests/models/esmc_test.py::test_gpu_dtypes[short-dtype2]",
+    "tests/models/esmc_test.py::test_gpu_dtypes[medium-dtype0]",
+    "tests/models/esmc_test.py::test_gpu_dtypes[medium-dtype1]",
+    "tests/models/esmc_test.py::test_gpu_dtypes[medium-dtype2]",
+    "tests/models/esmc_test.py::test_gpu_dtypes[long-dtype0]",
+    "tests/models/esmc_test.py::test_gpu_dtypes[long-dtype1]",
+    "tests/models/esmc_test.py::test_gpu_dtypes[long-dtype2]",
+    "tests/models/esmc_test.py::test_flash_build_moved_to_cpu_matches_a_cpu_build",
+    "tests/models/esmfold2_atom_adaln_cache_test.py::test_block_forward_is_bitwise_with_and_without_the_cache",
+    "tests/models/esmfold2_atom_adaln_cache_test.py::test_expanded_conditioning_is_reused",
+    "tests/models/esmfold2_builds_test.py::test_cpu_and_gpu_agree",
+    "tests/models/esmfold2_builds_test.py::test_use_amp_is_on_for_cuda_inputs",
+    "tests/models/esmfold2_builds_test.py::test_every_gpu_build_reaches_the_cpu_reference[None-False-None]",
+    "tests/models/esmfold2_builds_test.py::test_every_gpu_build_reaches_the_cpu_reference[None-False-64]",
+    "tests/models/esmfold2_builds_test.py::test_every_gpu_build_reaches_the_cpu_reference[None-True-None]",
+    "tests/models/esmfold2_builds_test.py::test_every_gpu_build_reaches_the_cpu_reference[fused-False-None]",
+    "tests/models/esmfold2_builds_test.py::test_every_gpu_build_reaches_the_cpu_reference[fused-True-64]",
+    "tests/models/esmfold2_fp8_test.py::test_esmfold2_fp8_backbone_is_fully_fp8",
+    "tests/models/esmfold2_fp8_test.py::test_triton_quantization_matches_the_torch_reference[plain]",
+    "tests/models/esmfold2_fp8_test.py::test_triton_quantization_matches_the_torch_reference[swiglu]",
+    "tests/models/esmfold2_fp8_test.py::test_triton_quantization_matches_the_torch_reference[norm]",
+    "tests/models/esmfold2_fused_transition_test.py::test_forward_only_transition_is_bitwise[shape0]",
+    "tests/models/esmfold2_fused_transition_test.py::test_forward_only_transition_is_bitwise[shape1]",
+    "tests/models/esmfold2_fused_transition_test.py::test_forward_only_transition_is_bitwise[shape2]",
+    "tests/models/esmfold2_fused_transition_test.py::test_frozen_weights_with_input_grad_keeps_the_buffer",
+    "tests/models/esmfold2_fused_transition_test.py::test_no_grad_with_input_grad_still_skips_the_buffer",
+    "tests/models/esmfold2_fused_transition_test.py::test_chunked_forward_is_bitwise_too",
+    "tests/models/esmfold2_msa_trimul_test.py::test_fused_msa_updates_fire_and_track_the_eager_path",
+    "tests/models/esmfold2_msa_trimul_test.py::test_fused_msa_updates_ignore_chunk_size",
+    "tests/models/esmfold2_msa_trimul_test.py::test_fp32_pair_is_cast_rather_than_refused",
+    "tests/models/esmfold2_msa_trimul_test.py::test_trunk_gate_is_unchanged_by_the_delegation",
+    "tests/models/esmfold2_msa_trimul_test.py::test_fast_does_not_touch_gradients",
+    "tests/models/esmfold2_msa_trimul_test.py::test_fast_arms_itself_under_inference_mode",
+    "tests/models/esmfold2_msa_trimul_test.py::test_fused_backend_leaves_the_msa_encoder_bit_exact",
+    "tests/models/esmfold2_msa_trimul_test.py::test_fast_keeps_the_trunk_identical_to_fused",
+    "tests/models/esmfold2_pair_bias_cache_test.py::test_fused_path_cache_is_bitwise",
+    "tests/models/esmfold2_test.py::test_kernel_backends_agree"
+  ],
+  "excluded": [
+    {
+      "nodeid": "tests/models/esmc_test.py::test_fp8_backbone",
+      "weight_fixtures": [
+        "esmc_300m_dir"
+      ]
+    },
+    {
+      "nodeid": "tests/models/esmc_test.py::test_flash_attention_2_dispatches_and_agrees_with_sdpa",
+      "weight_fixtures": [
+        "esmc_300m_dir"
+      ]
+    },
+    {
+      "nodeid": "tests/models/esmc_test.py::test_cpu_inference_works_on_a_cuda_machine",
+      "weight_fixtures": [
+        "esmc_300m_dir"
+      ]
+    },
+    {
+      "nodeid": "tests/models/esmc_test.py::test_cpu_and_gpu_agree",
+      "weight_fixtures": [
+        "esmc_300m_dir"
+      ]
+    },
+    {
+      "nodeid": "tests/models/esmc_test.py::test_every_gpu_build_reaches_the_reference[dtype0-sdpa]",
+      "weight_fixtures": [
+        "esmc_300m_dir"
+      ]
+    },
+    {
+      "nodeid": "tests/models/esmc_test.py::test_every_gpu_build_reaches_the_reference[dtype1-eager]",
+      "weight_fixtures": [
+        "esmc_300m_dir"
+      ]
+    },
+    {
+      "nodeid": "tests/models/esmc_test.py::test_every_gpu_build_reaches_the_reference[dtype2-sdpa]",
+      "weight_fixtures": [
+        "esmc_300m_dir"
+      ]
+    },
+    {
+      "nodeid": "tests/models/esmc_test.py::test_every_gpu_build_reaches_the_reference[dtype3-flash_attention_2]",
+      "weight_fixtures": [
+        "esmc_300m_dir"
+      ]
+    },
+    {
+      "nodeid": "tests/models/esmc_test.py::test_every_gpu_build_reaches_the_reference[dtype4-sdpa]",
+      "weight_fixtures": [
+        "esmc_300m_dir"
+      ]
+    },
+    {
+      "nodeid": "tests/models/esmc_test.py::test_every_gpu_build_reaches_the_reference[dtype5-flash_attention_2]",
+      "weight_fixtures": [
+        "esmc_300m_dir"
+      ]
+    }
+  ]
+}

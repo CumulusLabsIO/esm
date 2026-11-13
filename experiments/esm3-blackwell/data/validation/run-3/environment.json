@@ -1,0 +1,12 @@
+{
+  "head": "d285ddeead83631bbe0bc6aa7c879eb5a8946ccb",
+  "torch": "2.11.0+cu130",
+  "cuda": "13.0",
+  "gpu": "NVIDIA B200",
+  "flash_attn": "2.8.3.post2",
+  "flash_attn_file": "/home/ubuntu/esm-ci/blackwell-venv/lib/python3.12/site-packages/flash_attn/__init__.py",
+  "extension": "/home/ubuntu/esm-ci/blackwell-venv/lib/python3.12/site-packages/flash_attn_2_cuda.cpython-312-x86_64-linux-gnu.so",
+  "extension_sha256": "9c52426af8b1d6fda21ea7da4c58bf7e9606f63cfd7136d87e53c0084f98bc65",
+  "model_sha256": "913e6fad41315e24b5575982c3c54d1ebed8dc6fe10fb8442bc0a6ac3c5ab5ab",
+  "scope": "All tests/models tests marked gpu and not manual; no fixture exclusion plugin; checkpoint cache required offline."
+}

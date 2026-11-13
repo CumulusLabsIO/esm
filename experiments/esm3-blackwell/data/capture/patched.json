@@ -1,0 +1,2633 @@
+{
+  "mode": "graph",
+  "gpu": "NVIDIA B200",
+  "compute_capability": [
+    10,
+    0
+  ],
+  "torch": "2.15.0+cu132",
+  "cuda_runtime": "13.2",
+  "esm": "3.4.3",
+  "source_path": "/home/ubuntu/esm3-graph/patched/esm/models/esm3.py",
+  "source_sha256": "bb636c27717e5f546d7c4aab9699d61bf134ce5a7da33964e2b73cd4dc22bc41",
+  "model_revision": "47f0545b2b6daf26a93439a3cd610f4f7f3d5478",
+  "input_shape": [
+    1,
+    78
+  ],
+  "input_bytes": 624,
+  "input_count": 4,
+  "output_heads": [
+    "sequence",
+    "structure",
+    "secondary_structure",
+    "sasa",
+    "function",
+    "residue_annotations",
+    "embeddings"
+  ],
+  "warmup": 20,
+  "repeats": 100,
+  "scope": [
+    "Public logits API with all six output heads and embeddings requested.",
+    "Inputs are preencoded, equally shaped masks of the 76-residue ubiquitin fixture.",
+    "Copy paths include input transfer, replay and completion synchronization.",
+    "Host tensors are pinned and filled before timing. Tokenization, host staging, graph capture and output D2H are excluded.",
+    "Every measured request is synchronized individually. These are latency measurements."
+  ],
+  "comparison_to_stock": [
+    {
+      "sequence": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "structure": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "secondary_structure": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "sasa": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "function": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "residue_annotations": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "embeddings": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      }
+    },
+    {
+      "sequence": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "structure": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "secondary_structure": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "sasa": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "function": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "residue_annotations": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "embeddings": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      }
+    },
+    {
+      "sequence": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "structure": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "secondary_structure": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "sasa": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "function": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "residue_annotations": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "embeddings": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      }
+    },
+    {
+      "sequence": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "structure": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "secondary_structure": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "sasa": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "function": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "residue_annotations": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      },
+      "embeddings": {
+        "exact": true,
+        "max_absolute_error": 0.0
+      }
+    }
+  ],
+  "graph_correctness": {
+    "device_copy": [
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      }
+    ],
+    "pinned_host_copy": [
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      },
+      {
+        "sequence": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "secondary_structure": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "sasa": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "function": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "residue_annotations": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        },
+        "embeddings": {
+          "exact": true,
+          "max_absolute_error": 0.0
+        }
+      }
+    ]
+  },
+  "timings": {
+    "eager_device_before": {
+      "wall_ms": {
+        "median": 32.8079315,
+        "p90": 32.906881,
+        "min": 32.644452,
+        "max": 34.950276,
+        "samples": [
+          32.818435,
+          32.745452,
+          32.8992,
+          32.714048,
+          32.851751,
+          32.731898,
+          32.834117,
+          32.829375,
+          32.834627,
+          32.703983,
+          34.903539,
+          33.846119,
+          32.819981,
+          32.810476,
+          32.942435,
+          32.857588,
+          32.776976,
+          32.808089,
+          32.767648,
+          32.727814,
+          32.857949,
+          32.770714,
+          32.79658,
+          32.836661,
+          32.75527,
+          32.881199,
+          32.76853,
+          32.802652,
+          32.72355,
+          32.807728,
+          32.72888,
+          34.399922,
+          32.881774,
+          32.766027,
+          32.857018,
+          32.886721,
+          32.885123,
+          32.778087,
+          32.869125,
+          32.783183,
+          32.789163,
+          32.835557,
+          32.828452,
+          32.759771,
+          32.813576,
+          32.770538,
+          32.792546,
+          32.81181,
+          32.781809,
+          32.837834,
+          32.762857,
+          34.600153,
+          33.102531,
+          32.830809,
+          32.746908,
+          32.906881,
+          32.757436,
+          32.737423,
+          32.783943,
+          32.657358,
+          32.728895,
+          32.7388,
+          32.857892,
+          32.765012,
+          32.793137,
+          32.718219,
+          32.879351,
+          32.79797,
+          32.826212,
+          32.822532,
+          32.828325,
+          32.696613,
+          34.950276,
+          32.911339,
+          32.860304,
+          32.902408,
+          32.750614,
+          32.689231,
+          32.801691,
+          32.80906,
+          32.788978,
+          32.866775,
+          32.832576,
+          32.739232,
+          32.722988,
+          32.715408,
+          32.763552,
+          32.726946,
+          32.845713,
+          32.807774,
+          32.896005,
+          32.781807,
+          34.803333,
+          32.998104,
+          32.792106,
+          32.816169,
+          32.644452,
+          32.885697,
+          32.741312,
+          32.901536
+        ]
+      },
+      "cuda_event_ms": {
+        "median": 32.77068901062012,
+        "p90": 32.89894485473633,
+        "min": 32.63129425048828,
+        "max": 34.933502197265625,
+        "samples": [
+          32.73641586303711,
+          32.85126495361328,
+          32.729793548583984,
+          32.813438415527344,
+          32.71052932739258,
+          32.75471878051758,
+          32.87459182739258,
+          32.82972717285156,
+          32.75049591064453,
+          32.672096252441406,
+          32.72905731201172,
+          32.899391174316406,
+          32.65715026855469,
+          34.933502197265625,
+          32.70771026611328,
+          32.74892807006836,
+          32.76380920410156,
+          32.86790466308594,
+          32.73411178588867,
+          32.80156707763672,
+          32.764129638671875,
+          32.76358413696289,
+          32.73516845703125,
+          32.76300811767578,
+          32.74604797363281,
+          32.688255310058594,
+          32.74076843261719,
+          32.89894485473633,
+          32.952064514160156,
+          32.77996826171875,
+          32.68912124633789,
+          32.676448822021484,
+          32.70102310180664,
+          33.39244842529297,
+          32.80985641479492,
+          32.909889221191406,
+          32.65305709838867,
+          32.82041549682617,
+          32.760929107666016,
+          32.71308898925781,
+          32.63798522949219,
+          32.82940673828125,
+          32.731807708740234,
+          32.7279052734375,
+          32.76902389526367,
+          32.684993743896484,
+          32.842559814453125,
+          32.63129425048828,
+          32.83955383300781,
+          32.70377731323242,
+          32.782657623291016,
+          32.647518157958984,
+          32.84262466430664,
+          34.76959991455078,
+          33.3612174987793,
+          32.773441314697266,
+          32.745662689208984,
+          32.811038970947266,
+          32.73139190673828,
+          32.8260498046875,
+          32.75766372680664,
+          32.79529571533203,
+          32.800960540771484,
+          32.866878509521484,
+          32.786590576171875,
+          32.810176849365234,
+          32.84950256347656,
+          32.810081481933594,
+          32.7691535949707,
+          32.746368408203125,
+          32.78086471557617,
+          32.67484664916992,
+          33.62947082519531,
+          32.96614456176758,
+          32.81196975708008,
+          32.68755340576172,
+          32.84806442260742,
+          32.77519989013672,
+          32.7507209777832,
+          32.82575988769531,
+          32.73904037475586,
+          32.82601547241211,
+          32.72943878173828,
+          32.84902572631836,
+          32.88240051269531,
+          32.78745651245117,
+          32.727073669433594,
+          32.73244857788086,
+          32.71392059326172,
+          32.822879791259766,
+          32.77222442626953,
+          32.78598403930664,
+          33.51980972290039,
+          32.86265563964844,
+          32.763423919677734,
+          32.85228729248047,
+          32.73884963989258,
+          32.83599853515625,
+          32.75360107421875,
+          32.742366790771484
+        ]
+      }
+    },
+    "eager_host_before": {
+      "wall_ms": {
+        "median": 32.811386,
+        "p90": 32.928281,
+        "min": 32.685323,
+        "max": 33.535987,
+        "samples": [
+          32.795238,
+          32.870565,
+          32.817032,
+          32.787555,
+          32.811704,
+          32.840953,
+          32.754003,
+          32.765357,
+          32.756084,
+          32.78362,
+          32.917729,
+          32.84513,
+          32.782966,
+          32.797226,
+          32.716655,
+          32.821667,
+          32.853829,
+          32.784612,
+          32.729244,
+          33.104769,
+          32.898247,
+          32.81443,
+          32.784822,
+          32.769843,
+          32.853073,
+          32.785146,
+          32.837964,
+          32.765748,
+          32.832386,
+          32.792113,
+          32.727163,
+          32.795988,
+          32.841669,
+          32.781341,
+          32.833918,
+          32.775424,
+          32.851051,
+          32.802149,
+          32.842733,
+          32.826948,
+          32.830487,
+          32.853202,
+          33.207649,
+          32.961485,
+          32.796972,
+          32.857076,
+          32.834397,
+          32.740484,
+          32.78355,
+          32.818499,
+          32.785584,
+          32.685323,
+          32.829352,
+          32.853257,
+          32.749673,
+          32.72252,
+          32.73963,
+          32.777105,
+          32.839357,
+          32.877393,
+          32.864797,
+          32.813985,
+          33.535987,
+          33.197086,
+          32.743728,
+          32.928281,
+          33.26347,
+          32.974558,
+          32.867743,
+          32.761186,
+          32.738782,
+          32.729833,
+          32.852251,
+          32.833717,
+          32.773548,
+          32.811068,
+          32.871776,
+          32.696145,
+          32.840563,
+          32.8073,
+          32.808996,
+          32.765892,
+          32.833028,
+          32.803068,
+          32.878325,
+          32.747885,
+          32.858324,
+          32.790133,
+          32.741484,
+          33.535843,
+          32.99525,
+          32.803641,
+          32.747841,
+          32.870761,
+          32.701474,
+          32.737857,
+          32.717219,
+          32.930558,
+          32.7223,
+          32.887628
+        ]
+      },
+      "cuda_event_ms": {
+        "median": 32.808319091796875,
+        "p90": 32.900543212890625,
+        "min": 32.65315246582031,
+        "max": 34.380638122558594,
+        "samples": [
+          32.829280853271484,
+          32.900543212890625,
+          32.82070541381836,
+          32.7408332824707,
+          32.84617614746094,
+          32.88083267211914,
+          32.81692886352539,
+          32.808990478515625,
+          32.748321533203125,
+          32.72409439086914,
+          32.75004959106445,
+          32.72848129272461,
+          32.882591247558594,
+          33.050785064697266,
+          32.74883270263672,
+          32.82051086425781,
+          32.785377502441406,
+          32.8449592590332,
+          32.800193786621094,
+          32.714656829833984,
+          32.76569747924805,
+          32.81449508666992,
+          32.83212661743164,
+          32.827232360839844,
+          32.821407318115234,
+          32.824607849121094,
+          32.77667236328125,
+          32.842079162597656,
+          32.845088958740234,
+          32.806495666503906,
+          32.8388786315918,
+          32.98771286010742,
+          32.82896041870117,
+          32.73945617675781,
+          32.840415954589844,
+          32.85468673706055,
+          34.380638122558594,
+          33.40323257446289,
+          32.71603012084961,
+          32.910400390625,
+          32.65315246582031,
+          32.70716857910156,
+          32.80486297607422,
+          32.738590240478516,
+          32.84668731689453,
+          32.89769744873047,
+          32.87363052368164,
+          32.751041412353516,
+          32.67808151245117,
+          32.750816345214844,
+          32.78598403930664,
+          32.678497314453125,
+          32.81865692138672,
+          32.857086181640625,
+          32.72275161743164,
+          32.80140686035156,
+          32.70854568481445,
+          32.78435134887695,
+          32.818111419677734,
+          33.04336166381836,
+          32.7558708190918,
+          32.77155303955078,
+          32.84291076660156,
+          32.76697540283203,
+          32.771297454833984,
+          32.77446365356445,
+          32.720703125,
+          32.73027038574219,
+          32.801856994628906,
+          32.807647705078125,
+          32.831329345703125,
+          32.743553161621094,
+          32.81510543823242,
+          32.796607971191406,
+          32.94246292114258,
+          32.79302215576172,
+          32.83760070800781,
+          32.716896057128906,
+          32.76457595825195,
+          32.8098258972168,
+          32.79439926147461,
+          32.895103454589844,
+          32.718048095703125,
+          34.02431869506836,
+          33.2119026184082,
+          32.837120056152344,
+          32.83555221557617,
+          32.81897735595703,
+          32.78464126586914,
+          32.76518249511719,
+          32.84291076660156,
+          32.81193542480469,
+          32.8092155456543,
+          32.82060623168945,
+          32.802398681640625,
+          32.69878387451172,
+          32.94166564941406,
+          32.753536224365234,
+          32.799713134765625,
+          32.748287200927734
+        ]
+      }
+    },
+    "graph_fixed_before": {
+      "wall_ms": {
+        "median": 6.261778,
+        "p90": 6.265304,
+        "min": 6.255303,
+        "max": 6.270216,
+        "samples": [
+          6.262448,
+          6.264491,
+          6.259377,
+          6.257802,
+          6.26045,
+          6.266078,
+          6.264333,
+          6.262603,
+          6.260544,
+          6.262265,
+          6.260412,
+          6.261856,
+          6.264615,
+          6.264108,
+          6.263344,
+          6.2591,
+          6.261579,
+          6.262023,
+          6.264349,
+          6.257997,
+          6.263091,
+          6.257963,
+          6.270142,
+          6.258009,
+          6.261247,
+          6.263822,
+          6.262489,
+          6.258332,
+          6.263867,
+          6.26202,
+          6.265916,
+          6.268309,
+          6.259031,
+          6.259142,
+          6.267363,
+          6.262013,
+          6.262473,
+          6.260854,
+          6.262251,
+          6.255303,
+          6.264293,
+          6.26816,
+          6.265249,
+          6.26163,
+          6.258038,
+          6.259005,
+          6.261918,
+          6.262569,
+          6.262722,
+          6.259554,
+          6.259771,
+          6.261872,
+          6.259761,
+          6.261451,
+          6.267132,
+          6.263818,
+          6.259999,
+          6.258755,
+          6.262267,
+          6.258973,
+          6.263917,
+          6.262003,
+          6.259871,
+          6.259542,
+          6.258059,
+          6.261981,
+          6.263124,
+          6.261246,
+          6.260086,
+          6.261359,
+          6.259343,
+          6.267649,
+          6.262885,
+          6.259841,
+          6.261323,
+          6.263205,
+          6.261742,
+          6.270216,
+          6.259815,
+          6.259753,
+          6.261287,
+          6.26478,
+          6.268961,
+          6.25949,
+          6.257144,
+          6.262032,
+          6.258187,
+          6.261292,
+          6.265304,
+          6.257667,
+          6.257082,
+          6.25721,
+          6.260143,
+          6.262015,
+          6.261814,
+          6.259494,
+          6.258635,
+          6.262387,
+          6.264597,
+          6.257602
+        ]
+      },
+      "cuda_event_ms": {
+        "median": 6.253968000411987,
+        "p90": 6.2579522132873535,
+        "min": 6.247456073760986,
+        "max": 6.2624640464782715,
+        "samples": [
+          6.253664016723633,
+          6.252319812774658,
+          6.250239849090576,
+          6.25651216506958,
+          6.254240036010742,
+          6.252319812774658,
+          6.250271797180176,
+          6.255839824676514,
+          6.250527858734131,
+          6.251520156860352,
+          6.25164794921875,
+          6.253791809082031,
+          6.258304119110107,
+          6.253824234008789,
+          6.247903823852539,
+          6.2585601806640625,
+          6.256159782409668,
+          6.2557759284973145,
+          6.258495807647705,
+          6.252416133880615,
+          6.249599933624268,
+          6.251455783843994,
+          6.255871772766113,
+          6.251808166503906,
+          6.255743980407715,
+          6.251904010772705,
+          6.252416133880615,
+          6.256192207336426,
+          6.249887943267822,
+          6.249855995178223,
+          6.251776218414307,
+          6.256288051605225,
+          6.249919891357422,
+          6.255583763122559,
+          6.252992153167725,
+          6.260000228881836,
+          6.251743793487549,
+          6.251808166503906,
+          6.262144088745117,
+          6.2603840827941895,
+          6.251999855041504,
+          6.254528045654297,
+          6.253920078277588,
+          6.2539520263671875,
+          6.2541117668151855,
+          6.256063938140869,
+          6.253503799438477,
+          6.254047870635986,
+          6.254303932189941,
+          6.253695964813232,
+          6.255743980407715,
+          6.257503986358643,
+          6.2579522132873535,
+          6.255871772766113,
+          6.253503799438477,
+          6.258080005645752,
+          6.253407955169678,
+          6.257791996002197,
+          6.255743980407715,
+          6.257408142089844,
+          6.251967906951904,
+          6.253503799438477,
+          6.253983974456787,
+          6.253824234008789,
+          6.2521281242370605,
+          6.253664016723633,
+          6.255743980407715,
+          6.2511677742004395,
+          6.247456073760986,
+          6.258272171020508,
+          6.249760150909424,
+          6.255712032318115,
+          6.257343769073486,
+          6.253791809082031,
+          6.25596809387207,
+          6.254176139831543,
+          6.25548791885376,
+          6.251808166503906,
+          6.253503799438477,
+          6.256288051605225,
+          6.253759860992432,
+          6.255839824676514,
+          6.2499518394470215,
+          6.249375820159912,
+          6.255712032318115,
+          6.255936145782471,
+          6.256224155426025,
+          6.252287864685059,
+          6.2554240226745605,
+          6.2624640464782715,
+          6.255936145782471,
+          6.255583763122559,
+          6.25548791885376,
+          6.258272171020508,
+          6.251488208770752,
+          6.257760047912598,
+          6.255328178405762,
+          6.250112056732178,
+          6.251999855041504,
+          6.253824234008789
+        ]
+      }
+    },
+    "graph_device_copy": {
+      "wall_ms": {
+        "median": 6.2709435,
+        "p90": 6.275193,
+        "min": 6.266376,
+        "max": 6.300376,
+        "samples": [
+          6.278001,
+          6.272829,
+          6.2714,
+          6.272832,
+          6.269899,
+          6.267916,
+          6.27067,
+          6.272656,
+          6.27042,
+          6.270824,
+          6.271032,
+          6.271401,
+          6.270514,
+          6.27264,
+          6.274762,
+          6.266922,
+          6.275193,
+          6.272569,
+          6.272446,
+          6.268658,
+          6.272622,
+          6.270894,
+          6.2707,
+          6.268677,
+          6.269612,
+          6.270722,
+          6.270487,
+          6.274036,
+          6.270307,
+          6.267207,
+          6.269995,
+          6.268478,
+          6.270832,
+          6.270638,
+          6.270124,
+          6.266776,
+          6.272642,
+          6.272764,
+          6.26982,
+          6.273475,
+          6.272694,
+          6.279385,
+          6.270887,
+          6.275003,
+          6.26761,
+          6.270266,
+          6.27037,
+          6.272764,
+          6.270965,
+          6.275175,
+          6.267342,
+          6.272672,
+          6.266376,
+          6.283266,
+          6.269678,
+          6.269331,
+          6.272022,
+          6.27283,
+          6.279164,
+          6.271911,
+          6.267817,
+          6.271102,
+          6.270922,
+          6.267408,
+          6.281802,
+          6.268509,
+          6.270842,
+          6.272852,
+          6.272338,
+          6.273108,
+          6.27523,
+          6.266745,
+          6.270973,
+          6.271582,
+          6.26776,
+          6.283433,
+          6.270544,
+          6.268278,
+          6.27269,
+          6.271868,
+          6.272613,
+          6.270592,
+          6.269578,
+          6.270166,
+          6.274672,
+          6.272735,
+          6.300376,
+          6.272882,
+          6.275957,
+          6.275735,
+          6.274456,
+          6.269349,
+          6.270785,
+          6.26891,
+          6.272947,
+          6.27268,
+          6.268231,
+          6.268015,
+          6.268433,
+          6.268723
+        ]
+      },
+      "cuda_event_ms": {
+        "median": 6.26260781288147,
+        "p90": 6.266079902648926,
+        "min": 6.258528232574463,
+        "max": 6.275167942047119,
+        "samples": [
+          6.263999938964844,
+          6.265632152557373,
+          6.265088081359863,
+          6.260575771331787,
+          6.2626237869262695,
+          6.262368202209473,
+          6.2649922370910645,
+          6.264639854431152,
+          6.261055946350098,
+          6.263296127319336,
+          6.262752056121826,
+          6.262432098388672,
+          6.267168045043945,
+          6.2666239738464355,
+          6.2620158195495605,
+          6.264671802520752,
+          6.259871959686279,
+          6.262112140655518,
+          6.2679362297058105,
+          6.2641282081604,
+          6.266816139221191,
+          6.26204776763916,
+          6.269120216369629,
+          6.25926399230957,
+          6.260608196258545,
+          6.259903907775879,
+          6.2599358558654785,
+          6.2608962059021,
+          6.260992050170898,
+          6.258528232574463,
+          6.264863967895508,
+          6.262976169586182,
+          6.262303829193115,
+          6.266079902648926,
+          6.262976169586182,
+          6.262944221496582,
+          6.264671802520752,
+          6.262847900390625,
+          6.262911796569824,
+          6.260863780975342,
+          6.2630720138549805,
+          6.258912086486816,
+          6.265183925628662,
+          6.260672092437744,
+          6.261023998260498,
+          6.262879848480225,
+          6.262400150299072,
+          6.2620158195495605,
+          6.264671802520752,
+          6.2678399085998535,
+          6.25878381729126,
+          6.264736175537109,
+          6.26259183883667,
+          6.270847797393799,
+          6.266304016113281,
+          6.26470422744751,
+          6.2630720138549805,
+          6.262271881103516,
+          6.259871959686279,
+          6.261983871459961,
+          6.2624640464782715,
+          6.266079902648926,
+          6.259967803955078,
+          6.261919975280762,
+          6.262303829193115,
+          6.260255813598633,
+          6.2603840827941895,
+          6.258687973022461,
+          6.263455867767334,
+          6.264287948608398,
+          6.264351844787598,
+          6.262879848480225,
+          6.2620158195495605,
+          6.262976169586182,
+          6.260479927062988,
+          6.275167942047119,
+          6.259871959686279,
+          6.264480113983154,
+          6.262911796569824,
+          6.260960102081299,
+          6.264800071716309,
+          6.260191917419434,
+          6.263008117675781,
+          6.260960102081299,
+          6.260704040527344,
+          6.264416217803955,
+          6.264319896697998,
+          6.262944221496582,
+          6.260672092437744,
+          6.264639854431152,
+          6.259744167327881,
+          6.2597761154174805,
+          6.260096073150635,
+          6.260128021240234,
+          6.262752056121826,
+          6.2606401443481445,
+          6.262400150299072,
+          6.261760234832764,
+          6.2599358558654785,
+          6.264736175537109
+        ]
+      }
+    },
+    "graph_pinned_host_copy": {
+      "wall_ms": {
+        "median": 6.269470500000001,
+        "p90": 6.273935,
+        "min": 6.26424,
+        "max": 6.282533,
+        "samples": [
+          6.27463,
+          6.272984,
+          6.267175,
+          6.267943,
+          6.268888,
+          6.269724,
+          6.272961,
+          6.269624,
+          6.267541,
+          6.26964,
+          6.266651,
+          6.271278,
+          6.265321,
+          6.270588,
+          6.269208,
+          6.281637,
+          6.269679,
+          6.266537,
+          6.272706,
+          6.266255,
+          6.274047,
+          6.266419,
+          6.267613,
+          6.265443,
+          6.272449,
+          6.267308,
+          6.266997,
+          6.273105,
+          6.264871,
+          6.271007,
+          6.26424,
+          6.270352,
+          6.273012,
+          6.265338,
+          6.267768,
+          6.267534,
+          6.267076,
+          6.268888,
+          6.267532,
+          6.26839,
+          6.276704,
+          6.276451,
+          6.270282,
+          6.267681,
+          6.27192,
+          6.267597,
+          6.26711,
+          6.270008,
+          6.26608,
+          6.267678,
+          6.265801,
+          6.274717,
+          6.272445,
+          6.270734,
+          6.273212,
+          6.269683,
+          6.26737,
+          6.267147,
+          6.267239,
+          6.268923,
+          6.266798,
+          6.27188,
+          6.267547,
+          6.26556,
+          6.267382,
+          6.273292,
+          6.265881,
+          6.267466,
+          6.270396,
+          6.270951,
+          6.269745,
+          6.265329,
+          6.277146,
+          6.270347,
+          6.26793,
+          6.270429,
+          6.266626,
+          6.266547,
+          6.275148,
+          6.273617,
+          6.271788,
+          6.265481,
+          6.271611,
+          6.269348,
+          6.265807,
+          6.269698,
+          6.271649,
+          6.269593,
+          6.282533,
+          6.268143,
+          6.267828,
+          6.275877,
+          6.271975,
+          6.272073,
+          6.267307,
+          6.271595,
+          6.273836,
+          6.273935,
+          6.270485,
+          6.265712
+        ]
+      },
+      "cuda_event_ms": {
+        "median": 6.260992050170898,
+        "p90": 6.266816139221191,
+        "min": 6.25439977645874,
+        "max": 6.275231838226318,
+        "samples": [
+          6.275231838226318,
+          6.261472225189209,
+          6.2630720138549805,
+          6.259039878845215,
+          6.260447978973389,
+          6.261184215545654,
+          6.256383895874023,
+          6.271423816680908,
+          6.269279956817627,
+          6.262239933013916,
+          6.25651216506958,
+          6.2608962059021,
+          6.262656211853027,
+          6.256959915161133,
+          6.27023983001709,
+          6.259583950042725,
+          6.261343955993652,
+          6.264863967895508,
+          6.262752056121826,
+          6.262815952301025,
+          6.25878381729126,
+          6.262720108032227,
+          6.260928153991699,
+          6.258880138397217,
+          6.263487815856934,
+          6.260863780975342,
+          6.265376091003418,
+          6.26691198348999,
+          6.260831832885742,
+          6.2587199211120605,
+          6.258240222930908,
+          6.260799884796143,
+          6.260960102081299,
+          6.25651216506958,
+          6.259615898132324,
+          6.261600017547607,
+          6.259039878845215,
+          6.258912086486816,
+          6.257215976715088,
+          6.262911796569824,
+          6.256735801696777,
+          6.2584638595581055,
+          6.272704124450684,
+          6.260287761688232,
+          6.263743877410889,
+          6.261568069458008,
+          6.263455867767334,
+          6.264959812164307,
+          6.262944221496582,
+          6.261055946350098,
+          6.261087894439697,
+          6.258912086486816,
+          6.261824131011963,
+          6.258880138397217,
+          6.25929594039917,
+          6.2564802169799805,
+          6.275231838226318,
+          6.259103775024414,
+          6.26259183883667,
+          6.264863967895508,
+          6.258880138397217,
+          6.25654411315918,
+          6.264800071716309,
+          6.257184028625488,
+          6.26259183883667,
+          6.259039878845215,
+          6.2564802169799805,
+          6.264736175537109,
+          6.256671905517578,
+          6.260575771331787,
+          6.2707200050354,
+          6.2612481117248535,
+          6.260672092437744,
+          6.261023998260498,
+          6.261055946350098,
+          6.25439977645874,
+          6.260479927062988,
+          6.270112037658691,
+          6.256864070892334,
+          6.2603840827941895,
+          6.2606401443481445,
+          6.26032018661499,
+          6.256896018981934,
+          6.264319896697998,
+          6.258624076843262,
+          6.260672092437744,
+          6.262335777282715,
+          6.262176036834717,
+          6.262815952301025,
+          6.262239933013916,
+          6.268864154815674,
+          6.261568069458008,
+          6.266816139221191,
+          6.258815765380859,
+          6.258431911468506,
+          6.261023998260498,
+          6.260511875152588,
+          6.256896018981934,
+          6.264736175537109,
+          6.264927864074707
+        ]
+      }
+    },
+    "graph_fixed_after": {
+      "wall_ms": {
+        "median": 6.2620405,
+        "p90": 6.265081,
+        "min": 6.255684,
+        "max": 6.271705,
+        "samples": [
+          6.262666,
+          6.262401,
+          6.262472,
+          6.265952,
+          6.26658,
+          6.264525,
+          6.262534,
+          6.258264,
+          6.264306,
+          6.259572,
+          6.259614,
+          6.259873,
+          6.264067,
+          6.263376,
+          6.259295,
+          6.263811,
+          6.259617,
+          6.259993,
+          6.261149,
+          6.263256,
+          6.262067,
+          6.260259,
+          6.260249,
+          6.260336,
+          6.263329,
+          6.265053,
+          6.271705,
+          6.262573,
+          6.259726,
+          6.264547,
+          6.255686,
+          6.265794,
+          6.259959,
+          6.263369,
+          6.262433,
+          6.258487,
+          6.259088,
+          6.263245,
+          6.261781,
+          6.257712,
+          6.261742,
+          6.261584,
+          6.265068,
+          6.259613,
+          6.264398,
+          6.264348,
+          6.264455,
+          6.260029,
+          6.263372,
+          6.262921,
+          6.265941,
+          6.259891,
+          6.256039,
+          6.261229,
+          6.259964,
+          6.265428,
+          6.26195,
+          6.267382,
+          6.268184,
+          6.255684,
+          6.257135,
+          6.262038,
+          6.262195,
+          6.257918,
+          6.259275,
+          6.261761,
+          6.262143,
+          6.259205,
+          6.263633,
+          6.262276,
+          6.263182,
+          6.263282,
+          6.263847,
+          6.257401,
+          6.260434,
+          6.263954,
+          6.26347,
+          6.261795,
+          6.262043,
+          6.257728,
+          6.261076,
+          6.261794,
+          6.261276,
+          6.264328,
+          6.259763,
+          6.259453,
+          6.26002,
+          6.259781,
+          6.265081,
+          6.261613,
+          6.261273,
+          6.262118,
+          6.261845,
+          6.261334,
+          6.2627,
+          6.264752,
+          6.267803,
+          6.26562,
+          6.261169,
+          6.263451
+        ]
+      },
+      "cuda_event_ms": {
+        "median": 6.253536224365234,
+        "p90": 6.25651216506958,
+        "min": 6.249728202819824,
+        "max": 6.265727996826172,
+        "samples": [
+          6.257503986358643,
+          6.25267219543457,
+          6.250400066375732,
+          6.253183841705322,
+          6.253215789794922,
+          6.253664016723633,
+          6.2533440589904785,
+          6.256192207336426,
+          6.255871772766113,
+          6.259967803955078,
+          6.256383895874023,
+          6.25219202041626,
+          6.253759860992432,
+          6.253664016723633,
+          6.255392074584961,
+          6.253888130187988,
+          6.253087997436523,
+          6.2593278884887695,
+          6.251904010772705,
+          6.254335880279541,
+          6.253600120544434,
+          6.254176139831543,
+          6.2554240226745605,
+          6.251391887664795,
+          6.25216007232666,
+          6.255136013031006,
+          6.2557759284973145,
+          6.253983974456787,
+          6.255648136138916,
+          6.253727912902832,
+          6.253471851348877,
+          6.252064228057861,
+          6.260287761688232,
+          6.25167989730835,
+          6.253471851348877,
+          6.257823944091797,
+          6.255807876586914,
+          6.253727912902832,
+          6.250175952911377,
+          6.254015922546387,
+          6.253503799438477,
+          6.255904197692871,
+          6.252096176147461,
+          6.251840114593506,
+          6.251359939575195,
+          6.253376007080078,
+          6.249792098999023,
+          6.25270414352417,
+          6.255904197692871,
+          6.250207901000977,
+          6.251999855041504,
+          6.2518720626831055,
+          6.252064228057861,
+          6.257599830627441,
+          6.252287864685059,
+          6.2533440589904785,
+          6.2499518394470215,
+          6.2520318031311035,
+          6.253536224365234,
+          6.253600120544434,
+          6.253888130187988,
+          6.2541117668151855,
+          6.254335880279541,
+          6.250080108642578,
+          6.25219202041626,
+          6.251488208770752,
+          6.254079818725586,
+          6.254079818725586,
+          6.2514238357543945,
+          6.25164794921875,
+          6.249855995178223,
+          6.2564802169799805,
+          6.2520318031311035,
+          6.255040168762207,
+          6.2521281242370605,
+          6.253407955169678,
+          6.252448081970215,
+          6.25654411315918,
+          6.251584053039551,
+          6.252287864685059,
+          6.25651216506958,
+          6.251967906951904,
+          6.254240036010742,
+          6.252352237701416,
+          6.251552104949951,
+          6.253183841705322,
+          6.265727996826172,
+          6.252511978149414,
+          6.249728202819824,
+          6.253536224365234,
+          6.253759860992432,
+          6.258143901824951,
+          6.255648136138916,
+          6.254432201385498,
+          6.253568172454834,
+          6.253695964813232,
+          6.257791996002197,
+          6.253407955169678,
+          6.25439977645874,
+          6.255712032318115
+        ]
+      }
+    },
+    "eager_host_after": {
+      "wall_ms": {
+        "median": 32.820947000000004,
+        "p90": 32.921198,
+        "min": 32.680946,
+        "max": 34.521082,
+        "samples": [
+          32.954953,
+          32.934662,
+          32.718922,
+          32.939771,
+          32.921198,
+          32.84062,
+          32.751973,
+          34.521082,
+          33.538031,
+          32.807984,
+          32.78455,
+          32.703422,
+          32.810153,
+          32.827137,
+          32.792027,
+          32.738848,
+          32.812801,
+          32.844094,
+          32.821041,
+          32.811657,
+          32.83271,
+          32.807593,
+          32.873187,
+          32.804982,
+          32.76292,
+          32.82617,
+          32.750894,
+          32.751545,
+          32.798612,
+          32.804384,
+          32.869832,
+          32.78583,
+          32.831529,
+          32.767582,
+          32.808725,
+          33.103335,
+          32.774731,
+          33.148687,
+          32.885743,
+          32.902793,
+          32.82771,
+          32.822756,
+          32.768599,
+          32.82544,
+          32.852663,
+          32.81205,
+          32.887276,
+          32.888028,
+          32.794472,
+          32.742911,
+          32.71589,
+          32.848477,
+          32.6994,
+          32.74775,
+          32.861514,
+          32.792927,
+          32.718923,
+          32.694731,
+          32.861374,
+          32.910701,
+          32.837399,
+          32.854894,
+          32.835366,
+          32.888553,
+          32.837599,
+          32.747486,
+          32.88337,
+          32.891322,
+          32.793836,
+          32.823735,
+          32.93066,
+          32.860541,
+          32.800668,
+          32.810447,
+          32.845107,
+          32.798045,
+          32.785365,
+          34.016215,
+          33.502635,
+          32.893194,
+          32.81619,
+          32.901705,
+          32.820853,
+          32.751508,
+          32.854645,
+          32.780867,
+          32.774892,
+          32.794612,
+          32.702646,
+          32.810342,
+          32.864267,
+          32.723439,
+          32.856596,
+          32.806842,
+          32.87211,
+          32.783303,
+          32.902372,
+          32.731099,
+          32.83924,
+          32.680946
+        ]
+      },
+      "cuda_event_ms": {
+        "median": 32.809648513793945,
+        "p90": 32.912353515625,
+        "min": 32.6187858581543,
+        "max": 33.30259323120117,
+        "samples": [
+          32.74879837036133,
+          32.810272216796875,
+          32.837791442871094,
+          32.760833740234375,
+          32.752193450927734,
+          32.73219299316406,
+          32.90934371948242,
+          32.7957763671875,
+          32.72457504272461,
+          32.854270935058594,
+          32.77836990356445,
+          32.759422302246094,
+          32.69081497192383,
+          32.81363296508789,
+          32.809024810791016,
+          32.73139190673828,
+          32.72252655029297,
+          33.1255989074707,
+          32.88623809814453,
+          32.87065505981445,
+          32.7655029296875,
+          32.912353515625,
+          32.82134246826172,
+          32.817726135253906,
+          32.762046813964844,
+          32.86751937866211,
+          32.868064880371094,
+          32.85331344604492,
+          32.77164840698242,
+          32.77552032470703,
+          32.78841781616211,
+          32.87295913696289,
+          32.815486907958984,
+          32.73625564575195,
+          32.72832107543945,
+          32.782047271728516,
+          32.83331298828125,
+          32.824832916259766,
+          32.88371276855469,
+          32.80323028564453,
+          32.868961334228516,
+          32.90265655517578,
+          32.78156661987305,
+          32.9251823425293,
+          32.82233428955078,
+          32.82668685913086,
+          32.755550384521484,
+          32.82179260253906,
+          32.81683349609375,
+          32.856414794921875,
+          32.751617431640625,
+          32.771297454833984,
+          32.936832427978516,
+          32.776641845703125,
+          32.79721450805664,
+          32.89680099487305,
+          33.28131103515625,
+          33.0596809387207,
+          32.6514892578125,
+          32.819488525390625,
+          32.82774353027344,
+          32.874176025390625,
+          32.79094314575195,
+          32.88723373413086,
+          32.76816177368164,
+          32.79344177246094,
+          32.91769790649414,
+          32.818241119384766,
+          32.89817428588867,
+          32.6187858581543,
+          32.852638244628906,
+          32.768768310546875,
+          32.77097702026367,
+          32.652801513671875,
+          32.78083038330078,
+          32.781761169433594,
+          32.86163330078125,
+          32.867008209228516,
+          32.75273513793945,
+          32.80847930908203,
+          32.74748611450195,
+          32.96281433105469,
+          32.8895378112793,
+          32.83679962158203,
+          32.77827072143555,
+          32.764896392822266,
+          32.789886474609375,
+          32.787681579589844,
+          32.75455856323242,
+          32.71100616455078,
+          32.85273742675781,
+          32.85161590576172,
+          32.79750442504883,
+          32.81235122680664,
+          32.77334213256836,
+          32.93244934082031,
+          33.30259323120117,
+          33.01651382446289,
+          32.73212814331055,
+          32.76652908325195
+        ]
+      }
+    },
+    "eager_device_after": {
+      "wall_ms": {
+        "median": 32.801163,
+        "p90": 32.882655,
+        "min": 32.672132,
+        "max": 33.972856,
+        "samples": [
+          32.806294,
+          32.707446,
+          32.780588,
+          32.827088,
+          32.838138,
+          32.749588,
+          32.833145,
+          32.693201,
+          32.863972,
+          32.744419,
+          32.780271,
+          32.74895,
+          32.805813,
+          32.891186,
+          32.84535,
+          33.149062,
+          33.080984,
+          32.833427,
+          32.800466,
+          32.747658,
+          32.835289,
+          32.745999,
+          32.905361,
+          32.772747,
+          32.721163,
+          32.698321,
+          32.714225,
+          32.814964,
+          32.834098,
+          32.846315,
+          32.848843,
+          32.742435,
+          32.80815,
+          32.859277,
+          32.833662,
+          32.802738,
+          32.727015,
+          32.768617,
+          32.80186,
+          32.905435,
+          32.761994,
+          32.834053,
+          32.73119,
+          32.844015,
+          32.710831,
+          32.872648,
+          32.834808,
+          32.706744,
+          32.818559,
+          32.769855,
+          32.783004,
+          32.736185,
+          32.772343,
+          32.922256,
+          32.808556,
+          33.972856,
+          33.38323,
+          32.793956,
+          32.823251,
+          32.69359,
+          32.741188,
+          32.745355,
+          32.869051,
+          32.754347,
+          32.851232,
+          32.857106,
+          32.839899,
+          32.790898,
+          32.754082,
+          32.78462,
+          32.795569,
+          32.78885,
+          32.694796,
+          32.76484,
+          32.783818,
+          32.818067,
+          32.882655,
+          33.051941,
+          32.783425,
+          32.7761,
+          32.688276,
+          32.709376,
+          32.86398,
+          32.745274,
+          32.848581,
+          32.817975,
+          32.841692,
+          32.846943,
+          32.780273,
+          32.672132,
+          32.809721,
+          32.79144,
+          32.80798,
+          32.695545,
+          32.803612,
+          33.002757,
+          32.844327,
+          32.765326,
+          32.741786,
+          32.767276
+        ]
+      },
+      "cuda_event_ms": {
+        "median": 32.77492904663086,
+        "p90": 32.854496002197266,
+        "min": 32.65139389038086,
+        "max": 33.721920013427734,
+        "samples": [
+          32.793182373046875,
+          32.699073791503906,
+          32.7578239440918,
+          32.79587173461914,
+          32.77747344970703,
+          32.842529296875,
+          32.816768646240234,
+          32.73068618774414,
+          32.79644775390625,
+          32.830623626708984,
+          32.80527877807617,
+          32.757118225097656,
+          32.8394889831543,
+          32.81584167480469,
+          32.75312042236328,
+          32.731712341308594,
+          32.72412872314453,
+          32.799007415771484,
+          32.7119026184082,
+          32.806270599365234,
+          32.76995086669922,
+          32.77983856201172,
+          32.77436828613281,
+          32.73593521118164,
+          32.90143966674805,
+          32.8106575012207,
+          32.72614288330078,
+          32.85551834106445,
+          32.651424407958984,
+          32.72111892700195,
+          32.7639045715332,
+          32.8408317565918,
+          32.7672004699707,
+          32.7784309387207,
+          33.628543853759766,
+          33.721920013427734,
+          32.802974700927734,
+          32.68783950805664,
+          32.74176025390625,
+          32.73158264160156,
+          32.84960174560547,
+          32.68268966674805,
+          32.65983963012695,
+          32.8072624206543,
+          32.68489456176758,
+          32.762718200683594,
+          32.83651351928711,
+          32.78134536743164,
+          32.78799819946289,
+          32.66249465942383,
+          32.71238327026367,
+          32.659934997558594,
+          32.766239166259766,
+          32.69529724121094,
+          32.84272003173828,
+          32.76700973510742,
+          32.67977523803711,
+          32.82038497924805,
+          32.816673278808594,
+          32.65139389038086,
+          32.79609680175781,
+          32.70608139038086,
+          32.750526428222656,
+          32.783329010009766,
+          32.725345611572266,
+          32.73596954345703,
+          32.891807556152344,
+          32.71446228027344,
+          32.80918502807617,
+          32.81235122680664,
+          32.78793716430664,
+          32.75680160522461,
+          32.675777435302734,
+          32.775489807128906,
+          32.88102340698242,
+          32.86207962036133,
+          32.83305740356445,
+          32.82748794555664,
+          32.764225006103516,
+          32.723358154296875,
+          32.81961441040039,
+          32.72028732299805,
+          32.76185607910156,
+          32.80886459350586,
+          32.738624572753906,
+          32.825279235839844,
+          33.19184112548828,
+          32.98380661010742,
+          32.82169723510742,
+          32.770111083984375,
+          32.787200927734375,
+          32.691646575927734,
+          32.854496002197266,
+          32.72905731201172,
+          32.70703887939453,
+          32.76911926269531,
+          32.77088165283203,
+          32.91292953491211,
+          32.82060623168945,
+          32.749534606933594
+        ]
+      }
+    }
+  },
+  "completed": true
+}

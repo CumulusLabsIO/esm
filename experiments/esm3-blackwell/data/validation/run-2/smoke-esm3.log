@@ -1,0 +1,27 @@
+No ESM_API_KEY found. Trying to load model locally...
+To try this script with a Forge/Biohub Platform API, please run ESM_API_KEY=your_api_key python esm3.py
+/home/ubuntu/esm-ci/repo/esm/models/esmc/kernels.py:54: UserWarning: ESMC: flash-attn is not installed or failed to import; attention and RoPE fall back to pure PyTorch. PyPI cannot carry our wheel, so install it by hand:
+
+    pip install "flash_attn @ https://github.com/evolutionaryscale/wheels/releases/download/py312-pt211-cu13-sm80-90/flash_attn-2.7.4.post1-cp312-cp312-linux_x86_64.whl"
+
+It needs Linux x86-64, Python 3.12, torch 2.11, CUDA 13, compute capability 8.0-9.0 and libstdc++ from GCC 13+ (Ubuntu 24.04, or LD_PRELOAD a newer libstdc++ on 22.04).
+  warnings.warn(
+/home/ubuntu/esm-ci/repo/esm/models/vqvae.py:172: UserWarning: Using a non-tuple sequence for multidimensional indexing is deprecated and will be changed in pytorch 2.9; use x[tuple(seq)] instead of x[seq]. In pytorch 2.9 this will be interpreted as tensor index, x[torch.tensor(seq)], which will result either in an error or a different result (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/python_variable_indexing.cpp:375.)
+  return data[ranges]
+  0%|          | 0/8 [00:00<?, ?it/s] 12%|█▎        | 1/8 [00:00<00:00,  8.60it/s] 50%|█████     | 4/8 [00:00<00:00, 18.56it/s] 88%|████████▊ | 7/8 [00:00<00:00, 21.81it/s]100%|██████████| 8/8 [00:00<00:00, 20.51it/s]
+  0%|          | 0/15 [00:00<?, ?it/s] 20%|██        | 3/15 [00:00<00:00, 24.93it/s] 40%|████      | 6/15 [00:00<00:00, 24.97it/s] 60%|██████    | 9/15 [00:00<00:00, 25.02it/s] 80%|████████  | 12/15 [00:00<00:00, 25.02it/s]100%|██████████| 15/15 [00:00<00:00, 24.99it/s]100%|██████████| 15/15 [00:00<00:00, 24.99it/s]
+/home/ubuntu/esm-ci/repo/esm/utils/structure/protein_complex.py:324: UserWarning: Entity ID not found in metadata, using None as default
+  warnings.warn("Entity ID not found in metadata, using None as default")
+  0%|          | 0/15 [00:00<?, ?it/s] 20%|██        | 3/15 [00:00<00:00, 23.91it/s] 40%|████      | 6/15 [00:00<00:00, 24.85it/s] 60%|██████    | 9/15 [00:00<00:00, 25.14it/s] 80%|████████  | 12/15 [00:00<00:00, 25.33it/s]100%|██████████| 15/15 [00:00<00:00, 25.43it/s]100%|██████████| 15/15 [00:00<00:00, 25.21it/s]
+  0%|          | 0/15 [00:00<?, ?it/s] 20%|██        | 3/15 [00:00<00:00, 23.27it/s] 40%|████      | 6/15 [00:00<00:00, 24.48it/s] 60%|██████    | 9/15 [00:00<00:00, 24.91it/s] 80%|████████  | 12/15 [00:00<00:00, 25.10it/s]100%|██████████| 15/15 [00:00<00:00, 25.20it/s]100%|██████████| 15/15 [00:00<00:00, 24.94it/s]
+  0%|          | 0/10 [00:00<?, ?it/s] 30%|███       | 3/10 [00:00<00:00, 25.32it/s] 60%|██████    | 6/10 [00:00<00:00, 25.38it/s] 90%|█████████ | 9/10 [00:00<00:00, 25.41it/s]100%|██████████| 10/10 [00:00<00:00, 25.40it/s]
+  0%|          | 0/10 [00:00<?, ?it/s] 30%|███       | 3/10 [00:00<00:00, 24.84it/s] 60%|██████    | 6/10 [00:00<00:00, 24.62it/s] 90%|█████████ | 9/10 [00:00<00:00, 24.74it/s]100%|██████████| 10/10 [00:00<00:00, 24.74it/s]
+  0%|          | 0/10 [00:00<?, ?it/s] 30%|███       | 3/10 [00:00<00:00, 25.46it/s] 60%|██████    | 6/10 [00:00<00:00, 25.45it/s] 90%|█████████ | 9/10 [00:00<00:00, 25.46it/s]100%|██████████| 10/10 [00:00<00:00, 25.45it/s]
+/home/ubuntu/esm-ci/repo/esm/utils/structure/protein_complex.py:324: UserWarning: Entity ID not found in metadata, using None as default
+  warnings.warn("Entity ID not found in metadata, using None as default")
+/home/ubuntu/esm-ci/repo/esm/models/vqvae.py:172: UserWarning: Using a non-tuple sequence for multidimensional indexing is deprecated and will be changed in pytorch 2.9; use x[tuple(seq)] instead of x[seq]. In pytorch 2.9 this will be interpreted as tensor index, x[torch.tensor(seq)], which will result either in an error or a different result (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/python_variable_indexing.cpp:375.)
+  return data[ranges]
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00,  9.40it/s]100%|██████████| 1/1 [00:00<00:00,  9.39it/s]
+  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:00<00:01,  2.62it/s] 80%|████████  | 4/5 [00:00<00:00,  9.29it/s]100%|██████████| 5/5 [00:00<00:00,  9.04it/s]
+  0%|          | 0/5 [00:00<?, ?it/s] 60%|██████    | 3/5 [00:00<00:00, 20.69it/s]100%|██████████| 5/5 [00:00<00:00, 21.79it/s]
+  0%|          | 0/5 [00:00<?, ?it/s] 60%|██████    | 3/5 [00:00<00:00, 23.33it/s]100%|██████████| 5/5 [00:00<00:00, 24.02it/s]

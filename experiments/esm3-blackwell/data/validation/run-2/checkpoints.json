@@ -1,0 +1,142 @@
+{
+  "esm3": {
+    "repo": "biohub/esm3-sm-open-v1",
+    "requested_revision": "47f0545b2b6daf26a93439a3cd610f4f7f3d5478",
+    "resolved_revision": "47f0545b2b6daf26a93439a3cd610f4f7f3d5478",
+    "directory": "/home/ubuntu/esm-ci/hf-cache/hub/models--biohub--esm3-sm-open-v1/snapshots/47f0545b2b6daf26a93439a3cd610f4f7f3d5478",
+    "files": [
+      {
+        "path": ".gitattributes",
+        "bytes": 1519
+      },
+      {
+        "path": "README.md",
+        "bytes": 1202
+      },
+      {
+        "path": "config.json",
+        "bytes": 3
+      },
+      {
+        "path": "data/1utn.pdb",
+        "bytes": 568701
+      },
+      {
+        "path": "data/ParentChildTreeFile.txt",
+        "bytes": 594786
+      },
+      {
+        "path": "data/entry_list_safety_29026.list",
+        "bytes": 1595245
+      },
+      {
+        "path": "data/esm3_entry.list",
+        "bytes": 1929090
+      },
+      {
+        "path": "data/hyperplanes_8bit_58641.npz",
+        "bytes": 30026086
+      },
+      {
+        "path": "data/hyperplanes_8bit_68103.npz",
+        "bytes": 34870630
+      },
+      {
+        "path": "data/interpro2keywords.csv",
+        "bytes": 7320318
+      },
+      {
+        "path": "data/interpro_29026_to_keywords_58641.csv",
+        "bytes": 10061298
+      },
+      {
+        "path": "data/keyword_idf_safety_filtered_58641.npy",
+        "bytes": 469256
+      },
+      {
+        "path": "data/keyword_vocabulary_safety_filtered_58641.txt",
+        "bytes": 787696
+      },
+      {
+        "path": "data/keywords.txt",
+        "bytes": 787695
+      },
+      {
+        "path": "data/tag_dict_4.json",
+        "bytes": 691190
+      },
+      {
+        "path": "data/tag_dict_4_safety_filtered.json",
+        "bytes": 569410
+      },
+      {
+        "path": "data/tfidf_safety_filtered_58641.pkl",
+        "bytes": 2022460
+      },
+      {
+        "path": "data/uniref90_and_mgnify90_residue_annotations_gt_1k_proteins.csv",
+        "bytes": 109468
+      },
+      {
+        "path": "data/weights/esm3_function_decoder_v0.pth",
+        "bytes": 1299947178
+      },
+      {
+        "path": "data/weights/esm3_sm_open_v1.pth",
+        "bytes": 2803646068
+      },
+      {
+        "path": "data/weights/esm3_structure_decoder_v0.pth",
+        "bytes": 1237213098
+      },
+      {
+        "path": "data/weights/esm3_structure_encoder_v0.pth",
+        "bytes": 62349276
+      }
+    ]
+  },
+  "esmc": {
+    "repo": "biohub/ESMC-300M",
+    "requested_revision": "main",
+    "resolved_revision": "96a2d8d61654ac0c08881be44da6c867686449b9",
+    "directory": "/home/ubuntu/esm-ci/hf-cache/hub/models--biohub--ESMC-300M/snapshots/96a2d8d61654ac0c08881be44da6c867686449b9",
+    "files": [
+      {
+        "path": ".gitattributes",
+        "bytes": 1579
+      },
+      {
+        "path": "README.md",
+        "bytes": 15153
+      },
+      {
+        "path": "config.json",
+        "bytes": 1113
+      },
+      {
+        "path": "images/contact_pal.png",
+        "bytes": 30187
+      },
+      {
+        "path": "model.safetensors",
+        "bytes": 1332032536
+      },
+      {
+        "path": "modeling_esmc_remote.py",
+        "bytes": 5146
+      },
+      {
+        "path": "special_tokens_map.json",
+        "bytes": 171
+      },
+      {
+        "path": "tokenizer.json",
+        "bytes": 2879
+      },
+      {
+        "path": "tokenizer_config.json",
+        "bytes": 327
+      }
+    ]
+  }
+}

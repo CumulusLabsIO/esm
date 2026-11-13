@@ -1,0 +1,17 @@
+{
+  "script": "/home/ubuntu/esm-ci/repo/cookbook/local/esm3_cuda_graph.py",
+  "sha256": "e149e1bce93387cb2c77e7b2ebe1c1a83006e251f52cbef3ee71866a1df88fc4",
+  "arguments": [
+    "--compile-swiglu",
+    "--length",
+    "512",
+    "--warmup",
+    "20",
+    "--repeats",
+    "100",
+    "--output",
+    "/home/ubuntu/esm-ci/results/run-2/swiglu-l512.json"
+  ],
+  "esm3_revision": "47f0545b2b6daf26a93439a3cd610f4f7f3d5478",
+  "esmc_revision": "96a2d8d61654ac0c08881be44da6c867686449b9"
+}

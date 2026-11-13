@@ -1,0 +1,11 @@
+{
+  "head": "d285ddeead83631bbe0bc6aa7c879eb5a8946ccb",
+  "esm3_source_sha256": "913e6fad41315e24b5575982c3c54d1ebed8dc6fe10fb8442bc0a6ac3c5ab5ab",
+  "pixi_lock_sha256": "be02a79f924abae4a9eef714c302beb8e0fea8aa8681f6d229f7bcfb36f90409",
+  "started_epoch": 1794563678.9422302,
+  "deadline_epoch": 1794569078.9422302,
+  "phase": "all",
+  "gpu": "0",
+  "cpu_workers": "8",
+  "scope": "Locked CI lint/CPU tests plus explicitly selected GPU tests; performance recipes use a separate Torch2.15/cu132 environment. No Forge API, Docker SDK API integration, notebook suite, or multi-GPU training."
+}

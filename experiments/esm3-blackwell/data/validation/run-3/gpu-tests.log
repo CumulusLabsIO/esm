@@ -1,0 +1,26 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/ubuntu/esm-ci/repo
+configfile: pyproject.toml
+plugins: anyio-4.14.2, asyncio-1.4.0, cov-7.1.0, xdist-3.8.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 411 items / 352 deselected / 59 selected
+
+tests/models/esm3_cuda_graph_test.py ....                                [  6%]
+tests/models/esmc_test.py ..........................                     [ 50%]
+tests/models/esmfold2_atom_adaln_cache_test.py ..                        [ 54%]
+tests/models/esmfold2_builds_test.py .......                             [ 66%]
+tests/models/esmfold2_fp8_test.py ....                                   [ 72%]
+tests/models/esmfold2_fused_transition_test.py ......                    [ 83%]
+tests/models/esmfold2_msa_trimul_test.py ........                        [ 96%]
+tests/models/esmfold2_pair_bias_cache_test.py .                          [ 98%]
+tests/models/esmfold2_test.py .                                          [100%]
+
+=============================== warnings summary ===============================
+tests/models/esmfold2_msa_trimul_test.py::test_fast_does_not_touch_gradients
+  /home/ubuntu/esm-ci/repo/tests/models/esmfold2_msa_trimul_test.py:234: UserWarning: ESMFold2: the MSA encoder is running the eager triangle multiplication because gradients are enabled and this kernel is inference-only; set_kernel_backend('fast') has no effect there.
+    out = blk._triangle_updates(pair, mask)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+----- generated xml file: /home/ubuntu/esm-ci/results/run-3/gpu-tests.xml ------
+================ 59 passed, 352 deselected, 1 warning in 17.36s ================

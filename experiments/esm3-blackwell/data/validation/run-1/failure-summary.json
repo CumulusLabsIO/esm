@@ -1,0 +1,83 @@
+[
+  {
+    "test": "tests.models.esmc_test::test_gradients_reach_every_parameter_on_cuda[flash_attention_2]",
+    "message": "torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device",
+    "flash_attention_frames": [
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:1267: in flash_attn_varlen_qkvpacked_func",
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:553: in forward",
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:170: AcceleratorError"
+    ]
+  },
+  {
+    "test": "tests.models.esmc_test::test_gpu_dtypes[short-dtype1]",
+    "message": "torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device",
+    "flash_attention_frames": [
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:1201: in flash_attn_func",
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:839: in forward",
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:96: AcceleratorError"
+    ]
+  },
+  {
+    "test": "tests.models.esmc_test::test_gpu_dtypes[short-dtype2]",
+    "message": "torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device",
+    "flash_attention_frames": [
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:1201: in flash_attn_func",
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:839: in forward",
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:96: AcceleratorError"
+    ]
+  },
+  {
+    "test": "tests.models.esmfold2_atom_adaln_cache_test::test_block_forward_is_bitwise_with_and_without_the_cache",
+    "message": "torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device",
+    "flash_attention_frames": [
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:1448: in flash_attn_varlen_func",
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:930: in forward",
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:170: AcceleratorError"
+    ]
+  },
+  {
+    "test": "tests.models.esmfold2_atom_adaln_cache_test::test_expanded_conditioning_is_reused",
+    "message": "torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device",
+    "flash_attention_frames": [
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:1448: in flash_attn_varlen_func",
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:930: in forward",
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:170: AcceleratorError"
+    ]
+  },
+  {
+    "test": "tests.models.esmfold2_builds_test::test_every_gpu_build_reaches_the_cpu_reference[None-True-None]",
+    "message": "torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device",
+    "flash_attention_frames": [
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:1448: in flash_attn_varlen_func",
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:930: in forward",
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:170: AcceleratorError"
+    ]
+  },
+  {
+    "test": "tests.models.esmfold2_builds_test::test_every_gpu_build_reaches_the_cpu_reference[fused-True-64]",
+    "message": "torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device",
+    "flash_attention_frames": [
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:1448: in flash_attn_varlen_func",
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:930: in forward",
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:170: AcceleratorError"
+    ]
+  },
+  {
+    "test": "tests.models.esmfold2_fp8_test::test_esmfold2_fp8_backbone_is_fully_fp8",
+    "message": "torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device",
+    "flash_attention_frames": [
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:1201: in flash_attn_func",
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:839: in forward",
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:96: AcceleratorError"
+    ]
+  },
+  {
+    "test": "tests.models.esmfold2_test::test_kernel_backends_agree",
+    "message": "torch.AcceleratorError: CUDA error: no kernel image is available for execution on the device",
+    "flash_attention_frames": [
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:1448: in flash_attn_varlen_func",
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:930: in forward",
+      ".pixi/envs/dev/lib/python3.12/site-packages/flash_attn/flash_attn_interface.py:170: AcceleratorError"
+    ]
+  }
+]

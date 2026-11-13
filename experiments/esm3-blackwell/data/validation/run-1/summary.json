@@ -1,0 +1,158 @@
+[
+  {
+    "label": "locked-install",
+    "command": [
+      "/home/ubuntu/esm-ci/bin/pixi",
+      "install",
+      "--manifest-path",
+      "/home/ubuntu/esm-ci/repo/pyproject.toml",
+      "--locked",
+      "-e",
+      "dev"
+    ],
+    "required": true,
+    "started_epoch": 1794563679.1718159,
+    "status": "passed",
+    "exit_code": 0,
+    "finished_epoch": 1794563679.5361772
+  },
+  {
+    "label": "locked-environment",
+    "command": [
+      "/home/ubuntu/esm-ci/bin/pixi",
+      "run",
+      "--manifest-path",
+      "/home/ubuntu/esm-ci/repo/pyproject.toml",
+      "--locked",
+      "-e",
+      "dev",
+      "python",
+      "/home/ubuntu/esm-ci/harness/environment_probe.py",
+      "--expected-torch",
+      "2.11.0",
+      "--output",
+      "/home/ubuntu/esm-ci/results/run-1/locked-environment.json"
+    ],
+    "required": true,
+    "started_epoch": 1794563679.5408099,
+    "status": "passed",
+    "exit_code": 0,
+    "finished_epoch": 1794563689.0618236
+  },
+  {
+    "label": "locked-lint",
+    "command": [
+      "/home/ubuntu/esm-ci/bin/pixi",
+      "run",
+      "--manifest-path",
+      "/home/ubuntu/esm-ci/repo/pyproject.toml",
+      "--locked",
+      "-e",
+      "dev",
+      "lint-all"
+    ],
+    "required": true,
+    "started_epoch": 1794563689.0921311,
+    "status": "passed",
+    "exit_code": 0,
+    "finished_epoch": 1794563738.1341844
+  },
+  {
+    "label": "locked-cpu",
+    "command": [
+      "/home/ubuntu/esm-ci/bin/pixi",
+      "run",
+      "--manifest-path",
+      "/home/ubuntu/esm-ci/repo/pyproject.toml",
+      "--locked",
+      "-e",
+      "dev",
+      "cov-test"
+    ],
+    "required": true,
+    "started_epoch": 1794563738.1345725,
+    "status": "passed",
+    "exit_code": 0,
+    "finished_epoch": 1794563764.5860157
+  },
+  {
+    "label": "locked-esm3-regression",
+    "command": [
+      "/home/ubuntu/esm-ci/bin/pixi",
+      "run",
+      "--manifest-path",
+      "/home/ubuntu/esm-ci/repo/pyproject.toml",
+      "--locked",
+      "-e",
+      "dev",
+      "python",
+      "-m",
+      "pytest",
+      "-o",
+      "addopts=",
+      "-n",
+      "0",
+      "-ra",
+      "--junitxml",
+      "/home/ubuntu/esm-ci/results/run-1/locked-esm3-regression.xml",
+      "tests/models/esm3_cuda_graph_test.py",
+      "tests/models/esm3_logits_selection_test.py"
+    ],
+    "required": true,
+    "started_epoch": 1794563764.5865817,
+    "status": "passed",
+    "exit_code": 0,
+    "finished_epoch": 1794563772.5608733
+  },
+  {
+    "label": "locked-small-gpu",
+    "command": [
+      "/home/ubuntu/esm-ci/bin/pixi",
+      "run",
+      "--manifest-path",
+      "/home/ubuntu/esm-ci/repo/pyproject.toml",
+      "--locked",
+      "-e",
+      "dev",
+      "python",
+      "-m",
+      "pytest",
+      "-o",
+      "addopts=",
+      "-n",
+      "0",
+      "-m",
+      "gpu and not manual",
+      "-p",
+      "small_gpu_selection",
+      "-ra",
+      "--junitxml",
+      "/home/ubuntu/esm-ci/results/run-1/locked-small-gpu.xml",
+      "tests/models"
+    ],
+    "required": false,
+    "started_epoch": 1794563772.5612946,
+    "status": "failed",
+    "exit_code": 1,
+    "finished_epoch": 1794563802.9130323
+  },
+  {
+    "label": "performance-environment",
+    "command": [
+      "/usr/bin/python3.12",
+      "/home/ubuntu/esm-ci/harness/environment_probe.py",
+      "--expected-torch",
+      "2.15.0",
+      "--expected-cuda",
+      "13.2",
+      "--require-strict-numerics",
+      "--output",
+      "/home/ubuntu/esm-ci/results/run-1/performance-environment.json"
+    ],
+    "required": true,
+    "started_epoch": 1794563802.9135587,
+    "status": "failed",
+    "exit_code": 1,
+    "finished_epoch": 1794563803.028034
+  }
+]

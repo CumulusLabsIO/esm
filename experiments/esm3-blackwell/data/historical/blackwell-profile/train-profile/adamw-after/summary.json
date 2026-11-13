@@ -1,0 +1,550 @@
+{
+  "mode": "training",
+  "passed": true,
+  "ranks": [
+    {
+      "mode": "training",
+      "rank": 0,
+      "status": "pass",
+      "local_rank": 0,
+      "host": "private-host",
+      "pid": 21180,
+      "world_size": 8,
+      "gpu": "NVIDIA B200",
+      "gpu_uuid": "redacted",
+      "capability": [
+        10,
+        0
+      ],
+      "gpu_memory_gib": 178.34405517578125,
+      "torch": "2.15.0+cu132",
+      "cuda_runtime": "13.2",
+      "nccl": [
+        2,
+        30,
+        7
+      ],
+      "esm": "3.4.3",
+      "flash_attn_installed": false,
+      "model_revision": "47f0545b2b6daf26a93439a3cd610f4f7f3d5478",
+      "result": {
+        "warmup_steps": 3,
+        "measured_step_seconds": [
+          0.1302759719999358,
+          0.13220113299996683,
+          0.13019040900007894,
+          0.12906273499993404,
+          0.12951014999998733
+        ],
+        "global_mean_loss": [
+          0.02736555226147175,
+          0.022470152005553246,
+          0.015547005459666252,
+          0.014258335344493389,
+          0.004379061982035637,
+          0.0038611104246228933,
+          0.0031585642136633396,
+          0.0006040996522642672
+        ],
+        "local_batch_size": 1,
+        "global_batch_size": 8,
+        "trainable_parameters": 1378105920,
+        "inactive_output_heads": [
+          "structure_head",
+          "ss8_head",
+          "sasa_head",
+          "function_head",
+          "residue_head"
+        ],
+        "optimizer": "AdamW",
+        "optimizer_implementation": "foreach",
+        "parameter_sha256": "b5743a5dcae446c55007ca0a5c4e0efed65ec0475ade2523002eaaba9345a692",
+        "replicas_identical": true,
+        "max_abs_parameter_updates": {
+          "first_qkv": 7.769092917442322e-05,
+          "last_ffn": 8.001923561096191e-05,
+          "sequence_head": 7.907520921435207e-05
+        }
+      },
+      "wall_seconds": 17.923488054000018,
+      "peak_allocated_gib": 25.978271961212158,
+      "peak_reserved_gib": 27.466796875
+    },
+    {
+      "mode": "training",
+      "rank": 1,
+      "status": "pass",
+      "local_rank": 1,
+      "host": "private-host",
+      "pid": 21181,
+      "world_size": 8,
+      "gpu": "NVIDIA B200",
+      "gpu_uuid": "redacted",
+      "capability": [
+        10,
+        0
+      ],
+      "gpu_memory_gib": 178.34405517578125,
+      "torch": "2.15.0+cu132",
+      "cuda_runtime": "13.2",
+      "nccl": [
+        2,
+        30,
+        7
+      ],
+      "esm": "3.4.3",
+      "flash_attn_installed": false,
+      "model_revision": "47f0545b2b6daf26a93439a3cd610f4f7f3d5478",
+      "result": {
+        "warmup_steps": 3,
+        "measured_step_seconds": [
+          0.1302656919999663,
+          0.13229555599991727,
+          0.13004691700007243,
+          0.12907967399996778,
+          0.12945237199994608
+        ],
+        "global_mean_loss": [
+          0.02736555226147175,
+          0.022470152005553246,
+          0.015547005459666252,
+          0.014258335344493389,
+          0.004379061982035637,
+          0.0038611104246228933,
+          0.0031585642136633396,
+          0.0006040996522642672
+        ],
+        "local_batch_size": 1,
+        "global_batch_size": 8,
+        "trainable_parameters": 1378105920,
+        "inactive_output_heads": [
+          "structure_head",
+          "ss8_head",
+          "sasa_head",
+          "function_head",
+          "residue_head"
+        ],
+        "optimizer": "AdamW",
+        "optimizer_implementation": "foreach",
+        "parameter_sha256": "b5743a5dcae446c55007ca0a5c4e0efed65ec0475ade2523002eaaba9345a692",
+        "replicas_identical": true,
+        "max_abs_parameter_updates": {
+          "first_qkv": 7.769092917442322e-05,
+          "last_ffn": 8.001923561096191e-05,
+          "sequence_head": 7.907520921435207e-05
+        }
+      },
+      "wall_seconds": 17.925627947000066,
+      "peak_allocated_gib": 25.978271961212158,
+      "peak_reserved_gib": 27.466796875
+    },
+    {
+      "mode": "training",
+      "rank": 2,
+      "status": "pass",
+      "local_rank": 2,
+      "host": "private-host",
+      "pid": 21182,
+      "world_size": 8,
+      "gpu": "NVIDIA B200",
+      "gpu_uuid": "redacted",
+      "capability": [
+        10,
+        0
+      ],
+      "gpu_memory_gib": 178.34405517578125,
+      "torch": "2.15.0+cu132",
+      "cuda_runtime": "13.2",
+      "nccl": [
+        2,
+        30,
+        7
+      ],
+      "esm": "3.4.3",
+      "flash_attn_installed": false,
+      "model_revision": "47f0545b2b6daf26a93439a3cd610f4f7f3d5478",
+      "result": {
+        "warmup_steps": 3,
+        "measured_step_seconds": [
+          0.13027702800002317,
+          0.13217540699997699,
+          0.13018317400008073,
+          0.1291026650000049,
+          0.12942974099996718
+        ],
+        "global_mean_loss": [
+          0.02736555226147175,
+          0.022470152005553246,
+          0.015547005459666252,
+          0.014258335344493389,
+          0.004379061982035637,
+          0.0038611104246228933,
+          0.0031585642136633396,
+          0.0006040996522642672
+        ],
+        "local_batch_size": 1,
+        "global_batch_size": 8,
+        "trainable_parameters": 1378105920,
+        "inactive_output_heads": [
+          "structure_head",
+          "ss8_head",
+          "sasa_head",
+          "function_head",
+          "residue_head"
+        ],
+        "optimizer": "AdamW",
+        "optimizer_implementation": "foreach",
+        "parameter_sha256": "b5743a5dcae446c55007ca0a5c4e0efed65ec0475ade2523002eaaba9345a692",
+        "replicas_identical": true,
+        "max_abs_parameter_updates": {
+          "first_qkv": 7.769092917442322e-05,
+          "last_ffn": 8.001923561096191e-05,
+          "sequence_head": 7.907520921435207e-05
+        }
+      },
+      "wall_seconds": 17.922190451000006,
+      "peak_allocated_gib": 25.978271961212158,
+      "peak_reserved_gib": 27.466796875
+    },
+    {
+      "mode": "training",
+      "rank": 3,
+      "status": "pass",
+      "local_rank": 3,
+      "host": "private-host",
+      "pid": 21183,
+      "world_size": 8,
+      "gpu": "NVIDIA B200",
+      "gpu_uuid": "redacted",
+      "capability": [
+        10,
+        0
+      ],
+      "gpu_memory_gib": 178.34405517578125,
+      "torch": "2.15.0+cu132",
+      "cuda_runtime": "13.2",
+      "nccl": [
+        2,
+        30,
+        7
+      ],
+      "esm": "3.4.3",
+      "flash_attn_installed": false,
+      "model_revision": "47f0545b2b6daf26a93439a3cd610f4f7f3d5478",
+      "result": {
+        "warmup_steps": 3,
+        "measured_step_seconds": [
+          0.130206649999991,
+          0.13226323599997158,
+          0.13018139200005407,
+          0.12906162500007667,
+          0.12945482999998603
+        ],
+        "global_mean_loss": [
+          0.02736555226147175,
+          0.022470152005553246,
+          0.015547005459666252,
+          0.014258335344493389,
+          0.004379061982035637,
+          0.0038611104246228933,
+          0.0031585642136633396,
+          0.0006040996522642672
+        ],
+        "local_batch_size": 1,
+        "global_batch_size": 8,
+        "trainable_parameters": 1378105920,
+        "inactive_output_heads": [
+          "structure_head",
+          "ss8_head",
+          "sasa_head",
+          "function_head",
+          "residue_head"
+        ],
+        "optimizer": "AdamW",
+        "optimizer_implementation": "foreach",
+        "parameter_sha256": "b5743a5dcae446c55007ca0a5c4e0efed65ec0475ade2523002eaaba9345a692",
+        "replicas_identical": true,
+        "max_abs_parameter_updates": {
+          "first_qkv": 7.769092917442322e-05,
+          "last_ffn": 8.001923561096191e-05,
+          "sequence_head": 7.907520921435207e-05
+        }
+      },
+      "wall_seconds": 17.841305583000008,
+      "peak_allocated_gib": 25.978271961212158,
+      "peak_reserved_gib": 27.466796875
+    },
+    {
+      "mode": "training",
+      "rank": 4,
+      "status": "pass",
+      "local_rank": 4,
+      "host": "private-host",
+      "pid": 21184,
+      "world_size": 8,
+      "gpu": "NVIDIA B200",
+      "gpu_uuid": "redacted",
+      "capability": [
+        10,
+        0
+      ],
+      "gpu_memory_gib": 178.34405517578125,
+      "torch": "2.15.0+cu132",
+      "cuda_runtime": "13.2",
+      "nccl": [
+        2,
+        30,
+        7
+      ],
+      "esm": "3.4.3",
+      "flash_attn_installed": false,
+      "model_revision": "47f0545b2b6daf26a93439a3cd610f4f7f3d5478",
+      "result": {
+        "warmup_steps": 3,
+        "measured_step_seconds": [
+          0.13029616599999372,
+          0.13220678400000452,
+          0.13023310699998092,
+          0.12901852800007418,
+          0.1294413750000558
+        ],
+        "global_mean_loss": [
+          0.02736555226147175,
+          0.022470152005553246,
+          0.015547005459666252,
+          0.014258335344493389,
+          0.004379061982035637,
+          0.0038611104246228933,
+          0.0031585642136633396,
+          0.0006040996522642672
+        ],
+        "local_batch_size": 1,
+        "global_batch_size": 8,
+        "trainable_parameters": 1378105920,
+        "inactive_output_heads": [
+          "structure_head",
+          "ss8_head",
+          "sasa_head",
+          "function_head",
+          "residue_head"
+        ],
+        "optimizer": "AdamW",
+        "optimizer_implementation": "foreach",
+        "parameter_sha256": "b5743a5dcae446c55007ca0a5c4e0efed65ec0475ade2523002eaaba9345a692",
+        "replicas_identical": true,
+        "max_abs_parameter_updates": {
+          "first_qkv": 7.769092917442322e-05,
+          "last_ffn": 8.001923561096191e-05,
+          "sequence_head": 7.907520921435207e-05
+        }
+      },
+      "wall_seconds": 17.926463808999983,
+      "peak_allocated_gib": 25.978271961212158,
+      "peak_reserved_gib": 27.466796875
+    },
+    {
+      "mode": "training",
+      "rank": 5,
+      "status": "pass",
+      "local_rank": 5,
+      "host": "private-host",
+      "pid": 21185,
+      "world_size": 8,
+      "gpu": "NVIDIA B200",
+      "gpu_uuid": "redacted",
+      "capability": [
+        10,
+        0
+      ],
+      "gpu_memory_gib": 178.34405517578125,
+      "torch": "2.15.0+cu132",
+      "cuda_runtime": "13.2",
+      "nccl": [
+        2,
+        30,
+        7
+      ],
+      "esm": "3.4.3",
+      "flash_attn_installed": false,
+      "model_revision": "47f0545b2b6daf26a93439a3cd610f4f7f3d5478",
+      "result": {
+        "warmup_steps": 3,
+        "measured_step_seconds": [
+          0.13020835700001498,
+          0.13223497399997086,
+          0.13012938299993948,
+          0.12907937399995717,
+          0.12949945000002572
+        ],
+        "global_mean_loss": [
+          0.02736555226147175,
+          0.022470152005553246,
+          0.015547005459666252,
+          0.014258335344493389,
+          0.004379061982035637,
+          0.0038611104246228933,
+          0.0031585642136633396,
+          0.0006040996522642672
+        ],
+        "local_batch_size": 1,
+        "global_batch_size": 8,
+        "trainable_parameters": 1378105920,
+        "inactive_output_heads": [
+          "structure_head",
+          "ss8_head",
+          "sasa_head",
+          "function_head",
+          "residue_head"
+        ],
+        "optimizer": "AdamW",
+        "optimizer_implementation": "foreach",
+        "parameter_sha256": "b5743a5dcae446c55007ca0a5c4e0efed65ec0475ade2523002eaaba9345a692",
+        "replicas_identical": true,
+        "max_abs_parameter_updates": {
+          "first_qkv": 7.769092917442322e-05,
+          "last_ffn": 8.001923561096191e-05,
+          "sequence_head": 7.907520921435207e-05
+        }
+      },
+      "wall_seconds": 17.92297738299999,
+      "peak_allocated_gib": 25.978271961212158,
+      "peak_reserved_gib": 27.466796875
+    },
+    {
+      "mode": "training",
+      "rank": 6,
+      "status": "pass",
+      "local_rank": 6,
+      "host": "private-host",
+      "pid": 21186,
+      "world_size": 8,
+      "gpu": "NVIDIA B200",
+      "gpu_uuid": "redacted",
+      "capability": [
+        10,
+        0
+      ],
+      "gpu_memory_gib": 178.34405517578125,
+      "torch": "2.15.0+cu132",
+      "cuda_runtime": "13.2",
+      "nccl": [
+        2,
+        30,
+        7
+      ],
+      "esm": "3.4.3",
+      "flash_attn_installed": false,
+      "model_revision": "47f0545b2b6daf26a93439a3cd610f4f7f3d5478",
+      "result": {
+        "warmup_steps": 3,
+        "measured_step_seconds": [
+          0.13023534299998119,
+          0.1322475279999935,
+          0.13014181400001235,
+          0.12905982099994162,
+          0.12942722299999332
+        ],
+        "global_mean_loss": [
+          0.02736555226147175,
+          0.022470152005553246,
+          0.015547005459666252,
+          0.014258335344493389,
+          0.004379061982035637,
+          0.0038611104246228933,
+          0.0031585642136633396,
+          0.0006040996522642672
+        ],
+        "local_batch_size": 1,
+        "global_batch_size": 8,
+        "trainable_parameters": 1378105920,
+        "inactive_output_heads": [
+          "structure_head",
+          "ss8_head",
+          "sasa_head",
+          "function_head",
+          "residue_head"
+        ],
+        "optimizer": "AdamW",
+        "optimizer_implementation": "foreach",
+        "parameter_sha256": "b5743a5dcae446c55007ca0a5c4e0efed65ec0475ade2523002eaaba9345a692",
+        "replicas_identical": true,
+        "max_abs_parameter_updates": {
+          "first_qkv": 7.769092917442322e-05,
+          "last_ffn": 8.001923561096191e-05,
+          "sequence_head": 7.907520921435207e-05
+        }
+      },
+      "wall_seconds": 17.834290847000034,
+      "peak_allocated_gib": 25.978271961212158,
+      "peak_reserved_gib": 27.466796875
+    },
+    {
+      "mode": "training",
+      "rank": 7,
+      "status": "pass",
+      "local_rank": 7,
+      "host": "private-host",
+      "pid": 21187,
+      "world_size": 8,
+      "gpu": "NVIDIA B200",
+      "gpu_uuid": "redacted",
+      "capability": [
+        10,
+        0
+      ],
+      "gpu_memory_gib": 178.34405517578125,
+      "torch": "2.15.0+cu132",
+      "cuda_runtime": "13.2",
+      "nccl": [
+        2,
+        30,
+        7
+      ],
+      "esm": "3.4.3",
+      "flash_attn_installed": false,
+      "model_revision": "47f0545b2b6daf26a93439a3cd610f4f7f3d5478",
+      "result": {
+        "warmup_steps": 3,
+        "measured_step_seconds": [
+          0.13029954699993596,
+          0.1318566689999443,
+          0.13019429799999216,
+          0.12902519700003268,
+          0.12945875399998386
+        ],
+        "global_mean_loss": [
+          0.02736555226147175,
+          0.022470152005553246,
+          0.015547005459666252,
+          0.014258335344493389,
+          0.004379061982035637,
+          0.0038611104246228933,
+          0.0031585642136633396,
+          0.0006040996522642672
+        ],
+        "local_batch_size": 1,
+        "global_batch_size": 8,
+        "trainable_parameters": 1378105920,
+        "inactive_output_heads": [
+          "structure_head",
+          "ss8_head",
+          "sasa_head",
+          "function_head",
+          "residue_head"
+        ],
+        "optimizer": "AdamW",
+        "optimizer_implementation": "foreach",
+        "parameter_sha256": "b5743a5dcae446c55007ca0a5c4e0efed65ec0475ade2523002eaaba9345a692",
+        "replicas_identical": true,
+        "max_abs_parameter_updates": {
+          "first_qkv": 7.769092917442322e-05,
+          "last_ffn": 8.001923561096191e-05,
+          "sequence_head": 7.907520921435207e-05
+        }
+      },
+      "wall_seconds": 17.924961875000008,
+      "peak_allocated_gib": 25.978271961212158,
+      "peak_reserved_gib": 27.466796875
+    }
+  ]
+}

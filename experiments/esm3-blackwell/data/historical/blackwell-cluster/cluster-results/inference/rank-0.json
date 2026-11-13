@@ -1,0 +1,45 @@
+{
+  "mode": "inference",
+  "rank": 0,
+  "status": "pass",
+  "local_rank": 0,
+  "host": "private-host",
+  "pid": 6050,
+  "world_size": 8,
+  "gpu": "NVIDIA B200",
+  "gpu_uuid": "redacted",
+  "capability": [
+    10,
+    0
+  ],
+  "gpu_memory_gib": 178.34405517578125,
+  "torch": "2.15.0+cu132",
+  "cuda_runtime": "13.2",
+  "nccl": [
+    2,
+    30,
+    7
+  ],
+  "esm": "3.4.3",
+  "flash_attn_installed": false,
+  "model_revision": "47f0545b2b6daf26a93439a3cd610f4f7f3d5478",
+  "result": {
+    "seconds": 3.885259502999986,
+    "dtype": "torch.bfloat16",
+    "attention_class": "MultiHeadAttention",
+    "sequence_logits_shape": [
+      1,
+      78,
+      64
+    ],
+    "backbone_shape": [
+      76,
+      3,
+      3
+    ],
+    "structure_generation_steps": 8
+  },
+  "wall_seconds": 40.30915754,
+  "peak_allocated_gib": 5.063069820404053,
+  "peak_reserved_gib": 5.212890625
+}

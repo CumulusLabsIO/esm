@@ -1,0 +1,201 @@
+{
+  "model_revision": "47f0545b2b6daf26a93439a3cd610f4f7f3d5478",
+  "cases": [
+    {
+      "name": "direct_forward_without_autocast",
+      "status": "expected_failure",
+      "error": "mat1 and mat2 must have the same dtype, but got Float and BFloat16",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/ubuntu/esm3-test/esm3_blackwell_test.py\", line 33, in case\n    result = fn()\n             ^^^^\n  File \"/home/ubuntu/esm3-test/esm3_blackwell_test.py\", line 75, in <lambda>\n    case('direct_forward_without_autocast', lambda: direct(False), expected_failure=True)\n                                                    ^^^^^^^^^^^^^\n  File \"/home/ubuntu/esm3-test/esm3_blackwell_test.py\", line 72, in direct\n    output = model(sequence_tokens=encoded.sequence.unsqueeze(0))\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ubuntu/esm3-test/venv/lib/python3.12/site-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ubuntu/esm3-test/venv/lib/python3.12/site-packages/torch/nn/modules/module.py\", line 1790, in _call_impl\n    return forward_call(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ubuntu/esm3-test/venv/lib/python3.12/site-packages/esm/models/esm3.py\", line 371, in forward\n    x = self.encoder(\n        ^^^^^^^^^^^^^\n  File \"/home/ubuntu/esm3-test/venv/lib/python3.12/site-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ubuntu/esm3-test/venv/lib/python3.12/site-packages/torch/nn/modules/module.py\", line 1790, in _call_impl\n    return forward_call(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ubuntu/esm3-test/venv/lib/python3.12/site-packages/esm/models/esm3.py\", line 109, in forward\n    plddt_embed = self.plddt_projection(rbf_16_fn(average_plddt))\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ubuntu/esm3-test/venv/lib/python3.12/site-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ubuntu/esm3-test/venv/lib/python3.12/site-packages/torch/nn/modules/module.py\", line 1790, in _call_impl\n    return forward_call(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ubuntu/esm3-test/venv/lib/python3.12/site-packages/torch/nn/modules/linear.py\", line 134, in forward\n    return F.linear(input, self.weight, self.bias)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: mat1 and mat2 must have the same dtype, but got Float and BFloat16\n",
+      "seconds": 0.32819881099999293,
+      "allocated_gib": 2.635040283203125,
+      "peak_allocated_gib": 2.6353044509887695
+    },
+    {
+      "name": "direct_forward_with_bf16_autocast",
+      "status": "pass",
+      "result": {
+        "shape": [
+          1,
+          78,
+          64
+        ],
+        "dtype": "torch.bfloat16",
+        "finite": true
+      },
+      "seconds": 5.993377964999979,
+      "allocated_gib": 2.6444091796875,
+      "peak_allocated_gib": 2.6736063957214355
+    },
+    {
+      "name": "public_logits_length_76",
+      "status": "pass",
+      "result": {
+        "shape": [
+          1,
+          78,
+          64
+        ],
+        "dtype": "torch.float32",
+        "finite": true
+      },
+      "seconds": 0.034519059000018615,
+      "allocated_gib": 2.6444091796875,
+      "peak_allocated_gib": 2.674055576324463
+    },
+    {
+      "name": "public_logits_length_256",
+      "status": "pass",
+      "result": {
+        "shape": [
+          1,
+          258,
+          64
+        ],
+        "dtype": "torch.float32",
+        "finite": true
+      },
+      "seconds": 0.8239379830000075,
+      "allocated_gib": 2.6454620361328125,
+      "peak_allocated_gib": 2.943363666534424
+    },
+    {
+      "name": "public_logits_length_512",
+      "status": "pass",
+      "result": {
+        "shape": [
+          1,
+          514,
+          64
+        ],
+        "dtype": "torch.float32",
+        "finite": true
+      },
+      "seconds": 0.09634248099999354,
+      "allocated_gib": 2.6469268798828125,
+      "peak_allocated_gib": 3.802584171295166
+    },
+    {
+      "name": "public_logits_length_1024",
+      "status": "pass",
+      "result": {
+        "shape": [
+          1,
+          1026,
+          64
+        ],
+        "dtype": "torch.float32",
+        "finite": true
+      },
+      "seconds": 0.0981821860000025,
+      "allocated_gib": 2.6498565673828125,
+      "peak_allocated_gib": 7.209164142608643
+    },
+    {
+      "name": "sequence_generation_8_steps",
+      "status": "pass",
+      "result": {
+        "length": 76,
+        "masked_residues_completed": 8,
+        "fixed_residues_preserved": true
+      },
+      "seconds": 1.6030687549999811,
+      "allocated_gib": 5.025533676147461,
+      "peak_allocated_gib": 7.209164142608643
+    },
+    {
+      "name": "structure_generation_decode_and_reencode",
+      "status": "pass",
+      "result": {
+        "shape": [
+          76,
+          3,
+          3
+        ],
+        "dtype": "torch.float32",
+        "finite": true,
+        "reencoded_structure_tokens": 78,
+        "pdb_bytes": 24542
+      },
+      "seconds": 0.9723897050000119,
+      "allocated_gib": 5.143138408660889,
+      "peak_allocated_gib": 7.209164142608643
+    },
+    {
+      "name": "batch_sequence_generation_2",
+      "status": "pass",
+      "result": {
+        "batch_size": 2,
+        "length": 76,
+        "complete_sequences": 2
+      },
+      "seconds": 0.35777262000001997,
+      "allocated_gib": 5.143138408660889,
+      "peak_allocated_gib": 7.209164142608643
+    },
+    {
+      "name": "repeated_logits_512_1",
+      "status": "pass",
+      "result": {
+        "shape": [
+          1,
+          514,
+          64
+        ],
+        "dtype": "torch.float32",
+        "finite": true
+      },
+      "seconds": 0.031804488000005904,
+      "allocated_gib": 5.143138408660889,
+      "peak_allocated_gib": 7.209164142608643
+    },
+    {
+      "name": "repeated_logits_512_2",
+      "status": "pass",
+      "result": {
+        "shape": [
+          1,
+          514,
+          64
+        ],
+        "dtype": "torch.float32",
+        "finite": true
+      },
+      "seconds": 0.03162372299999561,
+      "allocated_gib": 5.143138408660889,
+      "peak_allocated_gib": 7.209164142608643
+    },
+    {
+      "name": "repeated_logits_512_3",
+      "status": "pass",
+      "result": {
+        "shape": [
+          1,
+          514,
+          64
+        ],
+        "dtype": "torch.float32",
+        "finite": true
+      },
+      "seconds": 0.03177321700002267,
+      "allocated_gib": 5.143138408660889,
+      "peak_allocated_gib": 7.209164142608643
+    }
+  ],
+  "environment": {
+    "torch": "2.11.0+cu130",
+    "cuda_runtime": "13.0",
+    "esm": "3.4.3",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "visible_devices": "0",
+    "device_count": 1,
+    "gpu": "NVIDIA B200",
+    "capability": [
+      10,
+      0
+    ],
+    "flash_attn_installed": false,
+    "parameter_dtype": "torch.bfloat16",
+    "attention_class": "MultiHeadAttention"
+  },
+  "passed": true
+}

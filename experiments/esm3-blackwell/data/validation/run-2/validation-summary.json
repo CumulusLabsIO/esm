@@ -1,0 +1,94 @@
+{
+  "source": {
+    "head": "d285ddeead83631bbe0bc6aa7c879eb5a8946ccb",
+    "esm3_source_sha256": "913e6fad41315e24b5575982c3c54d1ebed8dc6fe10fb8442bc0a6ac3c5ab5ab",
+    "pixi_lock_sha256": "be02a79f924abae4a9eef714c302beb8e0fea8aa8681f6d229f7bcfb36f90409",
+    "started_epoch": 1794563873.845448,
+    "deadline_epoch": 1794567373.845448,
+    "phase": "performance",
+    "gpu": "0",
+    "cpu_workers": "8",
+    "scope": "Locked CI lint/CPU tests plus explicitly selected GPU tests; performance recipes use a separate Torch2.15/cu132 environment. No Forge API, Docker SDK API integration, notebook suite, or multi-GPU training."
+  },
+  "performance_regression": "24 passed in 3.59s",
+  "benchmarks": [
+    {
+      "name": "default-b1",
+      "shape": [
+        1,
+        78
+      ],
+      "exact_output_equality": true,
+      "status": "passed",
+      "control_before_median_ms": 6.226922,
+      "control_after_median_ms": 6.2263649999999995,
+      "candidate_median_ms": 6.223722,
+      "lower_median_latency_percent": 0.046919339448281416
+    },
+    {
+      "name": "sequence-b1",
+      "shape": [
+        1,
+        78
+      ],
+      "exact_output_equality": true,
+      "status": "passed",
+      "control_before_median_ms": 6.217611,
+      "control_after_median_ms": 6.2182375,
+      "candidate_median_ms": 6.2148395,
+      "lower_median_latency_percent": 0.04961060759142155
+    },
+    {
+      "name": "embeddings-b1",
+      "shape": [
+        1,
+        78
+      ],
+      "exact_output_equality": true,
+      "status": "passed",
+      "control_before_median_ms": 6.2190975,
+      "control_after_median_ms": 6.218366,
+      "candidate_median_ms": 6.214546,
+      "lower_median_latency_percent": 0.06730874024273303
+    },
+    {
+      "name": "swiglu-b1",
+      "shape": [
+        1,
+        78
+      ],
+      "exact_output_equality": true,
+      "status": "passed",
+      "control_before_median_ms": 6.2261975,
+      "control_after_median_ms": 6.227283,
+      "candidate_median_ms": 5.997263,
+      "lower_median_latency_percent": 3.685351255819602
+    },
+    {
+      "name": "swiglu-b8",
+      "shape": [
+        8,
+        78
+      ],
+      "exact_output_equality": true,
+      "status": "passed",
+      "control_before_median_ms": 9.203096,
+      "control_after_median_ms": 9.203771,
+      "candidate_median_ms": 8.6871805,
+      "lower_median_latency_percent": 5.60935220534814
+    },
+    {
+      "name": "swiglu-l512",
+      "shape": [
+        1,
+        514
+      ],
+      "exact_output_equality": true,
+      "status": "passed",
+      "control_before_median_ms": 11.0728185,
+      "control_after_median_ms": 11.0724455,
+      "candidate_median_ms": 10.619242,
+      "lower_median_latency_percent": 4.094690404232715
+    }
+  ]
+}

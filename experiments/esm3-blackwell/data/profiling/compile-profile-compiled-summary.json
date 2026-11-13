@@ -1,0 +1,57 @@
+{
+  "replays": 3,
+  "total_kernel_ms_per_replay": 2.2413746666666663,
+  "kernels_per_replay": 628.0,
+  "groups": {
+    "matmul": {
+      "ns": 3741661,
+      "kernels": 639,
+      "share": 0.5564533015750454,
+      "per_replay_ms": 1.2472203333333332,
+      "kernels_per_replay": 213.0
+    },
+    "attention": {
+      "ns": 699424,
+      "kernels": 144,
+      "share": 0.10401711806623436,
+      "per_replay_ms": 0.23314133333333334,
+      "kernels_per_replay": 48.0
+    },
+    "normalization": {
+      "ns": 1202016,
+      "kernels": 456,
+      "share": 0.1787617242037773,
+      "per_replay_ms": 0.400672,
+      "kernels_per_replay": 152.0
+    },
+    "triton_fused_or_other": {
+      "ns": 209888,
+      "kernels": 144,
+      "share": 0.031214177489885673,
+      "per_replay_ms": 0.06996266666666667,
+      "kernels_per_replay": 48.0
+    },
+    "casts": {
+      "ns": 158272,
+      "kernels": 120,
+      "share": 0.023537935945262163,
+      "per_replay_ms": 0.05275733333333334,
+      "kernels_per_replay": 40.0
+    },
+    "elementwise_and_other": {
+      "ns": 565439,
+      "kernels": 336,
+      "share": 0.08409110242464297,
+      "per_replay_ms": 0.18847966666666666,
+      "kernels_per_replay": 112.0
+    },
+    "copy_concat": {
+      "ns": 147424,
+      "kernels": 45,
+      "share": 0.0219246402951522,
+      "per_replay_ms": 0.049141333333333335,
+      "kernels_per_replay": 15.0
+    }
+  },
+  "classification": "Kernel-name heuristic; summed traced durations, not uninstrumented wall latency"
+}

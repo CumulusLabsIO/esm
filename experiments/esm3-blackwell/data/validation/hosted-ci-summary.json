@@ -1,0 +1,50 @@
+{
+  "run_url": "https://github.com/CumulusLabsIO/esm/actions/runs/43403400414",
+  "conclusion": "failure",
+  "head_commit": "d285ddeead83631bbe0bc6aa7c879eb5a8946ccb",
+  "jobs": [
+    {
+      "name": "test-esm",
+      "id": 131811632720,
+      "conclusion": "failure",
+      "url": "https://github.com/CumulusLabsIO/esm/actions/runs/43403400414/job/131811632720",
+      "evidence": [
+        "2026-11-13T09:43:22.4383721Z =========== 592 passed, 3 skipped, 7 xfailed, 140 warnings in 47.55s ===========",
+        "2026-11-13T09:45:54.4778497Z E           RuntimeError: Please provide a token to connect to Forge/Biohub Platform via token=YOUR_API_TOKEN_HERE",
+        "2026-11-13T09:45:54.4793232Z E           RuntimeError: Please provide a token to connect to Forge/Biohub Platform via token=YOUR_API_TOKEN_HERE",
+        "2026-11-13T09:45:54.4804175Z E           RuntimeError: Please provide a token to connect to Forge/Biohub Platform via token=YOUR_API_TOKEN_HERE",
+        "2026-11-13T09:45:54.4815402Z E           RuntimeError: Please provide a token to connect to Forge/Biohub Platform via token=YOUR_API_TOKEN_HERE",
+        "2026-11-13T09:45:54.6104939Z ======================== 4 failed, 4 warnings in 4.05s ========================="
+      ]
+    },
+    {
+      "name": "test-esm-python-versions (dev-py314)",
+      "id": 131811633089,
+      "conclusion": "success",
+      "url": "https://github.com/CumulusLabsIO/esm/actions/runs/43403400414/job/131811633089",
+      "evidence": [
+        "2026-11-13T09:43:05.2263300Z =========== 592 passed, 3 skipped, 7 xfailed, 140 warnings in 50.05s ==========="
+      ]
+    },
+    {
+      "name": "test-esm-python-versions (dev-py313)",
+      "id": 131811633094,
+      "conclusion": "success",
+      "url": "https://github.com/CumulusLabsIO/esm/actions/runs/43403400414/job/131811633094",
+      "evidence": [
+        "2026-11-13T09:42:59.7687805Z =========== 592 passed, 3 skipped, 7 xfailed, 140 warnings in 40.72s ==========="
+      ]
+    },
+    {
+      "name": "test-precommit",
+      "id": 131811633226,
+      "conclusion": "success",
+      "url": "https://github.com/CumulusLabsIO/esm/actions/runs/43403400414/job/131811633226",
+      "evidence": [
+        "2026-11-13T09:42:48.1679761Z ty.......................................................................Passed"
+      ]
+    }
+  ],
+  "failure_reason": "All four Docker Forge/Biohub API integration tests fail during client construction because ESM_API_KEY is empty. No external model inference occurs.",
+  "scope": "Docker image installs published esm>=3.4.1.post1,<4.0.0. The three CPU suites and precommit lint/type checks test this checkout."
+}
