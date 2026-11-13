@@ -52,24 +52,32 @@ jobs:
     - name: Run tests
       run: pixi run --environment dev cov-test
 
-    - name: Run Docker tests
+    - name: Build Docker test image
+      env:
+        DOCKER_TAG: ${{ github.sha }}
+      run: make -C tests build-oss-ci
+      shell: pixi run --environment dev bash -e {0}
+
+    # GitHub does not pass repository secrets to fork pull requests.
+    - name: Run authenticated Docker tests
+      if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
       env:
         DOCKER_TAG: ${{ github.sha }}
         BIOHUB_URL: https://biohub.ai/
         ESM_API_KEY: ${{ secrets.ESM_API_KEY }}
-      run: |
-        set -e
-        cd tests
-        make build-oss-ci
-        make start-docker-oss URL=${{ env.BIOHUB_URL }} DOCKER_TAG=${{ env.DOCKER_TAG }} ESM_API_KEY=${{ env.ESM_API_KEY }}
+      run: make -C tests start-docker-oss "URL=$BIOHUB_URL"
       shell: pixi run --environment dev bash -e {0}
+
+    - name: Explain skipped authenticated Docker tests
+      if: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
+      run: echo 'Authenticated Docker tests require a repository secret and were skipped for this fork pull request.' >> "$GITHUB_STEP_SUMMARY"
 
     - name: cleanup docker containers if they're hanging
       if: ${{ always() }}
       run: |
           docker rm --force --volumes $(docker ps -q) || true
 
-    # Next two steps adds a comment to any PR that reports tests + code coverage.
+    # Report coverage in the job summary and comment on same-repository PRs.
     - name: Pytest Coverage Comment
       if: ${{ github.event_name == 'pull_request' }}
       uses: MishaKav/pytest-coverage-comment@v1.1.47
@@ -79,11 +87,13 @@ jobs:
         pytest-coverage-path: pytest-coverage.txt
         junitxml-path: pytest.xml
         report-only-changed-files: true
+        hide-comment: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
 
-    - name: Pytest coverage GitHub summary
-      if: ${{ github.event_name == 'pull_request' }}
-      run: |
-        echo '${{ steps.coverageComment.outputs.coverageHtml }}' >> $GITHUB_STEP_SUMMARY
+    - name: Pytest GitHub summary
+      if: ${{ github.event_name == 'pull_request' && steps.coverageComment.outputs.summaryReport != '' }}
+      env:
+        COVERAGE_REPORT: ${{ fromJSON(steps.coverageComment.outputs.summaryReport) }}
+      run: printf '%s\n' "$COVERAGE_REPORT" >> "$GITHUB_STEP_SUMMARY"
 
   # `requires-python` no longer caps at 3.13, so the versions above it need
   # exercising. Tests only: the Docker suite and the coverage comment stay on the
